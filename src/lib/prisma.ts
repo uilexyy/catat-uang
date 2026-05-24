@@ -1,10 +1,15 @@
 import { PrismaMariaDb } from "@prisma/adapter-mariadb";
 import { PrismaClient } from "@/generated/prisma/client";
+import { withAccelerate } from "@prisma/extension-accelerate";
 
 const globalForPrisma = globalThis as unknown as { prisma: PrismaClient | undefined };
 
 function createPrismaClient() {
-  const adapter = new PrismaMariaDb(process.env.DATABASE_URL!);
+  const url = process.env.DATABASE_URL!;
+  if (url.startsWith("prisma://")) {
+    return new PrismaClient().$extends(withAccelerate()) as unknown as PrismaClient;
+  }
+  const adapter = new PrismaMariaDb(url);
   return new PrismaClient({ adapter });
 }
 
