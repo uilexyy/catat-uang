@@ -1,0 +1,45 @@
+generator client {
+  provider = "prisma-client"
+  output   = "../src/generated/prisma"
+}
+
+datasource db {
+  provider = "mysql"
+}
+
+model Transaction {
+  id          Int      @id @default(autoincrement())
+  type        String   @db.VarChar(7)
+  amount      Decimal  @db.Decimal(15, 2)
+  category    String   @db.VarChar(100)
+  description String?  @db.Text
+  date        DateTime @db.Date
+  createdAt   DateTime @default(now()) @map("created_at")
+  updatedAt   DateTime @updatedAt @map("updated_at")
+
+  @@map("transactions")
+}
+
+model Category {
+  id   Int    @id @default(autoincrement())
+  name String @db.VarChar(100)
+  type String @default("both") @db.VarChar(10)
+
+  @@map("categories")
+}
+
+model Debt {
+  id          Int      @id @default(autoincrement())
+  person      String   @db.VarChar(200)
+  amount      Decimal  @db.Decimal(15, 2)
+  description String   @default("") @db.Text
+  date        DateTime @db.Date
+  dueDate     DateTime? @db.Date
+  isPaid      Boolean  @default(false)
+  paidAt      DateTime?
+  notes       String   @default("") @db.Text
+  createdAt   DateTime @default(now()) @map("created_at")
+  updatedAt   DateTime @updatedAt @map("updated_at")
+
+  @@map("debts")
+}

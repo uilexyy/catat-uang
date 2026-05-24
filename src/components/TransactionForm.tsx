@@ -1,0 +1,251 @@
+"use client";
+
+import { useState, FormEvent } from "react";
+import { useRouter } from "next/navigation";
+import { useToast } from "@/lib/toast";
+import { CreditCard, Wallet, Loader2, AlertCircle, ArrowLeft, Camera } from "lucide-react";
+import ReceiptUpload from "./ReceiptUpload";
+
+interface TransactionFormProps {
+  initialData?: {
+    type: "income" | "expense";
+    amount: number;
+    category: string;
+    description: string;
+    date: string;
+  };
+  transactionId?: number;
+}
+
+export default function TransactionForm({ initialData, transactionId }: TransactionFormProps) {
+  const router = useRouter();
+  const { toast } = useToast();
+  const isEdit = !!transactionId;
+
+  const [showReceipt, setShowReceipt] = useState(false);
+  const [type, setType] = useState<"income" | "expense">(initialData?.type || "expense");
+  const [amount, setAmount] = useState(initialData?.amount ? String(initialData.amount) : "");
+  const [category, setCategory] = useState(initialData?.category || "");
+  const [description, setDescription] = useState(initialData?.description || "");
+  const [date, setDate] = useState(initialData?.date || new Date().toISOString().split("T")[0]);
+  const [error, setError] = useState("");
+  const [loading, setLoading] = useState(false);
+
+  const categories: Record<string, string[]> = {
+    income: ["Gaji", "Freelance", "Investasi", "Hadiah", "Lainnya"],
+    expense: ["Makanan", "Transport", "Belanja", "Hiburan", "Tagihan", "Kesehatan", "Pendidikan", "Lainnya"],
+  };
+
+  async function handleSubmit(e: FormEvent) {
+    e.preventDefault();
+    setError("");
+
+    if (!amount || isNaN(Number(amount)) || Number(amount) <= 0) {
+      setError("Jumlah harus diisi dengan angka positif");
+      return;
+    }
+    if (!category) {
+      setError("Pilih kategori");
+      return;
+    }
+    if (!date) {
+      setError("Pilih tanggal");
+      return;
+    }
+
+    setLoading(true);
+    try {
+      const url = isEdit ? `/api/transactions/${transactionId}` : "/api/transactions";
+      const method = isEdit ? "PUT" : "POST";
+
+      const res = await fetch(url, {
+        method,
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ type, amount: Number(amount), category, description, date }),
+      });
+
+      if (!res.ok) {
+        const data = await res.json();
+        throw new Error(data.error || "Gagal menyimpan transaksi");
+      }
+
+      toast("success", isEdit ? "Transaksi berhasil diperbarui" : "Transaksi berhasil ditambahkan");
+      setTimeout(() => { router.push("/transactions"); router.refresh(); }, 300);
+    } catch (err) {
+      setError(err instanceof Error ? err.message : "Terjadi kesalahan");
+      toast("error", err instanceof Error ? err.message : "Gagal menyimpan transaksi");
+    } finally {
+      setLoading(false);
+    }
+  }
+
+  return (
+    <form onSubmit={handleSubmit} className="space-y-5">
+      {error && (
+        <div className="flex items-center gap-2.5 bg-rose-50 text-rose-600 text-sm px-4 py-3 rounded-xl border border-rose-200 animate-fade-in">
+          <AlertCircle className="w-4.5 h-4.5 shrink-0" />
+          <span>{error}</span>
+        </div>
+      )}
+
+      {/* Receipt Upload */}
+      {!isEdit && (
+        <div className="animate-fade-in-up">
+          {!showReceipt ? (
+            <button
+              type="button"
+              onClick={() => setShowReceipt(true)}
+              className="w-full flex items-center justify-center gap-2 py-3 border-2 border-dashed border-stone-200 rounded-xl text-sm font-medium text-stone-400 hover:border-blue-300 hover:text-blue-500 hover:bg-blue-50/30 transition-all duration-200"
+            >
+              <Camera className="w-4.5 h-4.5" />
+              Upload Struk untuk Isi Otomatis
+            </button>
+          ) : (
+            <div className="space-y-3 animate-fade-in">
+              <div className="flex items-center justify-between">
+                <span className="text-[11px] font-semibold text-stone-400 uppercase tracking-widest">Upload Struk</span>
+                <button
+                  type="button"
+                  onClick={() => setShowReceipt(false)}
+                  className="text-xs text-stone-400 hover:text-stone-600"
+                >
+                  Tutup
+                </button>
+              </div>
+              <ReceiptUpload
+                onDataExtracted={(data) => {
+                  setType("expense");
+                  if (data.amount) setAmount(String(Math.round(data.amount)));
+                  if (data.date) setDate(data.date);
+                  if (data.rawText) {
+                    const desc = [data.storeName, data.rawText].filter(Boolean).join("\n");
+                    setDescription(desc.slice(0, 500));
+                  }
+                  setCategory("Makanan");
+                }}
+                onClear={() => {
+                  setShowReceipt(false);
+                }}
+              />
+            </div>
+          )}
+        </div>
+      )}
+
+      <div className="animate-fade-in-up">
+        <label className="block text-[11px] font-semibold text-stone-400 uppercase tracking-widest mb-2.5">
+          Jenis
+        </label>
+        <div className="grid grid-cols-2 gap-2">
+          {(["expense", "income"] as const).map((t) => (
+            <button
+              key={t}
+              type="button"
+              onClick={() => { setType(t); setCategory(""); }}
+              className={`flex items-center justify-center gap-2 py-3 px-4 rounded-xl text-sm font-medium border-2 transition-all duration-200 active:scale-[0.97] ${
+                type === t
+                  ? t === "expense"
+                    ? "bg-rose-50 border-rose-300 text-rose-700 shadow-sm"
+                    : "bg-emerald-50 border-emerald-300 text-emerald-700 shadow-sm"
+                  : "bg-white border-stone-200 text-stone-400 hover:border-stone-300 hover:text-stone-600"
+              }`}
+            >
+              {t === "expense" ? <CreditCard className="w-4 h-4" /> : <Wallet className="w-4 h-4" />}
+              {t === "expense" ? "Pengeluaran" : "Pemasukan"}
+            </button>
+          ))}
+        </div>
+      </div>
+
+      <div className="animate-fade-in-up [animation-delay:0.05s]">
+        <label htmlFor="amount" className="block text-[11px] font-semibold text-stone-400 uppercase tracking-widest mb-2">
+          Jumlah
+        </label>
+        <div className="relative group">
+          <span className="absolute left-4 top-1/2 -translate-y-1/2 text-stone-400 text-sm font-medium transition-colors duration-200 group-focus-within:text-blue-500">
+            Rp
+          </span>
+          <input
+            id="amount"
+            type="number"
+            min="1"
+            step="1"
+            value={amount}
+            onChange={(e) => setAmount(e.target.value)}
+            placeholder="0"
+            className="w-full pl-10 pr-4 py-3 bg-white border border-stone-200 rounded-xl text-sm text-stone-700 placeholder-stone-300 focus:outline-none focus:ring-2 focus:ring-blue-500/20 focus:border-blue-400 transition-all duration-200"
+          />
+        </div>
+      </div>
+
+      <div className="animate-fade-in-up [animation-delay:0.1s]">
+        <label htmlFor="category" className="block text-[11px] font-semibold text-stone-400 uppercase tracking-widest mb-2">
+          Kategori
+        </label>
+        <select
+          id="category"
+          value={category}
+          onChange={(e) => setCategory(e.target.value)}
+          className="w-full px-4 py-3 bg-white border border-stone-200 rounded-xl text-sm text-stone-700 focus:outline-none focus:ring-2 focus:ring-blue-500/20 focus:border-blue-400 transition-all duration-200 appearance-none bg-[url('data:image/svg+xml;charset=utf-8,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%2020%2020%22%20fill%3D%22%2378716c%22%3E%3Cpath%20fill-rule%3D%22evenodd%22%20d%3D%22M5.23%207.21a.75.75%200%20011.06.02L10%2011.168l3.71-3.938a.75.75%200%20111.08%201.04l-4.25%204.5a.75.75%200%2001-1.08%200l-4.25-4.5a.75.75%200%2001.02-1.06z%22%20clip-rule%3D%22evenodd%22%2F%3E%3C%2Fsvg%3E')] bg-[length:20px] bg-[right_12px_center] bg-no-repeat pr-10"
+        >
+          <option value="">Pilih kategori</option>
+          {categories[type].map((cat) => (
+            <option key={cat} value={cat}>{cat}</option>
+          ))}
+        </select>
+      </div>
+
+      <div className="animate-fade-in-up [animation-delay:0.15s]">
+        <label htmlFor="description" className="block text-[11px] font-semibold text-stone-400 uppercase tracking-widest mb-2">
+          Catatan <span className="font-normal tracking-normal lowercase text-stone-300">(opsional)</span>
+        </label>
+        <textarea
+          id="description"
+          value={description}
+          onChange={(e) => setDescription(e.target.value)}
+          rows={3}
+          placeholder="Deskripsi transaksi..."
+          className="w-full px-4 py-3 bg-white border border-stone-200 rounded-xl text-sm text-stone-700 placeholder-stone-300 focus:outline-none focus:ring-2 focus:ring-blue-500/20 focus:border-blue-400 transition-all duration-200 resize-none"
+        />
+      </div>
+
+      <div className="animate-fade-in-up [animation-delay:0.2s]">
+        <label htmlFor="date" className="block text-[11px] font-semibold text-stone-400 uppercase tracking-widest mb-2">
+          Tanggal
+        </label>
+        <input
+          id="date"
+          type="date"
+          value={date}
+          onChange={(e) => setDate(e.target.value)}
+          className="w-full px-4 py-3 bg-white border border-stone-200 rounded-xl text-sm text-stone-700 focus:outline-none focus:ring-2 focus:ring-blue-500/20 focus:border-blue-400 transition-all duration-200"
+        />
+      </div>
+
+      <div className="flex gap-2 pt-2 animate-fade-in-up [animation-delay:0.25s]">
+        <button
+          type="button"
+          onClick={() => router.back()}
+          className="flex items-center justify-center gap-2 flex-1 py-3 border border-stone-200 text-stone-400 text-sm font-medium rounded-xl hover:bg-stone-50 hover:text-stone-600 active:scale-[0.97] transition-all duration-200"
+        >
+          <ArrowLeft className="w-4 h-4" />
+          Batal
+        </button>
+        <button
+          type="submit"
+          disabled={loading}
+          className="flex items-center justify-center gap-2 flex-1 py-3 bg-blue-600 hover:bg-blue-700 active:bg-blue-800 disabled:bg-blue-300 text-white text-sm font-medium rounded-xl shadow-sm hover:shadow-md active:scale-[0.97] transition-all duration-200 disabled:cursor-not-allowed"
+        >
+          {loading ? (
+            <>
+              <Loader2 className="w-4 h-4 animate-spin" />
+              Menyimpan...
+            </>
+          ) : (
+            isEdit ? "Simpan Perubahan" : "Tambah Transaksi"
+          )}
+        </button>
+      </div>
+    </form>
+  );
+}
