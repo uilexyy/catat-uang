@@ -10,6 +10,7 @@ Next.js 16 (App Router) + React 19 + TypeScript (strict) + Tailwind CSS v4.
 | `npm run build` | Production build (runs `lint` first) |
 | `npm run start` | Start production server |
 | `npm run lint` | ESLint v9 (core-web-vitals + typescript configs) |
+| `npm run vercel-build` | Vercel build hook — `npx prisma generate && next build` |
 
 No test runner configured.
 
@@ -23,7 +24,7 @@ No test runner configured.
 
 ## Database
 
-- **Prisma 7** with MySQL, adapter: `@prisma/adapter-mariadb` + `mariadb`
+- **Prisma 7** with PostgreSQL, adapter: `@prisma/adapter-pg` + `pg`
 - Schema at `prisma/schema.prisma`, generated client at `src/generated/prisma/`
 - Run `npx prisma generate` after schema changes
 - Run `npx prisma migrate dev` to apply schema to database
@@ -53,6 +54,10 @@ No lockfile committed — `npm install` will generate `package-lock.json`.
 | `/transactions/[id]/edit` | `src/app/transactions/[id]/edit/page.tsx` | Server (async) | Edit transaction form |
 | `/utang` | `src/app/utang/page.tsx` | Client | Debt management CRUD |
 
+### Layout
+
+Root layout (`src/app/layout.tsx`) sets `<html lang="id">`, loads Geist/Geist Mono fonts, and wraps children in `ToastProvider` + `Navbar` with main content area. Metadata: title "Catat Uang", Indonesian description.
+
 ### API Routes
 
 | Method | Route | Description |
@@ -70,6 +75,20 @@ No lockfile committed — `npm install` will generate `package-lock.json`.
 | `POST` | `/api/chat` | Parse NL message → create transaction |
 
 All API routes use `NextResponse` and standard `NextRequest`/`Request`. Transaction route params use `Promise<{ id: string }>` (Next.js 16 pattern). Error messages are in Indonesian.
+
+## Shared Types (`src/lib/types.ts`)
+
+Exports: `TransactionType` (`"income" | "expense"`), `Transaction`, `Category`, `DashboardData`, `PaginatedResponse<T>` — used across API routes and components.
+
+## Config Files
+
+| File | Description |
+|------|-------------|
+| `next.config.ts` | Next.js config (currently minimal) |
+| `postcss.config.mjs` | PostCSS with `@tailwindcss/postcss` plugin |
+| `eslint.config.mjs` | ESLint v9 flat config — `core-web-vitals` + `typescript`, ignores `.next/`, `out/`, `build/`, `next-env.d.ts` |
+| `vercel.json` | Vercel deployment config |
+| `railway.json` | Railway deployment config — build: `npx prisma generate && next build`, start: `next start` |
 
 ## Components (`src/components/`)
 
@@ -93,7 +112,7 @@ Three standalone models (no relations):
 - **Category** (`categories`) — `id` (Int, PK), `name`, `type` ("income"/"expense"/"both")
 - **Debt** (`debts`) — `id` (Int, PK), `person`, `amount` (Decimal 15,2), `description`, `date`, `dueDate?`, `isPaid`, `paidAt?`, `notes`, timestamps
 
-Generated client at `src/generated/prisma/` (gitignored).
+Generated client at `src/generated/prisma/` (gitignored). Migrations at `prisma/migrations/` (committed).
 
 ## Libraries
 
@@ -102,10 +121,17 @@ Generated client at `src/generated/prisma/` (gitignored).
 | `next` 16.2.6 | Framework (App Router) |
 | `react`/`react-dom` 19 | UI library |
 | `@prisma/client` + `@prisma/adapter-mariadb` + `mariadb` | ORM + MySQL driver |
+| `@prisma/extension-accelerate` | Prisma Accelerate extension |
+| `dotenv` | Load `.env` files via `prisma.config.ts` |
 | `lucide-react` | Icons |
 | `recharts` | Bar chart on dashboard |
 | `tesseract.js` | OCR for receipt upload |
 | `tailwindcss` v4 | CSS framework |
+| `@tailwindcss/postcss` (dev) | Tailwind PostCSS plugin |
+| `prisma` (dev) | Prisma CLI |
+| `eslint-config-next` (dev) | ESLint config (core-web-vitals + typescript) |
+| `typescript` (dev) | TypeScript compiler |
+| `@types/node` / `@types/react` / `@types/react-dom` (dev) | TypeScript type definitions |
 
 No auth library, no state management library, no React Query.
 
@@ -120,4 +146,4 @@ No auth library, no state management library, no React Query.
 - **Chat parser** (`src/lib/chat-parser.ts`): Indonesian NL parser — handles number suffixes (rb/jt), slang (gocap/gopek), date parsing, category detection
 - **Receipt OCR**: Uses `tesseract.js` with `ind` language pack; parses total amount via regex, extracts date, store name from first line
 - **Prisma client**: Singleton stored on `globalThis` in dev (avoids hot-reload connection leaks)
-- **Deployment**: Vercel via `vercel.json`; build runs `npx prisma generate && next build`
+- **Deployment**: Vercel via `vercel.json` or Railway via `railway.json`; build runs `npx prisma generate && next build`

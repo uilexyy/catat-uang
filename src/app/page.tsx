@@ -30,12 +30,12 @@ export default async function DashboardPage() {
 
   const chartRaw = await prisma.$queryRaw<{ month: string; income: bigint; expense: bigint }[]>`
     SELECT
-      DATE_FORMAT(date, '%Y-%m') as month,
+      TO_CHAR(date, 'YYYY-MM') as month,
       COALESCE(SUM(CASE WHEN type = 'income' THEN amount ELSE 0 END), 0) as income,
       COALESCE(SUM(CASE WHEN type = 'expense' THEN amount ELSE 0 END), 0) as expense
     FROM transactions
     WHERE date >= ${twelveMonthsAgo}
-    GROUP BY DATE_FORMAT(date, '%Y-%m')
+    GROUP BY TO_CHAR(date, 'YYYY-MM')
     ORDER BY month ASC
   `;
 

@@ -1,4 +1,4 @@
-import { PrismaMariaDb } from "@prisma/adapter-mariadb";
+import { PrismaPg } from "@prisma/adapter-pg";
 import { PrismaClient } from "@/generated/prisma/client";
 import { withAccelerate } from "@prisma/extension-accelerate";
 
@@ -9,7 +9,7 @@ function createPrismaClient() {
   if (url.startsWith("prisma://")) {
     return new PrismaClient().$extends(withAccelerate()) as unknown as PrismaClient;
   }
-  const adapter = new PrismaMariaDb(url);
+  const adapter = new PrismaPg({ connectionString: url });
   return new PrismaClient({ adapter });
 }
 
