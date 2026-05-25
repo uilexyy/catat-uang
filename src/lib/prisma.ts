@@ -7,7 +7,7 @@ const globalForPrisma = globalThis as unknown as { prisma: PrismaClient | undefi
 function createPrismaClient() {
   const url = process.env.DATABASE_URL!;
   if (url.startsWith("prisma://")) {
-    return new PrismaClient({}).$extends(withAccelerate()) as unknown as PrismaClient;
+    return new PrismaClient({ accelerateUrl: url }).$extends(withAccelerate()) as unknown as PrismaClient;
   }
   const adapter = new PrismaPg({ connectionString: url });
   return new PrismaClient({ adapter });
