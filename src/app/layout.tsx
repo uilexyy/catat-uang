@@ -3,6 +3,7 @@ import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import Navbar from "@/components/Navbar";
 import PageTransition from "@/components/PageTransition";
+import ScrollToTop from "@/components/ScrollToTop";
 import { ToastProvider } from "@/lib/toast";
 import { ThemeProvider } from "@/lib/theme";
 
@@ -46,6 +47,7 @@ export default function RootLayout({
           <main className="flex-1 w-full max-w-5xl mx-auto px-4 sm:px-6 py-4 sm:py-6 pb-20 md:pb-6">
             <PageTransition>{children}</PageTransition>
           </main>
+          <ScrollToTop />
         </ToastProvider>
         </ThemeProvider>
       </body>

@@ -8,7 +8,8 @@ export function formatRupiah(value: number): string {
 }
 
 export function formatDate(dateStr: string): string {
-  return new Date(dateStr + "T00:00:00").toLocaleString("id", {
+  const clean = dateStr.includes("T") ? dateStr.split("T")[0] : dateStr;
+  return new Date(clean + "T00:00:00").toLocaleString("id", {
     day: "numeric",
     month: "short",
     year: "numeric",

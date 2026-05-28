@@ -41,18 +41,31 @@ model Budget {
   @@map("budgets")
 }
 
+model DebtPayment {
+  id        Int      @id @default(autoincrement())
+  debtId    Int
+  amount    Decimal  @db.Decimal(15, 2)
+  date      DateTime @db.Date
+  notes     String   @default("") @db.Text
+  createdAt DateTime @default(now()) @map("created_at")
+  debt      Debt     @relation(fields: [debtId], references: [id])
+
+  @@map("debt_payments")
+}
+
 model Debt {
-  id          Int      @id @default(autoincrement())
-  person      String   @db.VarChar(200)
-  amount      Decimal  @db.Decimal(15, 2)
-  description String   @default("") @db.Text
-  date        DateTime @db.Date
-  dueDate     DateTime? @db.Date
-  isPaid      Boolean  @default(false)
+  id          Int           @id @default(autoincrement())
+  person      String        @db.VarChar(200)
+  amount      Decimal       @db.Decimal(15, 2)
+  description String        @default("") @db.Text
+  date        DateTime      @db.Date
+  dueDate     DateTime?     @db.Date
+  isPaid      Boolean       @default(false)
   paidAt      DateTime?
-  notes       String   @default("") @db.Text
-  createdAt   DateTime @default(now()) @map("created_at")
-  updatedAt   DateTime @updatedAt @map("updated_at")
+  notes       String        @default("") @db.Text
+  createdAt   DateTime      @default(now()) @map("created_at")
+  updatedAt   DateTime      @updatedAt @map("updated_at")
+  payments    DebtPayment[]
 
   @@map("debts")
 }

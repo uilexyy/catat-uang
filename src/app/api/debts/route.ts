@@ -6,8 +6,24 @@ export async function GET() {
     const debts = await prisma.debt.findMany({
       orderBy: { date: "desc" },
     });
-    return NextResponse.json(debts.map((d) => ({ ...d, amount: Number(d.amount) })));
-  } catch {
+    return NextResponse.json(
+      debts.map((d) => ({
+        id: d.id,
+        person: d.person,
+        amount: Number(d.amount),
+        description: d.description,
+        date: d.date instanceof Date ? d.date.toISOString().split("T")[0] : String(d.date),
+        dueDate: d.dueDate instanceof Date ? d.dueDate.toISOString().split("T")[0] : null,
+        isPaid: d.isPaid,
+        paidAt: d.paidAt instanceof Date ? d.paidAt.toISOString() : null,
+        notes: d.notes,
+        createdAt: d.createdAt instanceof Date ? d.createdAt.toISOString() : String(d.createdAt),
+        totalPaid: 0,
+        remaining: Number(d.amount),
+      }))
+    );
+  } catch (error) {
+    console.error("GET /api/debts error:", error);
     return NextResponse.json({ error: "Gagal memuat utang" }, { status: 500 });
   }
 }
@@ -32,8 +48,9 @@ export async function POST(request: Request) {
       },
     });
 
-    return NextResponse.json(debt, { status: 201 });
-  } catch {
+    return NextResponse.json({ ...debt, amount: Number(debt.amount) }, { status: 201 });
+  } catch (error) {
+    console.error("POST /api/debts error:", error);
     return NextResponse.json({ error: "Gagal menambah utang" }, { status: 500 });
   }
 }

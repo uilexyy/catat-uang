@@ -48,6 +48,7 @@ export async function DELETE(request: Request, { params }: { params: Promise<{ i
       return NextResponse.json({ error: "ID tidak valid" }, { status: 400 });
     }
 
+    await prisma.debtPayment.deleteMany({ where: { debtId } });
     await prisma.debt.delete({ where: { id: debtId } });
     return NextResponse.json({ success: true });
   } catch {

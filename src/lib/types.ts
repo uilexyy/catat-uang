@@ -11,6 +11,15 @@ export interface Transaction {
   updated_at: string;
 }
 
+export interface DebtPayment {
+  id: number;
+  debtId: number;
+  amount: number;
+  date: string;
+  notes: string;
+  created_at: string;
+}
+
 export interface Budget {
   id: number;
   category: string;
