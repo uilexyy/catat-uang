@@ -1,12 +1,9 @@
 import { Handshake, CheckCircle2 } from "lucide-react";
+import { formatRupiah } from "@/lib/format";
 
 interface DebtSummaryCardsProps {
   totalDebt: number;
   totalPaid: number;
-}
-
-function formatRupiah(n: number) {
-  return new Intl.NumberFormat("id-ID", { style: "currency", currency: "IDR", minimumFractionDigits: 0 }).format(n);
 }
 
 export default function DebtSummaryCards({ totalDebt, totalPaid }: DebtSummaryCardsProps) {

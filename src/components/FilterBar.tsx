@@ -1,7 +1,8 @@
 "use client";
 
 import { useRouter, useSearchParams } from "next/navigation";
-import { useCallback } from "react";
+import { useCallback, useEffect, useState } from "react";
+import type { Category } from "@/lib/types";
 
 export default function FilterBar() {
   const router = useRouter();
@@ -13,10 +14,20 @@ export default function FilterBar() {
   const currentYear = searchParams.get("year") || "";
   const currentSearch = searchParams.get("search") || "";
 
-  const categories = [
-    "Gaji", "Freelance", "Investasi", "Hadiah",
-    "Makanan", "Transport", "Belanja", "Hiburan", "Tagihan", "Kesehatan", "Pendidikan", "Lainnya",
-  ];
+  const [categories, setCategories] = useState<Category[]>([]);
+
+  useEffect(() => {
+    fetch("/api/categories")
+      .then((r) => r.json())
+      .then(setCategories)
+      .catch(() => {});
+  }, []);
+
+  const visibleCategories = categories.filter((cat) => {
+    if (!currentType) return true;
+    if (cat.type === "both") return true;
+    return cat.type === currentType;
+  });
 
   const updateParam = useCallback(
     (key: string, value: string) => {
@@ -54,8 +65,8 @@ export default function FilterBar() {
           className="w-full sm:w-auto px-3.5 py-2.5 border border-stone-200 rounded-xl text-sm bg-white focus:outline-none focus:ring-2 focus:ring-blue-500/20 focus:border-blue-400 text-stone-600 transition-all duration-200"
         >
           <option value="">Semua Kategori</option>
-          {categories.map((cat) => (
-            <option key={cat} value={cat}>{cat}</option>
+          {visibleCategories.map((cat) => (
+            <option key={cat.id} value={cat.name}>{cat.name}</option>
           ))}
         </select>
 

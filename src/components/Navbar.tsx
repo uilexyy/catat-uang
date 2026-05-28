@@ -2,13 +2,14 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { LayoutDashboard, List, Plus, MessageSquare, Handshake } from "lucide-react";
+import { LayoutDashboard, List, Plus, MessageSquare, Handshake, PieChart } from "lucide-react";
 
 const links = [
   { href: "/", label: "Dashboard", icon: LayoutDashboard },
   { href: "/catat-cepat", label: "Catat Cepat", icon: MessageSquare },
   { href: "/transactions", label: "Riwayat", icon: List },
   { href: "/transactions/new", label: "Tambah", icon: Plus },
+  { href: "/anggaran", label: "Anggaran", icon: PieChart },
   { href: "/utang", label: "Utang", icon: Handshake },
 ];
 

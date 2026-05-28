@@ -11,6 +11,7 @@ import {
   Legend,
 } from "recharts";
 import { BarChart3, Inbox } from "lucide-react";
+import { formatRupiah } from "@/lib/format";
 
 interface ChartData {
   month: string;
@@ -20,15 +21,6 @@ interface ChartData {
 
 interface ChartProps {
   data: ChartData[];
-}
-
-function formatRupiah(value: number): string {
-  return new Intl.NumberFormat("id-ID", {
-    style: "currency",
-    currency: "IDR",
-    minimumFractionDigits: 0,
-    maximumFractionDigits: 0,
-  }).format(value);
 }
 
 export default function Chart({ data }: ChartProps) {

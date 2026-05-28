@@ -1,18 +1,10 @@
 import { Wallet, TrendingUp, TrendingDown } from "lucide-react";
+import { formatRupiah } from "@/lib/format";
 
 interface SummaryCardsProps {
   totalBalance: number;
   monthlyIncome: number;
   monthlyExpense: number;
-}
-
-function formatRupiah(value: number): string {
-  return new Intl.NumberFormat("id-ID", {
-    style: "currency",
-    currency: "IDR",
-    minimumFractionDigits: 0,
-    maximumFractionDigits: 0,
-  }).format(value);
 }
 
 export default function SummaryCards({ totalBalance, monthlyIncome, monthlyExpense }: SummaryCardsProps) {

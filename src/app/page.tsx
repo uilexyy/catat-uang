@@ -3,6 +3,7 @@ import { LayoutDashboard } from "lucide-react";
 import SummaryCards from "@/components/SummaryCards";
 import DebtSummaryCards from "@/components/DebtSummaryCards";
 import Chart from "@/components/Chart";
+import BudgetProgress from "@/components/BudgetProgress";
 
 export default async function DashboardPage() {
   const grouped = await prisma.transaction.groupBy({
@@ -70,6 +71,7 @@ export default async function DashboardPage() {
         monthlyExpense={monthlyExpense}
       />
       <DebtSummaryCards totalDebt={totalDebt} totalPaid={totalPaid} />
+      <BudgetProgress />
       <Chart data={chartData} />
     </div>
   );

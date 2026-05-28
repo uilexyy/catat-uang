@@ -11,6 +11,17 @@ export interface Transaction {
   updated_at: string;
 }
 
+export interface Budget {
+  id: number;
+  category: string;
+  type: TransactionType;
+  amount: number;
+  month: number;
+  year: number;
+  created_at: string;
+  updated_at: string;
+}
+
 export interface Category {
   id: number;
   name: string;

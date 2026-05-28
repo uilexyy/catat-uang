@@ -3,6 +3,7 @@
 import { useState, useEffect, FormEvent } from "react";
 import { Plus, Handshake, CheckCircle2, X, Loader2, AlertCircle, Undo2, Trash2 } from "lucide-react";
 import { useToast } from "@/lib/toast";
+import { formatRupiah, formatDate } from "@/lib/format";
 
 interface Debt {
   id: number;
@@ -14,14 +15,6 @@ interface Debt {
   isPaid: boolean;
   paidAt: string | null;
   notes: string;
-}
-
-function formatDate(d: string) {
-  return new Date(d).toLocaleDateString("id-ID", { day: "numeric", month: "short", year: "numeric" });
-}
-
-function formatRupiah(n: number) {
-  return new Intl.NumberFormat("id-ID", { style: "currency", currency: "IDR", minimumFractionDigits: 0 }).format(n);
 }
 
 export default function UtangPage() {

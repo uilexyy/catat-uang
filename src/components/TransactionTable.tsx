@@ -6,6 +6,7 @@ import { useState } from "react";
 import { useToast } from "@/lib/toast";
 import { Pencil, Trash2, AlertTriangle, Loader2, ArrowLeft, ArrowRight, Inbox } from "lucide-react";
 import type { Transaction } from "@/lib/types";
+import { formatRupiah, formatDate } from "@/lib/format";
 
 interface TransactionTableProps {
   transactions: Transaction[];
@@ -16,23 +17,6 @@ interface TransactionTableProps {
     total_pages: number;
   };
   currentParams: string;
-}
-
-function formatRupiah(value: number): string {
-  return new Intl.NumberFormat("id-ID", {
-    style: "currency",
-    currency: "IDR",
-    minimumFractionDigits: 0,
-    maximumFractionDigits: 0,
-  }).format(value);
-}
-
-function formatDate(dateStr: string): string {
-  return new Date(dateStr + "T00:00:00").toLocaleString("id", {
-    day: "numeric",
-    month: "short",
-    year: "numeric",
-  });
 }
 
 function MobileCard({ tx, onDelete }: { tx: Transaction; onDelete: (id: number) => void }) {

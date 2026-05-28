@@ -1,10 +1,11 @@
 "use client";
 
-import { useState, FormEvent } from "react";
+import { useState, useEffect, FormEvent } from "react";
 import { useRouter } from "next/navigation";
 import { useToast } from "@/lib/toast";
 import { CreditCard, Wallet, Loader2, AlertCircle, ArrowLeft, Camera } from "lucide-react";
 import ReceiptUpload from "./ReceiptUpload";
+import type { Category } from "@/lib/types";
 
 interface TransactionFormProps {
   initialData?: {
@@ -30,11 +31,19 @@ export default function TransactionForm({ initialData, transactionId }: Transact
   const [date, setDate] = useState(initialData?.date || new Date().toISOString().split("T")[0]);
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
+  const [categories, setCategories] = useState<Category[]>([]);
 
-  const categories: Record<string, string[]> = {
-    income: ["Gaji", "Freelance", "Investasi", "Hadiah", "Lainnya"],
-    expense: ["Makanan", "Transport", "Belanja", "Hiburan", "Tagihan", "Kesehatan", "Pendidikan", "Lainnya"],
-  };
+  useEffect(() => {
+    fetch("/api/categories")
+      .then((r) => r.json())
+      .then(setCategories)
+      .catch(() => {});
+  }, []);
+
+  const visibleCategories = categories.filter((cat) => {
+    if (cat.type === "both") return true;
+    return cat.type === type;
+  });
 
   async function handleSubmit(e: FormEvent) {
     e.preventDefault();
@@ -189,8 +198,8 @@ export default function TransactionForm({ initialData, transactionId }: Transact
           className="w-full px-4 py-3 bg-white border border-stone-200 rounded-xl text-sm text-stone-700 focus:outline-none focus:ring-2 focus:ring-blue-500/20 focus:border-blue-400 transition-all duration-200 appearance-none bg-[url('data:image/svg+xml;charset=utf-8,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%2020%2020%22%20fill%3D%22%2378716c%22%3E%3Cpath%20fill-rule%3D%22evenodd%22%20d%3D%22M5.23%207.21a.75.75%200%20011.06.02L10%2011.168l3.71-3.938a.75.75%200%20111.08%201.04l-4.25%204.5a.75.75%200%2001-1.08%200l-4.25-4.5a.75.75%200%2001.02-1.06z%22%20clip-rule%3D%22evenodd%22%2F%3E%3C%2Fsvg%3E')] bg-[length:20px] bg-[right_12px_center] bg-no-repeat pr-10"
         >
           <option value="">Pilih kategori</option>
-          {categories[type].map((cat) => (
-            <option key={cat} value={cat}>{cat}</option>
+          {visibleCategories.map((cat) => (
+            <option key={cat.id} value={cat.name}>{cat.name}</option>
           ))}
         </select>
       </div>
