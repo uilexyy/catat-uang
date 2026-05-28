@@ -1,36 +1,104 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Catat Uang
 
-## Getting Started
+Aplikasi pencatatan keuangan pribadi berbasis web. Next.js 16 (App Router) + React 19 + TypeScript + Tailwind CSS v4 + PostgreSQL.
 
-First, run the development server:
+## Fitur
+
+- **Dashboard** — ringkasan saldo, pemasukan/pengeluaran bulan ini, grafik bulanan, progress anggaran
+- **Catat Cepat** — input transaksi via chat (natural language parser bahasa Indonesia)
+- **Riwayat Transaksi** — filter, cari, pagination, export ke Excel
+- **Tambah/Ubah Transaksi** — form dengan upload struk (OCR otomatis)
+- **Anggaran** — atur batas pengeluaran per kategori, lihat progress di dashboard
+- **Utang** — catat dan kelola utang piutang
+
+## Prasyarat
+
+- **Node.js** 20+
+- **PostgreSQL** 15+
+- **npm**
+
+## Instalasi
+
+### 1. Clone & install dependencies
+
+```bash
+git clone https://github.com/uilexyy/catat-uang.git
+cd catat-uang
+npm install --ignore-scripts
+```
+
+### 2. Setup database
+
+Pastikan PostgreSQL berjalan. Buat database:
+
+```bash
+createdb -U postgres catat_uang
+```
+
+Salin `.env.example` (atau buat `.env`):
+
+```env
+DATABASE_URL="postgresql://postgres@localhost:5432/catat_uang"
+```
+
+Sesuaikan username/password dengan PostgreSQL kamu.
+
+### 3. Generate Prisma client & migrate
+
+```bash
+npx prisma generate
+npx prisma migrate dev
+```
+
+### 4. Seed kategori
+
+```bash
+psql -U postgres -d catat_uang -c "
+INSERT INTO categories (name, type) VALUES
+('Gaji', 'income'),
+('Freelance', 'income'),
+('Investasi', 'income'),
+('Hadiah', 'income'),
+('Makanan', 'expense'),
+('Transport', 'expense'),
+('Belanja', 'expense'),
+('Hiburan', 'expense'),
+('Tagihan', 'expense'),
+('Kesehatan', 'expense'),
+('Pendidikan', 'expense'),
+('Lainnya', 'both');
+"
+```
+
+### 5. Jalankan
 
 ```bash
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Buka [http://localhost:3000](http://localhost:3000).
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## Perintah
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+| Perintah | Kegunaan |
+|----------|----------|
+| `npm run dev` | Dev server (webpack) |
+| `npm run build` | Build production |
+| `npm start` | Jalankan production server |
+| `npm run lint` | ESLint |
+| `npx prisma generate` | Generate Prisma client setelah perubahan schema |
+| `npx prisma migrate dev` | Terapkan migrasi ke database |
 
-## Learn More
+## Stack
 
-To learn more about Next.js, take a look at the following resources:
+- **Framework**: Next.js 16 (App Router)
+- **UI**: React 19, Tailwind CSS v4
+- **Database**: PostgreSQL + Prisma 7 ORM
+- **Icons**: Lucide React
+- **Chart**: Recharts
+- **OCR**: Tesseract.js (bahasa Indonesia)
+- **Export**: ExcelJS
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+## Lisensi
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+MIT
