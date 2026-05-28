@@ -4,13 +4,15 @@ import ChatBox from "@/components/ChatBox";
 export default function CatatCepatPage() {
   return (
     <div className="space-y-4">
-      <div className="flex items-center gap-3">
-        <div className="w-8 h-8 rounded-xl bg-blue-100 flex items-center justify-center shrink-0">
-          <MessageSquare className="w-4 h-4 text-blue-600" />
-        </div>
-        <div>
-          <h1 className="text-base sm:text-lg font-bold text-stone-800">Catat Cepat</h1>
-          <p className="text-xs text-stone-400">Catat transaksi pakai chat</p>
+      <div className="bg-gradient-to-r from-emerald-600 to-emerald-500 rounded-2xl p-5 shadow-lg">
+        <div className="flex items-center gap-4">
+          <div className="w-10 h-10 rounded-xl bg-white/20 flex items-center justify-center backdrop-blur-sm">
+            <MessageSquare className="w-5 h-5 text-white" />
+          </div>
+          <div>
+            <h1 className="text-lg font-bold text-white">Catat Cepat</h1>
+            <p className="text-sm text-emerald-100">Catat transaksi pakai chat</p>
+          </div>
         </div>
       </div>
       <ChatBox />

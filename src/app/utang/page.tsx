@@ -117,13 +117,15 @@ export default function UtangPage() {
   return (
     <div className="space-y-4 sm:space-y-5">
       <div className="flex items-center justify-between gap-3">
-        <div className="flex items-center gap-3 min-w-0">
-          <div className="w-8 h-8 rounded-xl bg-rose-100 flex items-center justify-center shrink-0">
-            <Handshake className="w-4 h-4 text-rose-600" />
-          </div>
-          <div className="min-w-0">
-            <h1 className="text-base sm:text-lg font-bold text-stone-800 dark:text-stone-200 truncate">Utang</h1>
-            <p className="text-xs text-stone-400 dark:text-stone-500">Catat dan kelola utang kamu</p>
+        <div className="bg-gradient-to-r from-rose-600 to-rose-500 rounded-2xl p-5 shadow-lg flex-1">
+          <div className="flex items-center gap-4">
+            <div className="w-10 h-10 rounded-xl bg-white/20 flex items-center justify-center backdrop-blur-sm">
+              <Handshake className="w-5 h-5 text-white" />
+            </div>
+            <div>
+              <h1 className="text-lg font-bold text-white">Utang</h1>
+              <p className="text-sm text-rose-100">Catat dan kelola utang kamu</p>
+            </div>
           </div>
         </div>
         <button
