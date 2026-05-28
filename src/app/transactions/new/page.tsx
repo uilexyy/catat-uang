@@ -15,7 +15,7 @@ export default function NewTransactionPage() {
           </div>
         </div>
       </div>
-      <div className="bg-white rounded-2xl border border-stone-200/80 p-5 sm:p-6 shadow-sm">
+      <div className="bg-white dark:bg-stone-900/80 backdrop-blur-xl rounded-2xl border border-stone-200/80 dark:border-stone-800 p-5 sm:p-6 shadow-sm">
         <TransactionForm />
       </div>
     </div>
