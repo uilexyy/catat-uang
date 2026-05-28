@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import Navbar from "@/components/Navbar";
+import PageTransition from "@/components/PageTransition";
 import { ToastProvider } from "@/lib/toast";
 import { ThemeProvider } from "@/lib/theme";
 
@@ -35,8 +36,8 @@ export default function RootLayout({
         <ThemeProvider>
         <ToastProvider>
           <Navbar />
-          <main className="flex-1 w-full max-w-5xl mx-auto px-4 sm:px-6 py-4 sm:py-6 pb-20 md:pb-6 animate-fade-in-up">
-            {children}
+          <main className="flex-1 w-full max-w-5xl mx-auto px-4 sm:px-6 py-4 sm:py-6 pb-20 md:pb-6">
+            <PageTransition>{children}</PageTransition>
           </main>
         </ToastProvider>
         </ThemeProvider>

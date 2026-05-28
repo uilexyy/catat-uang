@@ -42,7 +42,7 @@ export default function SummaryCards({ totalBalance, monthlyIncome, monthlyExpen
         return (
           <div
             key={card.label}
-            className={`bg-white dark:bg-stone-900 rounded-2xl border border-stone-200/80 dark:border-stone-800 p-5 shadow-sm dark:shadow-none hover:shadow-lg transition-all duration-300 hover:-translate-y-0.5 animate-fade-in-up ${card.delay}`}
+            className={`bg-white dark:bg-stone-900 rounded-2xl border border-stone-200/80 dark:border-stone-800 p-5 shadow-sm dark:shadow-none hover:shadow-lg transition-all duration-300 hover:-translate-y-0.5 active:scale-[0.98] animate-fade-in-up ${card.delay}`}
           >
             <div className="flex items-center justify-between mb-3">
               <span className="text-[11px] font-semibold text-stone-400 dark:text-stone-500 uppercase tracking-widest">{card.label}</span>

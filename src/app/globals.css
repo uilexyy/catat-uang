@@ -12,6 +12,8 @@
   --animate-fade-in: fade-in 0.2s ease-out;
   --animate-scale-in: scale-in 0.2s ease-out;
   --animate-slide-up: slide-up 0.35s ease-out;
+  --animate-skeleton: skeleton-pulse 1.5s ease-in-out infinite;
+  --animate-stagger-fade: stagger-fade 0.5s ease-out forwards;
 }
 
 @keyframes fade-in-up {
@@ -32,6 +34,16 @@
 @keyframes slide-up {
   from { opacity: 0; transform: translateY(20px); }
   to   { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes skeleton-pulse {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.4; }
+}
+
+@keyframes stagger-fade {
+  from { opacity: 0; transform: translateY(8px); }
+  to { opacity: 1; transform: translateY(0); }
 }
 
 body {

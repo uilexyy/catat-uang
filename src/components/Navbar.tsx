@@ -40,7 +40,7 @@ export default function Navbar() {
               <Link
                 key={link.href}
                 href={link.href}
-                className={`flex items-center gap-3 px-4 py-2.5 rounded-xl text-sm font-medium transition-all duration-200 ${
+                className={`flex items-center gap-3 px-4 py-2.5 rounded-xl text-sm font-medium transition-all duration-200 active:scale-[0.97] ${
                   isActive
                     ? "bg-blue-50 dark:bg-blue-950/50 text-blue-700 dark:text-blue-300"
                     : "text-stone-400 dark:text-stone-500 hover:text-stone-600 dark:hover:text-stone-300 hover:bg-stone-50 dark:hover:bg-stone-800"
@@ -69,7 +69,7 @@ export default function Navbar() {
               <Link
                 key={link.href}
                 href={link.href}
-                className={`flex flex-col items-center justify-center gap-0.5 min-w-14 px-2 h-full transition-all duration-200 relative ${
+                className={`flex flex-col items-center justify-center gap-0.5 min-w-14 px-2 h-full transition-all duration-200 active:scale-[0.97] relative ${
                   isActive ? "text-blue-600" : "text-stone-400 dark:text-stone-500 hover:text-stone-500 dark:hover:text-stone-300"
                 }`}
               >

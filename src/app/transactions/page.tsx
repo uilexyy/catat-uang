@@ -79,34 +79,40 @@ export default async function TransactionsPage({ searchParams }: PageProps) {
 
   return (
     <div className="space-y-4">
-      <div className="flex items-center justify-between gap-4">
-        <div className="flex items-center gap-3 min-w-0">
-          <div className="w-8 h-8 sm:w-9 sm:h-9 rounded-xl bg-blue-100 flex items-center justify-center shrink-0">
-            <List className="w-4 h-4 sm:w-4.5 sm:h-4.5 text-blue-600" />
+      <div className="animate-fade-in-up">
+        <div className="flex items-center justify-between gap-4">
+          <div className="flex items-center gap-3 min-w-0">
+            <div className="w-8 h-8 sm:w-9 sm:h-9 rounded-xl bg-blue-100 flex items-center justify-center shrink-0">
+              <List className="w-4 h-4 sm:w-4.5 sm:h-4.5 text-blue-600" />
+            </div>
+            <div className="min-w-0">
+              <h1 className="text-base sm:text-lg font-bold text-stone-800 dark:text-stone-200 truncate">Riwayat Transaksi</h1>
+              <p className="text-xs text-stone-400 dark:text-stone-500 truncate">Daftar semua pemasukan dan pengeluaran</p>
+            </div>
           </div>
-          <div className="min-w-0">
-            <h1 className="text-base sm:text-lg font-bold text-stone-800 dark:text-stone-200 truncate">Riwayat Transaksi</h1>
-            <p className="text-xs text-stone-400 dark:text-stone-500 truncate">Daftar semua pemasukan dan pengeluaran</p>
+          <div className="flex items-center gap-2">
+            <ExportButton currentParams={currentParams} />
+            <Link
+              href="/transactions/new"
+              className="inline-flex items-center gap-2 px-3 sm:px-4 py-2 sm:py-2.5 bg-blue-600 hover:bg-blue-700 active:bg-blue-800 text-white text-xs sm:text-sm font-medium rounded-xl shadow-sm hover:shadow-md active:scale-[0.97] transition-all duration-200 shrink-0"
+            >
+              <Plus className="w-3.5 h-3.5 sm:w-4 sm:h-4" />
+              <span className="hidden sm:inline">Tambah</span>
+            </Link>
           </div>
-        </div>
-        <div className="flex items-center gap-2">
-          <ExportButton currentParams={currentParams} />
-          <Link
-            href="/transactions/new"
-            className="inline-flex items-center gap-2 px-3 sm:px-4 py-2 sm:py-2.5 bg-blue-600 hover:bg-blue-700 active:bg-blue-800 text-white text-xs sm:text-sm font-medium rounded-xl shadow-sm hover:shadow-md active:scale-[0.97] transition-all duration-200 shrink-0"
-          >
-            <Plus className="w-3.5 h-3.5 sm:w-4 sm:h-4" />
-            <span className="hidden sm:inline">Tambah</span>
-          </Link>
         </div>
       </div>
 
-      <FilterBar />
-      <TransactionTable
-        transactions={serialized}
-        pagination={{ page, per_page: perPage, total, total_pages: totalPages }}
-        currentParams={currentParams}
-      />
+      <div className="animate-fade-in-up [animation-delay:0.1s]">
+        <FilterBar />
+      </div>
+      <div className="animate-fade-in-up [animation-delay:0.2s]">
+        <TransactionTable
+          transactions={serialized}
+          pagination={{ page, per_page: perPage, total, total_pages: totalPages }}
+          currentParams={currentParams}
+        />
+      </div>
     </div>
   );
 }

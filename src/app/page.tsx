@@ -65,14 +65,22 @@ export default async function DashboardPage() {
         </div>
       </div>
 
-      <SummaryCards
-        totalBalance={totalBalance}
-        monthlyIncome={monthlyIncome}
-        monthlyExpense={monthlyExpense}
-      />
-      <DebtSummaryCards totalDebt={totalDebt} totalPaid={totalPaid} />
-      <BudgetProgress />
-      <Chart data={chartData} />
+      <div className="animate-fade-in-up">
+        <SummaryCards
+          totalBalance={totalBalance}
+          monthlyIncome={monthlyIncome}
+          monthlyExpense={monthlyExpense}
+        />
+      </div>
+      <div className="animate-fade-in-up [animation-delay:0.15s]">
+        <DebtSummaryCards totalDebt={totalDebt} totalPaid={totalPaid} />
+      </div>
+      <div className="animate-fade-in-up [animation-delay:0.2s]">
+        <BudgetProgress />
+      </div>
+      <div className="animate-fade-in-up [animation-delay:0.25s]">
+        <Chart data={chartData} />
+      </div>
     </div>
   );
 }

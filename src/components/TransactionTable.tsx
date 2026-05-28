@@ -137,7 +137,7 @@ export default function TransactionTable({ transactions, pagination, currentPara
               {transactions.map((tx, i) => (
                 <tr
                   key={tx.id}
-                  className="hover:bg-stone-50/60 dark:hover:bg-stone-800 transition-colors duration-150 animate-fade-in-up"
+                  className="hover:bg-stone-50/80 dark:hover:bg-stone-800/50 transition-colors duration-150 animate-fade-in-up"
                   style={{ animationDelay: `${i * 0.03}s` }}
                 >
                   <td className="px-5 py-4 text-stone-500 dark:text-stone-400 whitespace-nowrap">{formatDate(tx.date)}</td>

@@ -194,8 +194,8 @@ export default function UtangPage() {
                 Belum Lunas ({unpaid.length})
               </h2>
               <div className="space-y-2">
-                {unpaid.map((debt) => (
-                  <div key={debt.id} className="bg-white dark:bg-stone-900 rounded-xl border border-stone-200 dark:border-stone-800 p-4 animate-fade-in-up flex items-center gap-3">
+                {unpaid.map((debt, i) => (
+                  <div key={debt.id} className="bg-white dark:bg-stone-900 rounded-xl border border-stone-200 dark:border-stone-800 p-4 animate-fade-in-up flex items-center gap-3" style={{ animationDelay: `${i * 0.05}s` }}>
                     <div className="w-9 h-9 rounded-full bg-rose-50 flex items-center justify-center shrink-0">
                       <Handshake className="w-4.5 h-4.5 text-rose-500" />
                     </div>
@@ -229,8 +229,8 @@ export default function UtangPage() {
                 Lunas ({paid.length})
               </h2>
               <div className="space-y-2">
-                {paid.map((debt) => (
-                  <div key={debt.id} className="bg-white dark:bg-stone-900 rounded-xl border border-stone-200 dark:border-stone-800 p-4 animate-fade-in-up flex items-center gap-3 opacity-60 hover:opacity-100 transition-opacity">
+                {paid.map((debt, i) => (
+                  <div key={debt.id} className="bg-white dark:bg-stone-900 rounded-xl border border-stone-200 dark:border-stone-800 p-4 animate-fade-in-up flex items-center gap-3 opacity-60 hover:opacity-100 transition-opacity" style={{ animationDelay: `${i * 0.05}s` }}>
                     <div className="w-9 h-9 rounded-full bg-emerald-50 flex items-center justify-center shrink-0">
                       <CheckCircle2 className="w-4.5 h-4.5 text-emerald-500" />
                     </div>
