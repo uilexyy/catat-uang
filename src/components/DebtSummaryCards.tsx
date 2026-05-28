@@ -9,7 +9,7 @@ interface DebtSummaryCardsProps {
 export default function DebtSummaryCards({ totalDebt, totalPaid }: DebtSummaryCardsProps) {
   return (
     <div className="grid grid-cols-2 gap-3">
-      <div className="bg-white dark:bg-stone-900 rounded-2xl border border-stone-200 dark:border-stone-800 p-4 sm:p-5 animate-fade-in-up">
+      <div className="bg-white/80 dark:bg-stone-900/80 backdrop-blur-xl rounded-2xl border border-stone-200 dark:border-stone-800 p-4 sm:p-5 animate-fade-in-up">
         <div className="flex items-center gap-2.5 mb-3">
           <div className="w-8 h-8 rounded-xl bg-rose-50 flex items-center justify-center">
             <Handshake className="w-4.5 h-4.5 text-rose-500" />
@@ -19,7 +19,7 @@ export default function DebtSummaryCards({ totalDebt, totalPaid }: DebtSummaryCa
         <p className="text-lg sm:text-xl font-bold text-rose-600">{formatRupiah(totalDebt)}</p>
       </div>
 
-      <div className="bg-white dark:bg-stone-900 rounded-2xl border border-stone-200 dark:border-stone-800 p-4 sm:p-5 animate-fade-in-up [animation-delay:0.05s]">
+      <div className="bg-white/80 dark:bg-stone-900/80 backdrop-blur-xl rounded-2xl border border-stone-200 dark:border-stone-800 p-4 sm:p-5 animate-fade-in-up [animation-delay:0.05s]">
         <div className="flex items-center gap-2.5 mb-3">
           <div className="w-8 h-8 rounded-xl bg-emerald-50 flex items-center justify-center">
             <CheckCircle2 className="w-4.5 h-4.5 text-emerald-500" />

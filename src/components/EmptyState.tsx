@@ -72,7 +72,7 @@ export function EmptyFiltered({ onClear }: { onClear?: () => void }) {
 
 export function EmptyChart() {
   return (
-    <div className="bg-white dark:bg-stone-900 rounded-2xl border border-stone-200/80 dark:border-stone-800 p-6 shadow-sm animate-fade-in-up [animation-delay:0.3s]">
+    <div className="bg-white/80 dark:bg-stone-900/80 backdrop-blur-xl rounded-2xl border border-stone-200/80 dark:border-stone-800 p-6 shadow-sm shadow-lg shadow-black/5 dark:shadow-black/20 animate-fade-in-up [animation-delay:0.3s]">
       <div className="flex items-center gap-2 mb-6">
         <svg className="w-4 h-4 text-stone-400" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
           <rect x="3" y="12" width="4" height="8" rx="1" />

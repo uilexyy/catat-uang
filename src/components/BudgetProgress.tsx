@@ -28,7 +28,7 @@ export default function BudgetProgress() {
   if (data.length === 0) return null;
 
   return (
-    <div className="bg-white dark:bg-stone-900 rounded-2xl border border-stone-200/80 dark:border-stone-800 p-5 shadow-sm dark:shadow-none animate-fade-in-up">
+    <div className="bg-white/80 dark:bg-stone-900/80 backdrop-blur-xl rounded-2xl border border-stone-200/80 dark:border-stone-800 p-5 shadow-sm dark:shadow-none shadow-lg shadow-black/5 dark:shadow-black/20 animate-fade-in-up">
       <div className="flex items-center gap-2 mb-4">
         <PieChart className="w-4 h-4 text-stone-400 dark:text-stone-500" />
         <h2 className="text-[11px] font-semibold text-stone-400 dark:text-stone-500 uppercase tracking-widest">

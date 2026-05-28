@@ -137,7 +137,7 @@ export default function UtangPage() {
       </div>
 
       {showForm && (
-        <form onSubmit={handleSubmit} className="bg-white dark:bg-stone-900 rounded-2xl border border-stone-200 dark:border-stone-800 p-4 sm:p-5 space-y-4 animate-fade-in">
+        <form onSubmit={handleSubmit} className="bg-white/80 dark:bg-stone-900/80 backdrop-blur-xl rounded-2xl border border-stone-200 dark:border-stone-800 p-4 sm:p-5 space-y-4 animate-fade-in">
           {error && (
             <div className="flex items-center gap-2 bg-rose-50 text-rose-600 text-sm px-4 py-3 rounded-xl border border-rose-200">
               <AlertCircle className="w-4.5 h-4.5 shrink-0" />
@@ -192,7 +192,7 @@ export default function UtangPage() {
               </h2>
               <div className="space-y-2">
                 {unpaid.map((debt, i) => (
-                  <div key={debt.id} className="bg-white dark:bg-stone-900 rounded-xl border border-stone-200 dark:border-stone-800 p-4 animate-fade-in-up flex items-center gap-3" style={{ animationDelay: `${i * 0.05}s` }}>
+                  <div key={debt.id} className="bg-white/80 dark:bg-stone-900/80 backdrop-blur-xl rounded-xl border border-stone-200 dark:border-stone-800 p-4 animate-fade-in-up flex items-center gap-3" style={{ animationDelay: `${i * 0.05}s` }}>
                     <div className="w-9 h-9 rounded-full bg-rose-50 flex items-center justify-center shrink-0">
                       <Handshake className="w-4.5 h-4.5 text-rose-500" />
                     </div>
@@ -227,7 +227,7 @@ export default function UtangPage() {
               </h2>
               <div className="space-y-2">
                 {paid.map((debt, i) => (
-                  <div key={debt.id} className="bg-white dark:bg-stone-900 rounded-xl border border-stone-200 dark:border-stone-800 p-4 animate-fade-in-up flex items-center gap-3 opacity-60 hover:opacity-100 transition-opacity" style={{ animationDelay: `${i * 0.05}s` }}>
+                  <div key={debt.id} className="bg-white/80 dark:bg-stone-900/80 backdrop-blur-xl rounded-xl border border-stone-200 dark:border-stone-800 p-4 animate-fade-in-up flex items-center gap-3 opacity-60 hover:opacity-100 transition-opacity" style={{ animationDelay: `${i * 0.05}s` }}>
                     <div className="w-9 h-9 rounded-full bg-emerald-50 flex items-center justify-center shrink-0">
                       <CheckCircle2 className="w-4.5 h-4.5 text-emerald-500" />
                     </div>

@@ -22,7 +22,7 @@ interface TransactionTableProps {
 
 function MobileCard({ tx, onDelete }: { tx: Transaction; onDelete: (id: number) => void }) {
   return (
-    <div className="bg-white dark:bg-stone-900 rounded-xl border border-stone-200/80 dark:border-stone-800 p-4 shadow-sm dark:shadow-none animate-fade-in-up">
+    <div className="bg-white/80 dark:bg-stone-900/80 backdrop-blur-xl rounded-xl border border-stone-200/80 dark:border-stone-800 p-4 shadow-sm dark:shadow-none shadow-lg shadow-black/5 dark:shadow-black/20 animate-fade-in-up">
       <div className="flex items-start justify-between mb-3">
         <div>
           <div className="flex items-center gap-2 mb-1">
@@ -107,7 +107,7 @@ export default function TransactionTable({ transactions, pagination, currentPara
       </div>
 
       {/* Desktop: table */}
-      <div className="hidden sm:block bg-white dark:bg-stone-900 rounded-2xl border border-stone-200/80 dark:border-stone-800 overflow-hidden shadow-sm dark:shadow-none animate-fade-in-up">
+      <div className="hidden sm:block bg-white/80 dark:bg-stone-900/80 backdrop-blur-xl rounded-2xl border border-stone-200/80 dark:border-stone-800 overflow-hidden shadow-sm dark:shadow-none shadow-lg shadow-black/5 dark:shadow-black/20 animate-fade-in-up">
         <div className="overflow-x-auto">
           <table className="w-full text-sm">
             <thead>
@@ -198,7 +198,7 @@ export default function TransactionTable({ transactions, pagination, currentPara
           {pagination.page < pagination.total_pages && (
             <Link
               href={buildPageUrl(pagination.page + 1)}
-              className="inline-flex items-center gap-1.5 px-3 sm:px-4 py-2 text-sm text-stone-500 dark:text-stone-400 bg-white dark:bg-stone-900 border border-stone-200 dark:border-stone-800 rounded-xl hover:bg-stone-50 dark:hover:bg-stone-800 active:scale-[0.97] transition-all duration-200 shadow-sm dark:shadow-none"
+              className="inline-flex items-center gap-1.5 px-3 sm:px-4 py-2 text-sm text-stone-500 dark:text-stone-400 bg-white/80 dark:bg-stone-900/80 backdrop-blur-xl border border-stone-200 dark:border-stone-800 rounded-xl hover:bg-stone-50 dark:hover:bg-stone-800 active:scale-[0.97] transition-all duration-200 shadow-sm dark:shadow-none shadow-lg shadow-black/5 dark:shadow-black/20"
             >
               <span className="hidden sm:inline">Berikutnya</span>
               <ArrowRight className="w-4 h-4" />

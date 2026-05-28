@@ -141,7 +141,7 @@ export default function AnggaranPage() {
       </div>
 
       {showForm && (
-        <form onSubmit={handleSubmit} className="bg-white dark:bg-stone-900 rounded-2xl border border-stone-200 dark:border-stone-800 p-4 sm:p-5 space-y-4 animate-fade-in">
+        <form onSubmit={handleSubmit} className="bg-white/80 dark:bg-stone-900/80 backdrop-blur-xl rounded-2xl border border-stone-200 dark:border-stone-800 p-4 sm:p-5 space-y-4 animate-fade-in">
           {error && (
             <div className="flex items-center gap-2 bg-rose-50 text-rose-600 text-sm px-4 py-3 rounded-xl border border-rose-200">
               <AlertCircle className="w-4.5 h-4.5 shrink-0" />
@@ -217,7 +217,7 @@ export default function AnggaranPage() {
                 </h2>
                 <div className="space-y-2">
                   {list.map((b, i) => (
-                    <div key={b.id} className="bg-white dark:bg-stone-900 rounded-xl border border-stone-200 dark:border-stone-800 p-4 animate-fade-in-up" style={{ animationDelay: `${i * 0.05}s` }}>
+                    <div key={b.id} className="bg-white/80 dark:bg-stone-900/80 backdrop-blur-xl rounded-xl border border-stone-200 dark:border-stone-800 p-4 animate-fade-in-up" style={{ animationDelay: `${i * 0.05}s` }}>
                       <div className="flex items-center justify-between gap-3 mb-2">
                         <div className="flex-1 min-w-0">
                           <p className="text-sm font-medium text-stone-700 dark:text-stone-300">{b.category}</p>
