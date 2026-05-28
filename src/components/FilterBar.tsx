@@ -2,6 +2,7 @@
 
 import { useRouter, useSearchParams } from "next/navigation";
 import { useCallback, useEffect, useState } from "react";
+import { getCategoryIcon } from "@/lib/category-icons";
 import type { Category } from "@/lib/types";
 
 export default function FilterBar() {
@@ -66,7 +67,7 @@ export default function FilterBar() {
         >
           <option value="">Semua Kategori</option>
           {visibleCategories.map((cat) => (
-            <option key={cat.id} value={cat.name}>{cat.name}</option>
+            <option key={cat.id} value={cat.name}>{getCategoryIcon(cat.name)} {cat.name}</option>
           ))}
         </select>
 

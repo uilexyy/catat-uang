@@ -4,6 +4,7 @@ import { useState, useEffect, FormEvent } from "react";
 import { PieChart, Plus, X, Loader2, AlertCircle, Pencil, Trash2 } from "lucide-react";
 import { useToast } from "@/lib/toast";
 import { formatRupiah } from "@/lib/format";
+import { getCategoryIcon } from "@/lib/category-icons";
 import { EmptyBudgets } from "@/components/EmptyState";
 import type { Category, Budget } from "@/lib/types";
 
@@ -222,7 +223,7 @@ export default function AnggaranPage() {
                     <div key={b.id} className="bg-white/80 dark:bg-stone-900/80 backdrop-blur-xl rounded-xl border border-stone-200 dark:border-stone-800 p-4 animate-fade-in-up" style={{ animationDelay: `${i * 0.05}s` }}>
                       <div className="flex items-center justify-between gap-3 mb-2">
                         <div className="flex-1 min-w-0">
-                          <p className="text-sm font-medium text-stone-700 dark:text-stone-300">{b.category}</p>
+                          <p className="text-sm font-medium text-stone-700 dark:text-stone-300">{getCategoryIcon(b.category)} {b.category}</p>
                           <p className="text-xs text-stone-400 dark:text-stone-500">{new Date(0, b.month - 1).toLocaleString("id", { month: "long" })} {b.year}</p>
                         </div>
                         <p className={`text-sm font-bold ${t === "expense" ? "text-rose-600" : "text-emerald-600"}`}>

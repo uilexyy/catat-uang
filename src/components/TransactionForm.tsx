@@ -5,6 +5,7 @@ import { useRouter } from "next/navigation";
 import { useToast } from "@/lib/toast";
 import { CreditCard, Wallet, Loader2, AlertCircle, ArrowLeft, Camera } from "lucide-react";
 import ReceiptUpload from "./ReceiptUpload";
+import { getCategoryIcon } from "@/lib/category-icons";
 import type { Category } from "@/lib/types";
 
 interface TransactionFormProps {
@@ -199,7 +200,7 @@ export default function TransactionForm({ initialData, transactionId }: Transact
         >
           <option value="">Pilih kategori</option>
           {visibleCategories.map((cat) => (
-            <option key={cat.id} value={cat.name}>{cat.name}</option>
+            <option key={cat.id} value={cat.name}>{getCategoryIcon(cat.name)} {cat.name}</option>
           ))}
         </select>
       </div>

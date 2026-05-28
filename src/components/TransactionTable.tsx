@@ -7,6 +7,7 @@ import { useToast } from "@/lib/toast";
 import { Pencil, Trash2, AlertTriangle, Loader2, ArrowLeft, ArrowRight } from "lucide-react";
 import type { Transaction } from "@/lib/types";
 import { formatRupiah, formatDate } from "@/lib/format";
+import { getCategoryIcon } from "@/lib/category-icons";
 import { EmptyTransactions } from "./EmptyState";
 
 interface TransactionTableProps {
@@ -34,7 +35,7 @@ function MobileCard({ tx, onDelete }: { tx: Transaction; onDelete: (id: number) 
             </span>
             <span className="text-[11px] text-stone-400 dark:text-stone-500">{formatDate(tx.date)}</span>
           </div>
-          <p className="text-sm font-semibold text-stone-800 dark:text-stone-200">{tx.category}</p>
+          <p className="text-sm font-semibold text-stone-800 dark:text-stone-200">{getCategoryIcon(tx.category)} {tx.category}</p>
           {tx.description && (
             <p className="text-xs text-stone-400 dark:text-stone-500 mt-0.5 line-clamp-1">{tx.description}</p>
           )}
@@ -136,7 +137,7 @@ export default function TransactionTable({ transactions, pagination, currentPara
                       {tx.type === "income" ? "Masuk" : "Keluar"}
                     </span>
                   </td>
-                  <td className="px-5 py-4 text-stone-700 dark:text-stone-300 font-medium">{tx.category}</td>
+                  <td className="px-5 py-4 text-stone-700 dark:text-stone-300 font-medium">{getCategoryIcon(tx.category)} {tx.category}</td>
                   <td className="px-5 py-4 text-stone-400 dark:text-stone-500 max-w-[200px] truncate">{tx.description || "—"}</td>
                   <td className={`px-5 py-4 text-right font-bold whitespace-nowrap tracking-tight ${
                     tx.type === "income" ? "text-emerald-600" : "text-rose-600"

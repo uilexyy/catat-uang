@@ -19,7 +19,14 @@ const geistMono = Geist_Mono({
 export const metadata: Metadata = {
   title: "Catat Uang",
   description: "Aplikasi pencatatan keuangan pribadi",
+  appleWebApp: {
+    capable: true,
+    statusBarStyle: "default",
+    title: "Catat Uang",
+  },
 };
+
+export const viewport = "width=device-width, initial-scale=1, viewport-fit=cover";
 
 export default function RootLayout({
   children,

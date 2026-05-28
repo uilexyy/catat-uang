@@ -3,6 +3,7 @@
 import { useEffect, useState } from "react";
 import { PieChart, Loader2 } from "lucide-react";
 import { formatRupiah } from "@/lib/format";
+import { getCategoryIcon } from "@/lib/category-icons";
 
 interface BudgetUsage {
   id: number;
@@ -42,7 +43,7 @@ export default function BudgetProgress() {
           return (
             <div key={item.id}>
               <div className="flex items-center justify-between mb-1">
-                <span className="text-sm font-medium text-stone-700 dark:text-stone-300">{item.category}</span>
+                <span className="text-sm font-medium text-stone-700 dark:text-stone-300">{getCategoryIcon(item.category)} {item.category}</span>
                 <span className={`text-xs font-semibold ${overBudget ? "text-rose-600" : nearLimit ? "text-amber-600" : "text-stone-400 dark:text-stone-500"}`}>
                   {formatRupiah(item.spent)} / {formatRupiah(item.budgeted)}
                 </span>
