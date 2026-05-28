@@ -91,7 +91,7 @@ export default function TransactionForm({ initialData, transactionId }: Transact
   return (
     <form onSubmit={handleSubmit} className="space-y-5">
       {error && (
-        <div className="flex items-center gap-2.5 bg-rose-50 text-rose-600 text-sm px-4 py-3 rounded-xl border border-rose-200 animate-fade-in">
+        <div className="flex items-center gap-2.5 bg-rose-50 dark:bg-rose-950/50 text-rose-600 dark:text-rose-400 text-sm px-4 py-3 rounded-xl border border-rose-200 dark:border-rose-900 animate-fade-in">
           <AlertCircle className="w-4.5 h-4.5 shrink-0" />
           <span>{error}</span>
         </div>
@@ -104,7 +104,7 @@ export default function TransactionForm({ initialData, transactionId }: Transact
             <button
               type="button"
               onClick={() => setShowReceipt(true)}
-              className="w-full flex items-center justify-center gap-2 py-3 border-2 border-dashed border-stone-200 rounded-xl text-sm font-medium text-stone-400 hover:border-blue-300 hover:text-blue-500 hover:bg-blue-50/30 transition-all duration-200"
+              className="w-full flex items-center justify-center gap-2 py-3 border-2 border-dashed border-stone-200 dark:border-stone-800 rounded-xl text-sm font-medium text-stone-400 dark:text-stone-500 hover:border-blue-300 hover:text-blue-500 hover:bg-blue-50/30 transition-all duration-200"
             >
               <Camera className="w-4.5 h-4.5" />
               Upload Struk untuk Isi Otomatis
@@ -112,11 +112,11 @@ export default function TransactionForm({ initialData, transactionId }: Transact
           ) : (
             <div className="space-y-3 animate-fade-in">
               <div className="flex items-center justify-between">
-                <span className="text-[11px] font-semibold text-stone-400 uppercase tracking-widest">Upload Struk</span>
+                <span className="text-[11px] font-semibold text-stone-400 dark:text-stone-500 uppercase tracking-widest">Upload Struk</span>
                 <button
                   type="button"
                   onClick={() => setShowReceipt(false)}
-                  className="text-xs text-stone-400 hover:text-stone-600"
+                  className="text-xs text-stone-400 dark:text-stone-500 hover:text-stone-600 dark:hover:text-stone-300"
                 >
                   Tutup
                 </button>
@@ -142,7 +142,7 @@ export default function TransactionForm({ initialData, transactionId }: Transact
       )}
 
       <div className="animate-fade-in-up">
-        <label className="block text-[11px] font-semibold text-stone-400 uppercase tracking-widest mb-2.5">
+        <label className="block text-[11px] font-semibold text-stone-400 dark:text-stone-500 uppercase tracking-widest mb-2.5">
           Jenis
         </label>
         <div className="grid grid-cols-2 gap-2">
@@ -154,9 +154,9 @@ export default function TransactionForm({ initialData, transactionId }: Transact
               className={`flex items-center justify-center gap-2 py-3 px-4 rounded-xl text-sm font-medium border-2 transition-all duration-200 active:scale-[0.97] ${
                 type === t
                   ? t === "expense"
-                    ? "bg-rose-50 border-rose-300 text-rose-700 shadow-sm"
-                    : "bg-emerald-50 border-emerald-300 text-emerald-700 shadow-sm"
-                  : "bg-white border-stone-200 text-stone-400 hover:border-stone-300 hover:text-stone-600"
+                    ? "bg-rose-50 dark:bg-rose-950/50 border-rose-300 dark:border-rose-700 text-rose-700 dark:text-rose-300 shadow-sm"
+                    : "bg-emerald-50 dark:bg-emerald-950/50 border-emerald-300 dark:border-emerald-700 text-emerald-700 dark:text-emerald-300 shadow-sm"
+                  : "bg-white dark:bg-stone-900 border-stone-200 dark:border-stone-800 text-stone-400 dark:text-stone-500 hover:border-stone-300 dark:hover:border-stone-700 hover:text-stone-600 dark:hover:text-stone-300"
               }`}
             >
               {t === "expense" ? <CreditCard className="w-4 h-4" /> : <Wallet className="w-4 h-4" />}
@@ -167,11 +167,11 @@ export default function TransactionForm({ initialData, transactionId }: Transact
       </div>
 
       <div className="animate-fade-in-up [animation-delay:0.05s]">
-        <label htmlFor="amount" className="block text-[11px] font-semibold text-stone-400 uppercase tracking-widest mb-2">
+        <label htmlFor="amount" className="block text-[11px] font-semibold text-stone-400 dark:text-stone-500 uppercase tracking-widest mb-2">
           Jumlah
         </label>
         <div className="relative group">
-          <span className="absolute left-4 top-1/2 -translate-y-1/2 text-stone-400 text-sm font-medium transition-colors duration-200 group-focus-within:text-blue-500">
+          <span className="absolute left-4 top-1/2 -translate-y-1/2 text-stone-400 dark:text-stone-500 text-sm font-medium transition-colors duration-200 group-focus-within:text-blue-500">
             Rp
           </span>
           <input
@@ -182,20 +182,20 @@ export default function TransactionForm({ initialData, transactionId }: Transact
             value={amount}
             onChange={(e) => setAmount(e.target.value)}
             placeholder="0"
-            className="w-full pl-10 pr-4 py-3 bg-white border border-stone-200 rounded-xl text-sm text-stone-700 placeholder-stone-300 focus:outline-none focus:ring-2 focus:ring-blue-500/20 focus:border-blue-400 transition-all duration-200"
+            className="w-full pl-10 pr-4 py-3 bg-white dark:bg-stone-900 border border-stone-200 dark:border-stone-800 rounded-xl text-sm text-stone-700 dark:text-stone-300 placeholder-stone-300 dark:placeholder-stone-600 focus:outline-none focus:ring-2 focus:ring-blue-500/20 focus:border-blue-400 transition-all duration-200"
           />
         </div>
       </div>
 
       <div className="animate-fade-in-up [animation-delay:0.1s]">
-        <label htmlFor="category" className="block text-[11px] font-semibold text-stone-400 uppercase tracking-widest mb-2">
+        <label htmlFor="category" className="block text-[11px] font-semibold text-stone-400 dark:text-stone-500 uppercase tracking-widest mb-2">
           Kategori
         </label>
         <select
           id="category"
           value={category}
           onChange={(e) => setCategory(e.target.value)}
-          className="w-full px-4 py-3 bg-white border border-stone-200 rounded-xl text-sm text-stone-700 focus:outline-none focus:ring-2 focus:ring-blue-500/20 focus:border-blue-400 transition-all duration-200 appearance-none bg-[url('data:image/svg+xml;charset=utf-8,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%2020%2020%22%20fill%3D%22%2378716c%22%3E%3Cpath%20fill-rule%3D%22evenodd%22%20d%3D%22M5.23%207.21a.75.75%200%20011.06.02L10%2011.168l3.71-3.938a.75.75%200%20111.08%201.04l-4.25%204.5a.75.75%200%2001-1.08%200l-4.25-4.5a.75.75%200%2001.02-1.06z%22%20clip-rule%3D%22evenodd%22%2F%3E%3C%2Fsvg%3E')] bg-[length:20px] bg-[right_12px_center] bg-no-repeat pr-10"
+          className="w-full px-4 py-3 bg-white dark:bg-stone-900 border border-stone-200 dark:border-stone-800 rounded-xl text-sm text-stone-700 dark:text-stone-300 focus:outline-none focus:ring-2 focus:ring-blue-500/20 focus:border-blue-400 transition-all duration-200 appearance-none bg-[url('data:image/svg+xml;charset=utf-8,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%2020%2020%22%20fill%3D%22%2378716c%22%3E%3Cpath%20fill-rule%3D%22evenodd%22%20d%3D%22M5.23%207.21a.75.75%200%20011.06.02L10%2011.168l3.71-3.938a.75.75%200%20111.08%201.04l-4.25%204.5a.75.75%200%2001-1.08%200l-4.25-4.5a.75.75%200%2001.02-1.06z%22%20clip-rule%3D%22evenodd%22%2F%3E%3C%2Fsvg%3E')] dark:bg-[url('data:image/svg+xml;charset=utf-8,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%2020%2020%22%20fill%3D%22%23a8a29e%22%3E%3Cpath%20fill-rule%3D%22evenodd%22%20d%3D%22M5.23%207.21a.75.75%200%20011.06.02L10%2011.168l3.71-3.938a.75.75%200%20111.08%201.04l-4.25%204.5a.75.75%200%2001-1.08%200l-4.25-4.5a.75.75%200%2001.02-1.06z%22%20clip-rule%3D%22evenodd%22%2F%3E%3C%2Fsvg%3E')] bg-[length:20px] bg-[right_12px_center] bg-no-repeat pr-10"
         >
           <option value="">Pilih kategori</option>
           {visibleCategories.map((cat) => (
@@ -205,8 +205,8 @@ export default function TransactionForm({ initialData, transactionId }: Transact
       </div>
 
       <div className="animate-fade-in-up [animation-delay:0.15s]">
-        <label htmlFor="description" className="block text-[11px] font-semibold text-stone-400 uppercase tracking-widest mb-2">
-          Catatan <span className="font-normal tracking-normal lowercase text-stone-300">(opsional)</span>
+        <label htmlFor="description" className="block text-[11px] font-semibold text-stone-400 dark:text-stone-500 uppercase tracking-widest mb-2">
+          Catatan <span className="font-normal tracking-normal lowercase text-stone-300 dark:text-stone-600">(opsional)</span>
         </label>
         <textarea
           id="description"
@@ -214,12 +214,12 @@ export default function TransactionForm({ initialData, transactionId }: Transact
           onChange={(e) => setDescription(e.target.value)}
           rows={3}
           placeholder="Deskripsi transaksi..."
-          className="w-full px-4 py-3 bg-white border border-stone-200 rounded-xl text-sm text-stone-700 placeholder-stone-300 focus:outline-none focus:ring-2 focus:ring-blue-500/20 focus:border-blue-400 transition-all duration-200 resize-none"
+          className="w-full px-4 py-3 bg-white dark:bg-stone-900 border border-stone-200 dark:border-stone-800 rounded-xl text-sm text-stone-700 dark:text-stone-300 placeholder-stone-300 dark:placeholder-stone-600 focus:outline-none focus:ring-2 focus:ring-blue-500/20 focus:border-blue-400 transition-all duration-200 resize-none"
         />
       </div>
 
       <div className="animate-fade-in-up [animation-delay:0.2s]">
-        <label htmlFor="date" className="block text-[11px] font-semibold text-stone-400 uppercase tracking-widest mb-2">
+        <label htmlFor="date" className="block text-[11px] font-semibold text-stone-400 dark:text-stone-500 uppercase tracking-widest mb-2">
           Tanggal
         </label>
         <input
@@ -227,7 +227,7 @@ export default function TransactionForm({ initialData, transactionId }: Transact
           type="date"
           value={date}
           onChange={(e) => setDate(e.target.value)}
-          className="w-full px-4 py-3 bg-white border border-stone-200 rounded-xl text-sm text-stone-700 focus:outline-none focus:ring-2 focus:ring-blue-500/20 focus:border-blue-400 transition-all duration-200"
+          className="w-full px-4 py-3 bg-white dark:bg-stone-900 border border-stone-200 dark:border-stone-800 rounded-xl text-sm text-stone-700 dark:text-stone-300 focus:outline-none focus:ring-2 focus:ring-blue-500/20 focus:border-blue-400 transition-all duration-200"
         />
       </div>
 
@@ -235,7 +235,7 @@ export default function TransactionForm({ initialData, transactionId }: Transact
         <button
           type="button"
           onClick={() => router.back()}
-          className="flex items-center justify-center gap-2 flex-1 py-3 border border-stone-200 text-stone-400 text-sm font-medium rounded-xl hover:bg-stone-50 hover:text-stone-600 active:scale-[0.97] transition-all duration-200"
+          className="flex items-center justify-center gap-2 flex-1 py-3 border border-stone-200 dark:border-stone-800 text-stone-400 dark:text-stone-500 text-sm font-medium rounded-xl hover:bg-stone-50 dark:hover:bg-stone-800 hover:text-stone-600 dark:hover:text-stone-300 active:scale-[0.97] transition-all duration-200"
         >
           <ArrowLeft className="w-4 h-4" />
           Batal

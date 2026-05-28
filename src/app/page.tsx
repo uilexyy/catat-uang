@@ -60,8 +60,8 @@ export default async function DashboardPage() {
           <LayoutDashboard className="w-4 h-4 sm:w-4.5 sm:h-4.5 text-blue-600" />
         </div>
         <div className="min-w-0">
-          <h1 className="text-base sm:text-lg font-bold text-stone-800 truncate">Dashboard</h1>
-          <p className="text-xs text-stone-400">Ringkasan keuangan kamu</p>
+          <h1 className="text-base sm:text-lg font-bold text-stone-800 dark:text-stone-200 truncate">Dashboard</h1>
+          <p className="text-xs text-stone-400 dark:text-stone-500">Ringkasan keuangan kamu</p>
         </div>
       </div>
 

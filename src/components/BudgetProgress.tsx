@@ -28,10 +28,10 @@ export default function BudgetProgress() {
   if (data.length === 0) return null;
 
   return (
-    <div className="bg-white rounded-2xl border border-stone-200/80 p-5 shadow-sm animate-fade-in-up">
+    <div className="bg-white dark:bg-stone-900 rounded-2xl border border-stone-200/80 dark:border-stone-800 p-5 shadow-sm dark:shadow-none animate-fade-in-up">
       <div className="flex items-center gap-2 mb-4">
-        <PieChart className="w-4 h-4 text-stone-400" />
-        <h2 className="text-[11px] font-semibold text-stone-400 uppercase tracking-widest">
+        <PieChart className="w-4 h-4 text-stone-400 dark:text-stone-500" />
+        <h2 className="text-[11px] font-semibold text-stone-400 dark:text-stone-500 uppercase tracking-widest">
           Anggaran Bulan Ini
         </h2>
       </div>
@@ -42,12 +42,12 @@ export default function BudgetProgress() {
           return (
             <div key={item.id}>
               <div className="flex items-center justify-between mb-1">
-                <span className="text-sm font-medium text-stone-700">{item.category}</span>
-                <span className={`text-xs font-semibold ${overBudget ? "text-rose-600" : nearLimit ? "text-amber-600" : "text-stone-400"}`}>
+                <span className="text-sm font-medium text-stone-700 dark:text-stone-300">{item.category}</span>
+                <span className={`text-xs font-semibold ${overBudget ? "text-rose-600" : nearLimit ? "text-amber-600" : "text-stone-400 dark:text-stone-500"}`}>
                   {formatRupiah(item.spent)} / {formatRupiah(item.budgeted)}
                 </span>
               </div>
-              <div className="w-full h-2 bg-stone-100 rounded-full overflow-hidden">
+              <div className="w-full h-2 bg-stone-100 dark:bg-stone-800 rounded-full overflow-hidden">
                 <div
                   className={`h-full rounded-full transition-all duration-500 ${
                     overBudget ? "bg-rose-500" : nearLimit ? "bg-amber-400" : "bg-emerald-400"

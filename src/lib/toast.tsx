@@ -43,8 +43,8 @@ export function ToastProvider({ children }: { children: ReactNode }) {
             key={t.id}
             className={`flex items-start gap-3 px-4 py-3 rounded-xl shadow-lg border backdrop-blur-lg animate-[slide-up_0.3s_ease-out] ${
               t.type === "success"
-                ? "bg-emerald-50 border-emerald-200 text-emerald-800"
-                : "bg-rose-50 border-rose-200 text-rose-800"
+                ? "bg-emerald-50 dark:bg-emerald-950/50 border-emerald-200 dark:border-emerald-800/50 text-emerald-800 dark:text-emerald-200"
+                : "bg-rose-50 dark:bg-rose-950/50 border-rose-200 dark:border-rose-800/50 text-rose-800 dark:text-rose-200"
             }`}
           >
             {t.type === "success" ? (
@@ -55,7 +55,7 @@ export function ToastProvider({ children }: { children: ReactNode }) {
             <p className="text-sm font-medium leading-snug">{t.message}</p>
             <button
               onClick={() => removeToast(t.id)}
-              className="shrink-0 p-0.5 rounded hover:bg-black/5 transition-colors"
+              className="shrink-0 p-0.5 rounded hover:bg-black/5 dark:hover:bg-white/10 transition-colors"
             >
               <X className="w-4 h-4 opacity-60" />
             </button>

@@ -25,21 +25,21 @@ interface ChartProps {
 
 export default function Chart({ data }: ChartProps) {
   return (
-    <div className="bg-white rounded-2xl border border-stone-200/80 p-6 shadow-sm animate-fade-in-up [animation-delay:0.3s]">
+    <div className="bg-white dark:bg-stone-900 rounded-2xl border border-stone-200/80 dark:border-stone-800 p-6 shadow-sm dark:shadow-none animate-fade-in-up [animation-delay:0.3s]">
       <div className="flex items-center gap-2 mb-6">
-        <BarChart3 className="w-4 h-4 text-stone-400" />
-        <h2 className="text-[11px] font-semibold text-stone-400 uppercase tracking-widest">
+        <BarChart3 className="w-4 h-4 text-stone-400 dark:text-stone-500" />
+        <h2 className="text-[11px] font-semibold text-stone-400 dark:text-stone-500 uppercase tracking-widest">
           Transaksi Per Bulan
         </h2>
       </div>
 
       {data.length === 0 ? (
         <div className="flex flex-col items-center justify-center py-14 text-center animate-fade-in">
-          <div className="w-14 h-14 rounded-2xl bg-stone-100 flex items-center justify-center mb-4">
-            <Inbox className="w-6 h-6 text-stone-300" />
+          <div className="w-14 h-14 rounded-2xl bg-stone-100 dark:bg-stone-800 flex items-center justify-center mb-4">
+            <Inbox className="w-6 h-6 text-stone-300 dark:text-stone-600" />
           </div>
-          <p className="text-sm text-stone-400 font-medium">Belum ada data transaksi</p>
-          <p className="text-xs text-stone-300 mt-1">Tambahkan transaksi untuk melihat grafik</p>
+          <p className="text-sm text-stone-400 dark:text-stone-500 font-medium">Belum ada data transaksi</p>
+          <p className="text-xs text-stone-300 dark:text-stone-600 mt-1">Tambahkan transaksi untuk melihat grafik</p>
         </div>
       ) : (
         <ResponsiveContainer width="100%" height={300}>

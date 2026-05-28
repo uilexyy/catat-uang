@@ -121,14 +121,14 @@ export default function ReceiptUpload({ onDataExtracted, onClear }: ReceiptUploa
   if (status === "processing") {
     return (
       <div className="flex flex-col items-center gap-3 py-8 animate-fade-in">
-        <div className="w-14 h-14 rounded-2xl bg-blue-50 flex items-center justify-center">
+        <div className="w-14 h-14 rounded-2xl bg-blue-50 dark:bg-blue-950/50 flex items-center justify-center">
           <Loader2 className="w-6 h-6 text-blue-500 animate-spin" />
         </div>
         <div className="text-center">
-          <p className="text-sm font-medium text-stone-600">Membaca struk...</p>
-          <p className="text-xs text-stone-400 mt-0.5">{progress}%</p>
+          <p className="text-sm font-medium text-stone-600 dark:text-stone-400">Membaca struk...</p>
+          <p className="text-xs text-stone-400 dark:text-stone-500 mt-0.5">{progress}%</p>
         </div>
-        <div className="w-48 h-1.5 bg-stone-100 rounded-full overflow-hidden">
+        <div className="w-48 h-1.5 bg-stone-100 dark:bg-stone-800 rounded-full overflow-hidden">
           <div
             className="h-full bg-blue-500 rounded-full transition-all duration-300"
             style={{ width: `${progress}%` }}
@@ -145,15 +145,15 @@ export default function ReceiptUpload({ onDataExtracted, onClear }: ReceiptUploa
           onDrop={handleDrop}
           onDragOver={(e) => e.preventDefault()}
           onClick={() => inputRef.current?.click()}
-          className="border-2 border-dashed border-stone-200 rounded-2xl p-6 text-center cursor-pointer hover:border-blue-300 hover:bg-blue-50/30 transition-all duration-200 group"
+          className="border-2 border-dashed border-stone-200 dark:border-stone-800 rounded-2xl p-6 text-center cursor-pointer hover:border-blue-300 hover:bg-blue-50/30 dark:hover:bg-blue-950/20 transition-all duration-200 group"
         >
-          <div className="w-12 h-12 rounded-xl bg-stone-100 group-hover:bg-blue-100 flex items-center justify-center mx-auto mb-3 transition-colors duration-200">
-            <Upload className="w-5 h-5 text-stone-400 group-hover:text-blue-500 transition-colors duration-200" />
+          <div className="w-12 h-12 rounded-xl bg-stone-100 dark:bg-stone-800 group-hover:bg-blue-100 dark:group-hover:bg-blue-950/50 flex items-center justify-center mx-auto mb-3 transition-colors duration-200">
+            <Upload className="w-5 h-5 text-stone-400 dark:text-stone-500 group-hover:text-blue-500 transition-colors duration-200" />
           </div>
-          <p className="text-sm font-medium text-stone-500 group-hover:text-blue-600 transition-colors duration-200">
+          <p className="text-sm font-medium text-stone-500 dark:text-stone-400 group-hover:text-blue-600 transition-colors duration-200">
             Upload foto struk
           </p>
-          <p className="text-xs text-stone-400 mt-1">atau klik untuk memilih file</p>
+          <p className="text-xs text-stone-400 dark:text-stone-500 mt-1">atau klik untuk memilih file</p>
           <input
             ref={inputRef}
             type="file"
@@ -167,8 +167,8 @@ export default function ReceiptUpload({ onDataExtracted, onClear }: ReceiptUploa
           />
         </div>
       ) : (
-        <div className="relative rounded-2xl overflow-hidden border border-stone-200 animate-fade-in">
-          <img src={image} alt="Struk" className="w-full max-h-48 object-contain bg-stone-50" />
+        <div className="relative rounded-2xl overflow-hidden border border-stone-200 dark:border-stone-800 animate-fade-in">
+          <img src={image} alt="Struk" className="w-full max-h-48 object-contain bg-stone-50 dark:bg-stone-900" />
           <button
             type="button"
             onClick={handleReset}

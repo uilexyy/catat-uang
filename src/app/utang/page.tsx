@@ -121,8 +121,8 @@ export default function UtangPage() {
             <Handshake className="w-4 h-4 text-rose-600" />
           </div>
           <div className="min-w-0">
-            <h1 className="text-base sm:text-lg font-bold text-stone-800 truncate">Utang</h1>
-            <p className="text-xs text-stone-400">Catat dan kelola utang kamu</p>
+            <h1 className="text-base sm:text-lg font-bold text-stone-800 dark:text-stone-200 truncate">Utang</h1>
+            <p className="text-xs text-stone-400 dark:text-stone-500">Catat dan kelola utang kamu</p>
           </div>
         </div>
         <button
@@ -136,7 +136,7 @@ export default function UtangPage() {
       </div>
 
       {showForm && (
-        <form onSubmit={handleSubmit} className="bg-white rounded-2xl border border-stone-200 p-4 sm:p-5 space-y-4 animate-fade-in">
+        <form onSubmit={handleSubmit} className="bg-white dark:bg-stone-900 rounded-2xl border border-stone-200 dark:border-stone-800 p-4 sm:p-5 space-y-4 animate-fade-in">
           {error && (
             <div className="flex items-center gap-2 bg-rose-50 text-rose-600 text-sm px-4 py-3 rounded-xl border border-rose-200">
               <AlertCircle className="w-4.5 h-4.5 shrink-0" />
@@ -146,27 +146,27 @@ export default function UtangPage() {
 
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
             <div>
-              <label className="block text-[11px] font-semibold text-stone-400 uppercase tracking-widest mb-1.5">Nama Orang</label>
-              <input value={person} onChange={(e) => setPerson(e.target.value)} placeholder="Nama pemberi utang" className="w-full px-4 py-2.5 bg-white border border-stone-200 rounded-xl text-sm text-stone-700 placeholder-stone-300 focus:outline-none focus:ring-2 focus:ring-rose-500/20 focus:border-rose-400 transition-all duration-200" />
+              <label className="block text-[11px] font-semibold text-stone-400 dark:text-stone-500 uppercase tracking-widest mb-1.5">Nama Orang</label>
+              <input value={person} onChange={(e) => setPerson(e.target.value)} placeholder="Nama pemberi utang" className="w-full px-4 py-2.5 bg-white dark:bg-stone-900 border border-stone-200 dark:border-stone-800 rounded-xl text-sm text-stone-700 dark:text-stone-300 placeholder-stone-300 dark:placeholder-stone-600 focus:outline-none focus:ring-2 focus:ring-rose-500/20 focus:border-rose-400 transition-all duration-200" />
             </div>
             <div>
-              <label className="block text-[11px] font-semibold text-stone-400 uppercase tracking-widest mb-1.5">Jumlah</label>
+              <label className="block text-[11px] font-semibold text-stone-400 dark:text-stone-500 uppercase tracking-widest mb-1.5">Jumlah</label>
               <div className="relative group">
-                <span className="absolute left-4 top-1/2 -translate-y-1/2 text-stone-400 text-sm">Rp</span>
-                <input value={amount} onChange={(e) => setAmount(e.target.value)} type="number" min="1" placeholder="0" className="w-full pl-10 pr-4 py-2.5 bg-white border border-stone-200 rounded-xl text-sm text-stone-700 placeholder-stone-300 focus:outline-none focus:ring-2 focus:ring-rose-500/20 focus:border-rose-400 transition-all duration-200" />
+                <span className="absolute left-4 top-1/2 -translate-y-1/2 text-stone-400 dark:text-stone-500 text-sm">Rp</span>
+                <input value={amount} onChange={(e) => setAmount(e.target.value)} type="number" min="1" placeholder="0" className="w-full pl-10 pr-4 py-2.5 bg-white dark:bg-stone-900 border border-stone-200 dark:border-stone-800 rounded-xl text-sm text-stone-700 dark:text-stone-300 placeholder-stone-300 dark:placeholder-stone-600 focus:outline-none focus:ring-2 focus:ring-rose-500/20 focus:border-rose-400 transition-all duration-200" />
               </div>
             </div>
             <div className="sm:col-span-2">
-              <label className="block text-[11px] font-semibold text-stone-400 uppercase tracking-widest mb-1.5">Keterangan</label>
-              <input value={description} onChange={(e) => setDescription(e.target.value)} placeholder="Misal: Pinjaman modal usaha" className="w-full px-4 py-2.5 bg-white border border-stone-200 rounded-xl text-sm text-stone-700 placeholder-stone-300 focus:outline-none focus:ring-2 focus:ring-rose-500/20 focus:border-rose-400 transition-all duration-200" />
+              <label className="block text-[11px] font-semibold text-stone-400 dark:text-stone-500 uppercase tracking-widest mb-1.5">Keterangan</label>
+              <input value={description} onChange={(e) => setDescription(e.target.value)} placeholder="Misal: Pinjaman modal usaha" className="w-full px-4 py-2.5 bg-white dark:bg-stone-900 border border-stone-200 dark:border-stone-800 rounded-xl text-sm text-stone-700 dark:text-stone-300 placeholder-stone-300 dark:placeholder-stone-600 focus:outline-none focus:ring-2 focus:ring-rose-500/20 focus:border-rose-400 transition-all duration-200" />
             </div>
             <div>
-              <label className="block text-[11px] font-semibold text-stone-400 uppercase tracking-widest mb-1.5">Tanggal</label>
-              <input value={date} onChange={(e) => setDate(e.target.value)} type="date" className="w-full px-4 py-2.5 bg-white border border-stone-200 rounded-xl text-sm text-stone-700 focus:outline-none focus:ring-2 focus:ring-rose-500/20 focus:border-rose-400 transition-all duration-200" />
+              <label className="block text-[11px] font-semibold text-stone-400 dark:text-stone-500 uppercase tracking-widest mb-1.5">Tanggal</label>
+              <input value={date} onChange={(e) => setDate(e.target.value)} type="date" className="w-full px-4 py-2.5 bg-white dark:bg-stone-900 border border-stone-200 dark:border-stone-800 rounded-xl text-sm text-stone-700 dark:text-stone-300 focus:outline-none focus:ring-2 focus:ring-rose-500/20 focus:border-rose-400 transition-all duration-200" />
             </div>
             <div>
-              <label className="block text-[11px] font-semibold text-stone-400 uppercase tracking-widest mb-1.5">Jatuh Tempo <span className="font-normal lowercase text-stone-300">(opsional)</span></label>
-              <input value={dueDate} onChange={(e) => setDueDate(e.target.value)} type="date" className="w-full px-4 py-2.5 bg-white border border-stone-200 rounded-xl text-sm text-stone-700 focus:outline-none focus:ring-2 focus:ring-rose-500/20 focus:border-rose-400 transition-all duration-200" />
+              <label className="block text-[11px] font-semibold text-stone-400 dark:text-stone-500 uppercase tracking-widest mb-1.5">Jatuh Tempo <span className="font-normal lowercase text-stone-300 dark:text-stone-600">(opsional)</span></label>
+              <input value={dueDate} onChange={(e) => setDueDate(e.target.value)} type="date" className="w-full px-4 py-2.5 bg-white dark:bg-stone-900 border border-stone-200 dark:border-stone-800 rounded-xl text-sm text-stone-700 dark:text-stone-300 focus:outline-none focus:ring-2 focus:ring-rose-500/20 focus:border-rose-400 transition-all duration-200" />
             </div>
           </div>
 
@@ -178,11 +178,11 @@ export default function UtangPage() {
 
       {loading ? (
         <div className="flex justify-center py-12">
-          <Loader2 className="w-5 h-5 text-stone-300 animate-spin" />
+          <Loader2 className="w-5 h-5 text-stone-300 dark:text-stone-600 animate-spin" />
         </div>
       ) : debts.length === 0 ? (
-        <div className="text-center py-12 text-stone-400">
-          <Handshake className="w-8 h-8 mx-auto mb-3 text-stone-200" />
+        <div className="text-center py-12 text-stone-400 dark:text-stone-500">
+          <Handshake className="w-8 h-8 mx-auto mb-3 text-stone-200 dark:text-stone-800" />
           <p className="text-sm font-medium">Belum ada catatan utang</p>
           <p className="text-xs mt-1">Klik Tambah untuk mencatat utang</p>
         </div>
@@ -190,31 +190,31 @@ export default function UtangPage() {
         <div className="space-y-4">
           {unpaid.length > 0 && (
             <div>
-              <h2 className="text-[11px] font-semibold text-stone-400 uppercase tracking-widest mb-2">
+              <h2 className="text-[11px] font-semibold text-stone-400 dark:text-stone-500 uppercase tracking-widest mb-2">
                 Belum Lunas ({unpaid.length})
               </h2>
               <div className="space-y-2">
                 {unpaid.map((debt) => (
-                  <div key={debt.id} className="bg-white rounded-xl border border-stone-200 p-4 animate-fade-in-up flex items-center gap-3">
+                  <div key={debt.id} className="bg-white dark:bg-stone-900 rounded-xl border border-stone-200 dark:border-stone-800 p-4 animate-fade-in-up flex items-center gap-3">
                     <div className="w-9 h-9 rounded-full bg-rose-50 flex items-center justify-center shrink-0">
                       <Handshake className="w-4.5 h-4.5 text-rose-500" />
                     </div>
                     <div className="flex-1 min-w-0">
-                      <p className="text-sm font-medium text-stone-700 truncate">{debt.person}</p>
-                      <p className="text-xs text-stone-400 truncate">{debt.description || formatDate(debt.date)}</p>
+                      <p className="text-sm font-medium text-stone-700 dark:text-stone-300 truncate">{debt.person}</p>
+                      <p className="text-xs text-stone-400 dark:text-stone-500 truncate">{debt.description || formatDate(debt.date)}</p>
                     </div>
                     <div className="text-right shrink-0">
                       <p className="text-sm font-bold text-rose-600">{formatRupiah(debt.amount)}</p>
                       {debt.dueDate && (
-                        <p className="text-[10px] text-stone-400">Jatuh tempo {formatDate(debt.dueDate)}</p>
+                        <p className="text-[10px] text-stone-400 dark:text-stone-500">Jatuh tempo {formatDate(debt.dueDate)}</p>
                       )}
                     </div>
                     <div className="flex gap-1">
                       <button type="button" onClick={() => togglePaid(debt)} className="w-8 h-8 rounded-lg bg-emerald-50 hover:bg-emerald-100 flex items-center justify-center transition-colors" title="Tandai Lunas">
                         <CheckCircle2 className="w-4 h-4 text-emerald-500" />
                       </button>
-                      <button type="button" onClick={() => handleDelete(debt.id)} className="w-8 h-8 rounded-lg bg-stone-50 hover:bg-rose-50 flex items-center justify-center transition-colors" title="Hapus">
-                        <Trash2 className="w-4 h-4 text-stone-400 hover:text-rose-500" />
+                      <button type="button" onClick={() => handleDelete(debt.id)} className="w-8 h-8 rounded-lg bg-stone-50 dark:bg-stone-800 hover:bg-rose-50 flex items-center justify-center transition-colors" title="Hapus">
+                        <Trash2 className="w-4 h-4 text-stone-400 dark:text-stone-500 hover:text-rose-500" />
                       </button>
                     </div>
                   </div>
@@ -225,25 +225,25 @@ export default function UtangPage() {
 
           {paid.length > 0 && (
             <div>
-              <h2 className="text-[11px] font-semibold text-stone-400 uppercase tracking-widest mb-2">
+              <h2 className="text-[11px] font-semibold text-stone-400 dark:text-stone-500 uppercase tracking-widest mb-2">
                 Lunas ({paid.length})
               </h2>
               <div className="space-y-2">
                 {paid.map((debt) => (
-                  <div key={debt.id} className="bg-white rounded-xl border border-stone-200 p-4 animate-fade-in-up flex items-center gap-3 opacity-60 hover:opacity-100 transition-opacity">
+                  <div key={debt.id} className="bg-white dark:bg-stone-900 rounded-xl border border-stone-200 dark:border-stone-800 p-4 animate-fade-in-up flex items-center gap-3 opacity-60 hover:opacity-100 transition-opacity">
                     <div className="w-9 h-9 rounded-full bg-emerald-50 flex items-center justify-center shrink-0">
                       <CheckCircle2 className="w-4.5 h-4.5 text-emerald-500" />
                     </div>
                     <div className="flex-1 min-w-0">
-                      <p className="text-sm font-medium text-stone-500 line-through truncate">{debt.person}</p>
-                      <p className="text-xs text-stone-300 truncate">{debt.description || formatDate(debt.date)}</p>
+                      <p className="text-sm font-medium text-stone-500 dark:text-stone-400 line-through truncate">{debt.person}</p>
+                      <p className="text-xs text-stone-300 dark:text-stone-600 truncate">{debt.description || formatDate(debt.date)}</p>
                     </div>
                     <div className="text-right shrink-0">
-                      <p className="text-sm font-bold text-stone-400 line-through">{formatRupiah(debt.amount)}</p>
+                      <p className="text-sm font-bold text-stone-400 dark:text-stone-500 line-through">{formatRupiah(debt.amount)}</p>
                       {debt.paidAt && <p className="text-[10px] text-emerald-500">Lunas {formatDate(debt.paidAt)}</p>}
                     </div>
-                    <button type="button" onClick={() => togglePaid(debt)} className="w-8 h-8 rounded-lg bg-stone-50 hover:bg-amber-50 flex items-center justify-center transition-colors" title="Kembalikan ke belum bayar">
-                      <Undo2 className="w-4 h-4 text-stone-400 hover:text-amber-500" />
+                    <button type="button" onClick={() => togglePaid(debt)} className="w-8 h-8 rounded-lg bg-stone-50 dark:bg-stone-800 hover:bg-amber-50 flex items-center justify-center transition-colors" title="Kembalikan ke belum bayar">
+                      <Undo2 className="w-4 h-4 text-stone-400 dark:text-stone-500 hover:text-amber-500" />
                     </button>
                   </div>
                 ))}

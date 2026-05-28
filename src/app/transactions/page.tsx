@@ -85,8 +85,8 @@ export default async function TransactionsPage({ searchParams }: PageProps) {
             <List className="w-4 h-4 sm:w-4.5 sm:h-4.5 text-blue-600" />
           </div>
           <div className="min-w-0">
-            <h1 className="text-base sm:text-lg font-bold text-stone-800 truncate">Riwayat Transaksi</h1>
-            <p className="text-xs text-stone-400 truncate">Daftar semua pemasukan dan pengeluaran</p>
+            <h1 className="text-base sm:text-lg font-bold text-stone-800 dark:text-stone-200 truncate">Riwayat Transaksi</h1>
+            <p className="text-xs text-stone-400 dark:text-stone-500 truncate">Daftar semua pemasukan dan pengeluaran</p>
           </div>
         </div>
         <div className="flex items-center gap-2">
