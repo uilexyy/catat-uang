@@ -10,8 +10,9 @@ import {
   ResponsiveContainer,
   Legend,
 } from "recharts";
-import { BarChart3, Inbox } from "lucide-react";
+import { BarChart3 } from "lucide-react";
 import { formatRupiah } from "@/lib/format";
+import { EmptyChart } from "./EmptyState";
 
 interface ChartData {
   month: string;
@@ -24,6 +25,10 @@ interface ChartProps {
 }
 
 export default function Chart({ data }: ChartProps) {
+  if (data.length === 0) {
+    return <EmptyChart />;
+  }
+
   return (
     <div className="bg-white dark:bg-stone-900 rounded-2xl border border-stone-200/80 dark:border-stone-800 p-6 shadow-sm dark:shadow-none animate-fade-in-up [animation-delay:0.3s]">
       <div className="flex items-center gap-2 mb-6">
@@ -33,15 +38,6 @@ export default function Chart({ data }: ChartProps) {
         </h2>
       </div>
 
-      {data.length === 0 ? (
-        <div className="flex flex-col items-center justify-center py-14 text-center animate-fade-in">
-          <div className="w-14 h-14 rounded-2xl bg-stone-100 dark:bg-stone-800 flex items-center justify-center mb-4">
-            <Inbox className="w-6 h-6 text-stone-300 dark:text-stone-600" />
-          </div>
-          <p className="text-sm text-stone-400 dark:text-stone-500 font-medium">Belum ada data transaksi</p>
-          <p className="text-xs text-stone-300 dark:text-stone-600 mt-1">Tambahkan transaksi untuk melihat grafik</p>
-        </div>
-      ) : (
         <ResponsiveContainer width="100%" height={300}>
           <BarChart data={data}>
             <CartesianGrid strokeDasharray="3 3" stroke="#e7e5e4" vertical={false} />
@@ -91,7 +87,6 @@ export default function Chart({ data }: ChartProps) {
             />
           </BarChart>
         </ResponsiveContainer>
-      )}
     </div>
   );
 }

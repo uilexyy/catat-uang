@@ -4,6 +4,7 @@ import { useState, useEffect, FormEvent } from "react";
 import { Plus, Handshake, CheckCircle2, X, Loader2, AlertCircle, Undo2, Trash2 } from "lucide-react";
 import { useToast } from "@/lib/toast";
 import { formatRupiah, formatDate } from "@/lib/format";
+import { EmptyDebts } from "@/components/EmptyState";
 
 interface Debt {
   id: number;
@@ -181,11 +182,7 @@ export default function UtangPage() {
           <Loader2 className="w-5 h-5 text-stone-300 dark:text-stone-600 animate-spin" />
         </div>
       ) : debts.length === 0 ? (
-        <div className="text-center py-12 text-stone-400 dark:text-stone-500">
-          <Handshake className="w-8 h-8 mx-auto mb-3 text-stone-200 dark:text-stone-800" />
-          <p className="text-sm font-medium">Belum ada catatan utang</p>
-          <p className="text-xs mt-1">Klik Tambah untuk mencatat utang</p>
-        </div>
+        <EmptyDebts />
       ) : (
         <div className="space-y-4">
           {unpaid.length > 0 && (

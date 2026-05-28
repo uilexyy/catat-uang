@@ -4,6 +4,7 @@ import { useState, useEffect, FormEvent } from "react";
 import { PieChart, Plus, X, Loader2, AlertCircle, Pencil, Trash2 } from "lucide-react";
 import { useToast } from "@/lib/toast";
 import { formatRupiah } from "@/lib/format";
+import { EmptyBudgets } from "@/components/EmptyState";
 import type { Category, Budget } from "@/lib/types";
 
 export default function AnggaranPage() {
@@ -203,11 +204,7 @@ export default function AnggaranPage() {
           <Loader2 className="w-5 h-5 text-stone-300 dark:text-stone-600 animate-spin" />
         </div>
       ) : budgets.length === 0 ? (
-        <div className="text-center py-12 text-stone-400 dark:text-stone-500">
-          <PieChart className="w-8 h-8 mx-auto mb-3 text-stone-200 dark:text-stone-800" />
-          <p className="text-sm font-medium">Belum ada anggaran</p>
-          <p className="text-xs mt-1">Klik Tambah untuk membuat anggaran kategori</p>
-        </div>
+        <EmptyBudgets />
       ) : (
         <div className="space-y-6">
           {(["expense", "income"] as const).map((t) => {

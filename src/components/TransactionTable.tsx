@@ -4,9 +4,10 @@ import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 import { useToast } from "@/lib/toast";
-import { Pencil, Trash2, AlertTriangle, Loader2, ArrowLeft, ArrowRight, Inbox } from "lucide-react";
+import { Pencil, Trash2, AlertTriangle, Loader2, ArrowLeft, ArrowRight } from "lucide-react";
 import type { Transaction } from "@/lib/types";
 import { formatRupiah, formatDate } from "@/lib/format";
+import { EmptyTransactions } from "./EmptyState";
 
 interface TransactionTableProps {
   transactions: Transaction[];
@@ -91,21 +92,7 @@ export default function TransactionTable({ transactions, pagination, currentPara
   }
 
   if (transactions.length === 0) {
-    return (
-      <div className="bg-white dark:bg-stone-900 rounded-2xl border border-stone-200/80 dark:border-stone-800 p-8 sm:p-12 text-center shadow-sm dark:shadow-none animate-fade-in-up">
-        <div className="w-14 h-14 sm:w-16 sm:h-16 rounded-2xl bg-stone-100 dark:bg-stone-800 flex items-center justify-center mx-auto mb-4">
-          <Inbox className="w-6 h-6 sm:w-7 sm:h-7 text-stone-300 dark:text-stone-600" />
-        </div>
-        <p className="text-stone-500 dark:text-stone-400 font-medium text-sm mb-1">Belum ada transaksi</p>
-        <p className="text-stone-300 dark:text-stone-600 text-xs mb-5">Mulai catat pemasukan atau pengeluaran pertama kamu</p>
-        <Link
-          href="/transactions/new"
-          className="inline-flex items-center gap-2 px-5 py-2.5 bg-blue-600 hover:bg-blue-700 active:bg-blue-800 text-white text-sm font-medium rounded-xl shadow-sm hover:shadow-md active:scale-[0.97] transition-all duration-200"
-        >
-          + Tambah Transaksi
-        </Link>
-      </div>
-    );
+    return <EmptyTransactions />;
   }
 
   return (
