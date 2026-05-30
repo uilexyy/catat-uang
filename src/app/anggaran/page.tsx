@@ -121,22 +121,22 @@ export default function AnggaranPage() {
 
   return (
     <div className="space-y-4 sm:space-y-5">
-      <div className="flex items-center justify-between gap-3">
-        <div className="bg-gradient-to-r from-blue-600 to-blue-500 rounded-2xl p-5 shadow-lg flex-1">
+      <div className="flex flex-col sm:flex-row gap-3 sm:gap-4">
+        <div className="bg-gradient-to-r from-blue-600 to-blue-500 rounded-2xl p-5 shadow-lg flex-1 min-w-0">
           <div className="flex items-center gap-4">
-            <div className="w-10 h-10 rounded-xl bg-white/20 flex items-center justify-center backdrop-blur-sm">
+            <div className="w-10 h-10 rounded-xl bg-white/20 flex items-center justify-center backdrop-blur-sm shrink-0">
               <PieChart className="w-5 h-5 text-white" />
             </div>
-            <div>
-              <h1 className="text-lg font-bold text-white">Anggaran</h1>
-              <p className="text-sm text-blue-100">Atur batas pemasukan & pengeluaran per kategori</p>
+            <div className="min-w-0">
+              <h1 className="text-lg font-bold text-white truncate">Anggaran</h1>
+              <p className="text-sm text-blue-100 truncate">Atur batas pemasukan & pengeluaran per kategori</p>
             </div>
           </div>
         </div>
         <button
           type="button"
           onClick={() => { resetForm(); setShowForm(!showForm); }}
-          className="flex items-center gap-1.5 px-3.5 py-2 rounded-xl bg-blue-600 hover:bg-blue-700 active:bg-blue-800 text-white text-xs font-medium transition-all duration-200 active:scale-95 shrink-0"
+          className="flex items-center gap-1.5 px-3.5 py-2 rounded-xl bg-blue-600 hover:bg-blue-700 active:bg-blue-800 text-white text-xs font-medium transition-all duration-200 active:scale-95 shrink-0 self-end sm:self-center"
         >
           {showForm ? <X className="w-3.5 h-3.5" /> : <Plus className="w-3.5 h-3.5" />}
           {showForm ? "Batal" : "Tambah"}
@@ -221,15 +221,15 @@ export default function AnggaranPage() {
                 <div className="space-y-2">
                   {list.map((b, i) => (
                     <div key={b.id} className="bg-white/80 dark:bg-stone-900/80 backdrop-blur-xl rounded-xl border border-stone-200 dark:border-stone-800 p-4 animate-fade-in-up" style={{ animationDelay: `${i * 0.05}s` }}>
-                      <div className="flex items-center justify-between gap-3 mb-2">
+                      <div className="flex items-center justify-between gap-3">
                         <div className="flex-1 min-w-0">
-                          <p className="text-sm font-medium text-stone-700 dark:text-stone-300">{getCategoryIcon(b.category)} {b.category}</p>
+                          <p className="text-sm font-medium text-stone-700 dark:text-stone-300 truncate">{getCategoryIcon(b.category)} {b.category}</p>
                           <p className="text-xs text-stone-400 dark:text-stone-500">{new Date(0, b.month - 1).toLocaleString("id", { month: "long" })} {b.year}</p>
                         </div>
-                        <p className={`text-sm font-bold ${t === "expense" ? "text-rose-600" : "text-emerald-600"}`}>
+                        <p className={`text-sm font-bold shrink-0 ${t === "expense" ? "text-rose-600" : "text-emerald-600"}`}>
                           {formatRupiah(b.amount)}
                         </p>
-                        <div className="flex gap-1">
+                        <div className="hidden sm:flex gap-1">
                           <button type="button" onClick={() => openEdit(b)} className="w-7 h-7 sm:w-8 sm:h-8 rounded-lg bg-stone-50 dark:bg-stone-800 hover:bg-blue-50 flex items-center justify-center transition-colors shrink-0" title="Edit">
                             <Pencil className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-stone-400 dark:text-stone-500 hover:text-blue-500" />
                           </button>
@@ -237,6 +237,16 @@ export default function AnggaranPage() {
                             <Trash2 className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-stone-400 dark:text-stone-500 hover:text-rose-500" />
                           </button>
                         </div>
+                      </div>
+                      <div className="flex sm:hidden items-center justify-end gap-2 mt-3 pt-3 border-t border-stone-100 dark:border-stone-800">
+                        <button type="button" onClick={() => openEdit(b)} className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-stone-100 dark:bg-stone-800 hover:bg-blue-50 text-stone-500 hover:text-blue-600 text-xs font-medium transition-colors active:scale-95">
+                          <Pencil className="w-3.5 h-3.5" />
+                          Edit
+                        </button>
+                        <button type="button" onClick={() => handleDelete(b.id)} className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-stone-100 dark:bg-stone-800 hover:bg-rose-50 text-stone-500 hover:text-rose-600 text-xs font-medium transition-colors active:scale-95">
+                          <Trash2 className="w-3.5 h-3.5" />
+                          Hapus
+                        </button>
                       </div>
                     </div>
                   ))}

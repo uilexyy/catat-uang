@@ -211,22 +211,22 @@ export default function UtangPage() {
 
   return (
     <div className="space-y-4 sm:space-y-5">
-      <div className="flex items-center justify-between gap-3">
-        <div className="bg-gradient-to-r from-rose-600 to-rose-500 rounded-2xl p-5 shadow-lg flex-1">
+      <div className="flex flex-col sm:flex-row gap-3 sm:gap-4">
+        <div className="bg-gradient-to-r from-rose-600 to-rose-500 rounded-2xl p-5 shadow-lg flex-1 min-w-0">
           <div className="flex items-center gap-4">
-            <div className="w-10 h-10 rounded-xl bg-white/20 flex items-center justify-center backdrop-blur-sm">
+            <div className="w-10 h-10 rounded-xl bg-white/20 flex items-center justify-center backdrop-blur-sm shrink-0">
               <Handshake className="w-5 h-5 text-white" />
             </div>
-            <div>
-              <h1 className="text-lg font-bold text-white">Utang</h1>
-              <p className="text-sm text-rose-100">Catat dan kelola utang kamu</p>
+            <div className="min-w-0">
+              <h1 className="text-lg font-bold text-white truncate">Utang</h1>
+              <p className="text-sm text-rose-100 truncate">Catat dan kelola utang kamu</p>
             </div>
           </div>
         </div>
         <button
           type="button"
           onClick={() => setShowForm(!showForm)}
-          className="flex items-center gap-1.5 px-3.5 py-2 rounded-xl bg-rose-600 hover:bg-rose-700 active:bg-rose-800 text-white text-xs font-medium transition-all duration-200 active:scale-95 shrink-0"
+          className="flex items-center gap-1.5 px-3.5 py-2 rounded-xl bg-rose-600 hover:bg-rose-700 active:bg-rose-800 text-white text-xs font-medium transition-all duration-200 active:scale-95 shrink-0 self-end sm:self-center"
         >
           {showForm ? <X className="w-3.5 h-3.5" /> : <Plus className="w-3.5 h-3.5" />}
           {showForm ? "Batal" : "Tambah"}
@@ -339,40 +339,56 @@ export default function UtangPage() {
               </h2>
               <div className="space-y-2">
                 {unpaid.map((debt, i) => (
-                  <div key={debt.id}>
-                    <div className="bg-white/80 dark:bg-stone-900/80 backdrop-blur-xl rounded-xl border border-stone-200 dark:border-stone-800 p-4 animate-fade-in-up" style={{ animationDelay: `${i * 0.05}s` }}>
-                      <div className="flex items-center gap-3">
-                        <button type="button" onClick={() => toggleExpand(debt)} className="w-9 h-9 rounded-full bg-rose-50 flex items-center justify-center shrink-0 hover:bg-rose-100 transition-colors">
-                          <Handshake className="w-4 h-4 text-rose-500" />
-                        </button>
-                        <div className="flex-1 min-w-0">
-                          <p className="text-sm font-medium text-stone-700 dark:text-stone-300 truncate">{debt.person}</p>
-                          <p className="text-xs text-stone-400 dark:text-stone-500 truncate">{debt.description || formatDate(debt.date)}</p>
-                          {debt.totalPaid > 0 && (
-                            <p className="text-[10px] text-rose-400 mt-0.5">Terbayar {formatRupiah(debt.totalPaid)}</p>
-                          )}
-                        </div>
-                        <div className="text-right shrink-0">
-                          <p className="text-sm font-bold text-rose-600">{formatRupiah(debt.amount)}</p>
-                          {debt.dueDate && (
-                            <p className="text-[10px] text-stone-400 dark:text-stone-500">Jatuh tempo {formatDate(debt.dueDate)}</p>
-                          )}
-                          {debt.remaining > 0 && (
-                            <p className="text-[10px] text-rose-500 font-medium">Sisa {formatRupiah(debt.remaining)}</p>
-                          )}
-                        </div>
-                        <div className="flex gap-1">
-                          <button type="button" onClick={() => setPayingDebt(debt)} className="w-7 h-7 sm:w-8 sm:h-8 rounded-lg bg-rose-50 hover:bg-rose-100 flex items-center justify-center transition-colors shrink-0" title="Bayar">
-                            <Banknote className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-rose-500" />
+                    <div key={debt.id}>
+                      <div className="bg-white/80 dark:bg-stone-900/80 backdrop-blur-xl rounded-xl border border-stone-200 dark:border-stone-800 p-4 animate-fade-in-up" style={{ animationDelay: `${i * 0.05}s` }}>
+                        <div className="flex items-center gap-3">
+                          <button type="button" onClick={() => toggleExpand(debt)} className="w-9 h-9 rounded-full bg-rose-50 flex items-center justify-center shrink-0 hover:bg-rose-100 transition-colors">
+                            <Handshake className="w-4 h-4 text-rose-500" />
                           </button>
-                          <button type="button" onClick={() => togglePaid(debt)} className="w-7 h-7 sm:w-8 sm:h-8 rounded-lg bg-emerald-50 hover:bg-emerald-100 flex items-center justify-center transition-colors shrink-0" title="Tandai Lunas">
-                            <CheckCircle2 className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-emerald-500" />
+                          <div className="flex-1 min-w-0">
+                            <p className="text-sm font-medium text-stone-700 dark:text-stone-300 truncate">{debt.person}</p>
+                            <p className="text-xs text-stone-400 dark:text-stone-500 truncate">{debt.description || formatDate(debt.date)}</p>
+                            {debt.totalPaid > 0 && (
+                              <p className="text-[10px] text-rose-400 mt-0.5">Terbayar {formatRupiah(debt.totalPaid)}</p>
+                            )}
+                          </div>
+                          <div className="text-right shrink-0">
+                            <p className="text-sm font-bold text-rose-600">{formatRupiah(debt.amount)}</p>
+                            {debt.dueDate && (
+                              <p className="text-[10px] text-stone-400 dark:text-stone-500">Jatuh tempo {formatDate(debt.dueDate)}</p>
+                            )}
+                            {debt.remaining > 0 && (
+                              <p className="text-[10px] text-rose-500 font-medium">Sisa {formatRupiah(debt.remaining)}</p>
+                            )}
+                          </div>
+                          <div className="hidden sm:flex gap-1">
+                            <button type="button" onClick={() => setPayingDebt(debt)} className="w-7 h-7 sm:w-8 sm:h-8 rounded-lg bg-rose-50 hover:bg-rose-100 flex items-center justify-center transition-colors shrink-0" title="Bayar">
+                              <Banknote className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-rose-500" />
+                            </button>
+                            <button type="button" onClick={() => togglePaid(debt)} className="w-7 h-7 sm:w-8 sm:h-8 rounded-lg bg-emerald-50 hover:bg-emerald-100 flex items-center justify-center transition-colors shrink-0" title="Tandai Lunas">
+                              <CheckCircle2 className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-emerald-500" />
+                            </button>
+                            <button type="button" onClick={() => handleDelete(debt.id)} className="w-7 h-7 sm:w-8 sm:h-8 rounded-lg bg-stone-50 dark:bg-stone-800 hover:bg-rose-50 flex items-center justify-center transition-colors shrink-0" title="Hapus">
+                              <Trash2 className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-stone-400 dark:text-stone-500 hover:text-rose-500" />
+                            </button>
+                          </div>
+                        </div>
+
+                        {/* Mobile action buttons row */}
+                        <div className="flex sm:hidden items-center justify-end gap-2 mt-3 pt-3 border-t border-stone-100 dark:border-stone-800">
+                          <button type="button" onClick={() => setPayingDebt(debt)} className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-rose-50 hover:bg-rose-100 text-rose-600 text-xs font-medium transition-colors active:scale-95">
+                            <Banknote className="w-3.5 h-3.5" />
+                            Bayar
                           </button>
-                          <button type="button" onClick={() => handleDelete(debt.id)} className="w-7 h-7 sm:w-8 sm:h-8 rounded-lg bg-stone-50 dark:bg-stone-800 hover:bg-rose-50 flex items-center justify-center transition-colors shrink-0" title="Hapus">
-                            <Trash2 className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-stone-400 dark:text-stone-500 hover:text-rose-500" />
+                          <button type="button" onClick={() => togglePaid(debt)} className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-emerald-50 hover:bg-emerald-100 text-emerald-600 text-xs font-medium transition-colors active:scale-95">
+                            <CheckCircle2 className="w-3.5 h-3.5" />
+                            Lunas
+                          </button>
+                          <button type="button" onClick={() => handleDelete(debt.id)} className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-stone-100 dark:bg-stone-800 hover:bg-rose-50 text-stone-500 hover:text-rose-600 text-xs font-medium transition-colors active:scale-95">
+                            <Trash2 className="w-3.5 h-3.5" />
+                            Hapus
                           </button>
                         </div>
-                      </div>
 
                       {/* Progress bar */}
                       {debt.totalPaid > 0 && (
@@ -425,24 +441,34 @@ export default function UtangPage() {
                 Lunas ({paid.length})
               </h2>
               <div className="space-y-2">
-                {paid.map((debt, i) => (
-                  <div key={debt.id} className="bg-white/80 dark:bg-stone-900/80 backdrop-blur-xl rounded-xl border border-stone-200 dark:border-stone-800 p-4 animate-fade-in-up flex items-center gap-3 opacity-60 hover:opacity-100 transition-opacity" style={{ animationDelay: `${i * 0.05}s` }}>
-                    <button type="button" onClick={() => toggleExpand(debt)} className="w-9 h-9 rounded-full bg-emerald-50 flex items-center justify-center shrink-0 hover:bg-emerald-100 transition-colors">
-                      <CheckCircle2 className="w-4 h-4 text-emerald-500" />
-                    </button>
-                    <div className="flex-1 min-w-0">
-                      <p className="text-sm font-medium text-stone-500 dark:text-stone-400 line-through truncate">{debt.person}</p>
-                      <p className="text-xs text-stone-300 dark:text-stone-600 truncate">{debt.description || formatDate(debt.date)}</p>
+                  {paid.map((debt, i) => (
+                    <div key={debt.id}>
+                      <div className="bg-white/80 dark:bg-stone-900/80 backdrop-blur-xl rounded-xl border border-stone-200 dark:border-stone-800 p-4 animate-fade-in-up opacity-60 hover:opacity-100 transition-opacity" style={{ animationDelay: `${i * 0.05}s` }}>
+                        <div className="flex items-center gap-3">
+                          <button type="button" onClick={() => toggleExpand(debt)} className="w-9 h-9 rounded-full bg-emerald-50 flex items-center justify-center shrink-0 hover:bg-emerald-100 transition-colors">
+                            <CheckCircle2 className="w-4 h-4 text-emerald-500" />
+                          </button>
+                          <div className="flex-1 min-w-0">
+                            <p className="text-sm font-medium text-stone-500 dark:text-stone-400 line-through truncate">{debt.person}</p>
+                            <p className="text-xs text-stone-300 dark:text-stone-600 truncate">{debt.description || formatDate(debt.date)}</p>
+                          </div>
+                          <div className="text-right shrink-0">
+                            <p className="text-sm font-bold text-stone-400 dark:text-stone-500 line-through">{formatRupiah(debt.amount)}</p>
+                            {debt.paidAt && <p className="text-[10px] text-emerald-500">Lunas {formatDate(debt.paidAt)}</p>}
+                          </div>
+                          <button type="button" onClick={() => togglePaid(debt)} className="hidden sm:flex w-8 h-8 rounded-lg bg-stone-50 dark:bg-stone-800 hover:bg-amber-50 items-center justify-center transition-colors shrink-0" title="Kembalikan ke belum bayar">
+                            <Undo2 className="w-4 h-4 text-stone-400 dark:text-stone-500 hover:text-amber-500" />
+                          </button>
+                        </div>
+                        <div className="flex sm:hidden items-center justify-end mt-2 pt-2 border-t border-stone-100 dark:border-stone-800">
+                          <button type="button" onClick={() => togglePaid(debt)} className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-stone-100 dark:bg-stone-800 hover:bg-amber-50 text-stone-500 hover:text-amber-600 text-xs font-medium transition-colors active:scale-95">
+                            <Undo2 className="w-3.5 h-3.5" />
+                            Kembalikan
+                          </button>
+                        </div>
+                      </div>
                     </div>
-                    <div className="text-right shrink-0">
-                      <p className="text-sm font-bold text-stone-400 dark:text-stone-500 line-through">{formatRupiah(debt.amount)}</p>
-                      {debt.paidAt && <p className="text-[10px] text-emerald-500">Lunas {formatDate(debt.paidAt)}</p>}
-                    </div>
-                    <button type="button" onClick={() => togglePaid(debt)} className="w-8 h-8 rounded-lg bg-stone-50 dark:bg-stone-800 hover:bg-amber-50 flex items-center justify-center transition-colors" title="Kembalikan ke belum bayar">
-                      <Undo2 className="w-4 h-4 text-stone-400 dark:text-stone-500 hover:text-amber-500" />
-                    </button>
-                  </div>
-                ))}
+                  ))}
               </div>
             </div>
           )}
