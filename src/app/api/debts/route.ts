@@ -1,9 +1,12 @@
 import { NextResponse } from "next/server";
 import { prisma } from "@/lib/prisma";
+import { getUserId } from "@/lib/auth";
 
-export async function GET() {
+export async function GET(request: Request) {
   try {
+    const userId = getUserId(request);
     const debts = await prisma.debt.findMany({
+      where: { userId },
       orderBy: { date: "desc" },
     });
     return NextResponse.json(
@@ -30,6 +33,7 @@ export async function GET() {
 
 export async function POST(request: Request) {
   try {
+    const userId = getUserId(request);
     const body = await request.json();
     const { person, amount, description, date, dueDate, notes } = body;
 
@@ -39,6 +43,7 @@ export async function POST(request: Request) {
 
     const debt = await prisma.debt.create({
       data: {
+        userId,
         person,
         amount,
         description: description || "",

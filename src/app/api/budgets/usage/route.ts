@@ -1,14 +1,16 @@
 import { NextResponse } from "next/server";
 import { prisma } from "@/lib/prisma";
+import { getUserId } from "@/lib/auth";
 
-export async function GET() {
+export async function GET(request: Request) {
   try {
+    const userId = getUserId(request);
     const now = new Date();
     const month = now.getMonth() + 1;
     const year = now.getFullYear();
 
     const budgets = await prisma.budget.findMany({
-      where: { month, year, type: "expense" },
+      where: { userId, month, year, type: "expense" },
       orderBy: { category: "asc" },
     });
 
@@ -24,6 +26,7 @@ export async function GET() {
     const spent = await prisma.transaction.groupBy({
       by: ["category"],
       where: {
+        userId,
         type: "expense",
         category: { in: categories },
         date: { gte: startDate, lte: endDate },

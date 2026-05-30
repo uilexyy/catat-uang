@@ -1,9 +1,11 @@
 import { NextResponse } from "next/server";
 import { prisma } from "@/lib/prisma";
+import { getUserId } from "@/lib/auth";
 
-export async function GET() {
+export async function GET(request: Request) {
   try {
-    const budgets = await prisma.budget.findMany({ orderBy: [{ year: "desc" }, { month: "desc" }, { category: "asc" }] });
+    const userId = getUserId(request);
+    const budgets = await prisma.budget.findMany({ where: { userId }, orderBy: [{ year: "desc" }, { month: "desc" }, { category: "asc" }] });
     return NextResponse.json(budgets.map((b) => ({
       id: b.id,
       category: b.category,
@@ -22,6 +24,7 @@ export async function GET() {
 
 export async function POST(request: Request) {
   try {
+    const userId = getUserId(request);
     const body = await request.json();
     const { category, type, amount, month, year } = body;
 
@@ -39,7 +42,7 @@ export async function POST(request: Request) {
     }
 
     const budget = await prisma.budget.create({
-      data: { category, type, amount, month, year },
+      data: { userId, category, type, amount, month, year },
     });
 
     return NextResponse.json({

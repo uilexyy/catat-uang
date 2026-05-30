@@ -1,8 +1,10 @@
 import { NextRequest, NextResponse } from "next/server";
 import { prisma } from "@/lib/prisma";
+import { getUserId } from "@/lib/auth";
 
 export async function GET(request: NextRequest) {
   try {
+    const userId = getUserId(request);
     const { searchParams } = new URL(request.url);
 
     const page = Math.max(1, parseInt(searchParams.get("page") || "1"));
@@ -13,7 +15,7 @@ export async function GET(request: NextRequest) {
     const year = searchParams.get("year");
     const search = searchParams.get("search");
 
-    const where: Record<string, unknown> = {};
+    const where: Record<string, unknown> = { userId };
 
     if (type && (type === "income" || type === "expense")) {
       where.type = type;
@@ -67,6 +69,7 @@ export async function GET(request: NextRequest) {
 
 export async function POST(request: NextRequest) {
   try {
+    const userId = getUserId(request);
     const body = await request.json();
     const { type, amount, category, description, date } = body;
 
@@ -88,6 +91,7 @@ export async function POST(request: NextRequest) {
 
     const transaction = await prisma.transaction.create({
       data: {
+        userId,
         type,
         amount: Number(amount),
         category: category.trim(),

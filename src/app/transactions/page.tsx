@@ -1,4 +1,6 @@
 import { prisma } from "@/lib/prisma";
+import { getSession } from "@/lib/auth";
+import { redirect } from "next/navigation";
 import { Prisma } from "@/generated/prisma/client";
 import { List, Plus } from "lucide-react";
 import FilterBar from "@/components/FilterBar";
@@ -11,6 +13,10 @@ interface PageProps {
 }
 
 export default async function TransactionsPage({ searchParams }: PageProps) {
+  const session = await getSession();
+  if (!session) redirect("/login");
+  const userId = session.userId;
+
   const sp = await searchParams;
 
   const page = Math.max(1, parseInt((sp.page as string) || "1"));
@@ -21,7 +27,7 @@ export default async function TransactionsPage({ searchParams }: PageProps) {
   const year = sp.year as string | undefined;
   const search = sp.search as string | undefined;
 
-  const where: Prisma.TransactionWhereInput = {};
+  const where: Prisma.TransactionWhereInput = { userId };
 
   if (type && (type === "income" || type === "expense")) {
     where.type = type;

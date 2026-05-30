@@ -1,9 +1,16 @@
 import { NextResponse } from "next/server";
 import { prisma } from "@/lib/prisma";
+import { getUserId } from "@/lib/auth";
 
-export async function GET(_request: Request, { params }: { params: Promise<{ id: string }> }) {
+export async function GET(request: Request, { params }: { params: Promise<{ id: string }> }) {
   try {
+    const userId = getUserId(request);
     const { id } = await params;
+
+    const debt = await prisma.debt.findFirst({ where: { id: Number(id), userId } });
+    if (!debt) {
+      return NextResponse.json({ error: "Utang tidak ditemukan" }, { status: 404 });
+    }
     const payments = await prisma.debtPayment.findMany({
       where: { debtId: Number(id) },
       orderBy: { date: "desc" },
@@ -26,6 +33,7 @@ export async function GET(_request: Request, { params }: { params: Promise<{ id:
 
 export async function POST(request: Request, { params }: { params: Promise<{ id: string }> }) {
   try {
+    const userId = getUserId(request);
     const { id } = await params;
     const body = await request.json();
     const { amount, date, notes } = body;
@@ -34,7 +42,7 @@ export async function POST(request: Request, { params }: { params: Promise<{ id:
       return NextResponse.json({ error: "Jumlah pembayaran harus angka positif" }, { status: 400 });
     }
 
-    const debt = await prisma.debt.findUnique({ where: { id: Number(id) } });
+    const debt = await prisma.debt.findFirst({ where: { id: Number(id), userId } });
     if (!debt) {
       return NextResponse.json({ error: "Utang tidak ditemukan" }, { status: 404 });
     }

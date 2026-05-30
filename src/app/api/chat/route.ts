@@ -1,9 +1,11 @@
 import { NextResponse } from "next/server";
 import { parseChatMessage } from "@/lib/chat-parser";
 import { prisma } from "@/lib/prisma";
+import { getUserId } from "@/lib/auth";
 
 export async function POST(request: Request) {
   try {
+    const userId = getUserId(request);
     const { message } = await request.json();
     if (!message || typeof message !== "string") {
       return NextResponse.json({ error: "Pesan tidak valid" }, { status: 400 });
@@ -21,6 +23,7 @@ export async function POST(request: Request) {
 
     const transaction = await prisma.transaction.create({
       data: {
+        userId,
         type: parsed.type,
         amount: parsed.amount,
         category: parsed.category,

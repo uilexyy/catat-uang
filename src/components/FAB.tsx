@@ -7,7 +7,7 @@ import { useToast } from "@/lib/toast";
 import { getCategoryIcon } from "@/lib/category-icons";
 import type { Category } from "@/lib/types";
 
-const hiddenPaths = ["/transactions/new", "/catat-cepat"];
+const hiddenPaths = ["/transactions/new", "/catat-cepat", "/login", "/register"];
 
 export default function FAB() {
   const pathname = usePathname();

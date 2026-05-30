@@ -7,8 +7,23 @@ datasource db {
   provider = "postgresql"
 }
 
+model User {
+  id        Int           @id @default(autoincrement())
+  email     String        @unique @db.VarChar(255)
+  name      String        @db.VarChar(100)
+  password  String        @db.VarChar(255)
+  createdAt DateTime      @default(now()) @map("created_at")
+  updatedAt DateTime      @updatedAt @map("updated_at")
+  transactions Transaction[]
+  debts        Debt[]
+  budgets      Budget[]
+
+  @@map("users")
+}
+
 model Transaction {
   id          Int      @id @default(autoincrement())
+  userId      Int
   type        String   @db.VarChar(7)
   amount      Decimal  @db.Decimal(15, 2)
   category    String   @db.VarChar(100)
@@ -16,6 +31,7 @@ model Transaction {
   date        DateTime @db.Date
   createdAt   DateTime @default(now()) @map("created_at")
   updatedAt   DateTime @updatedAt @map("updated_at")
+  user        User     @relation(fields: [userId], references: [id])
 
   @@map("transactions")
 }
@@ -30,6 +46,7 @@ model Category {
 
 model Budget {
   id        Int      @id @default(autoincrement())
+  userId    Int
   category  String   @db.VarChar(100)
   type      String   @db.VarChar(7)
   amount    Decimal  @db.Decimal(15, 2)
@@ -37,6 +54,7 @@ model Budget {
   year      Int
   createdAt DateTime @default(now()) @map("created_at")
   updatedAt DateTime @updatedAt @map("updated_at")
+  user      User     @relation(fields: [userId], references: [id])
 
   @@map("budgets")
 }
@@ -55,6 +73,7 @@ model DebtPayment {
 
 model Debt {
   id          Int           @id @default(autoincrement())
+  userId      Int
   person      String        @db.VarChar(200)
   amount      Decimal       @db.Decimal(15, 2)
   description String        @default("") @db.Text
@@ -66,6 +85,7 @@ model Debt {
   createdAt   DateTime      @default(now()) @map("created_at")
   updatedAt   DateTime      @updatedAt @map("updated_at")
   payments    DebtPayment[]
+  user        User          @relation(fields: [userId], references: [id])
 
   @@map("debts")
 }

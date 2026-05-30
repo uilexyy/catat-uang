@@ -1,8 +1,10 @@
 import { NextResponse } from "next/server";
 import { prisma } from "@/lib/prisma";
+import { getUserId } from "@/lib/auth";
 
 export async function PUT(request: Request, { params }: { params: Promise<{ id: string }> }) {
   try {
+    const userId = getUserId(request);
     const { id } = await params;
     const body = await request.json();
     const debtId = parseInt(id, 10);
@@ -11,7 +13,7 @@ export async function PUT(request: Request, { params }: { params: Promise<{ id: 
       return NextResponse.json({ error: "ID tidak valid" }, { status: 400 });
     }
 
-    const existing = await prisma.debt.findUnique({ where: { id: debtId } });
+    const existing = await prisma.debt.findFirst({ where: { id: debtId, userId } });
     if (!existing) {
       return NextResponse.json({ error: "Utang tidak ditemukan" }, { status: 404 });
     }
@@ -41,11 +43,17 @@ export async function PUT(request: Request, { params }: { params: Promise<{ id: 
 
 export async function DELETE(request: Request, { params }: { params: Promise<{ id: string }> }) {
   try {
+    const userId = getUserId(request);
     const { id } = await params;
     const debtId = parseInt(id, 10);
 
     if (isNaN(debtId)) {
       return NextResponse.json({ error: "ID tidak valid" }, { status: 400 });
+    }
+
+    const existing = await prisma.debt.findFirst({ where: { id: debtId, userId } });
+    if (!existing) {
+      return NextResponse.json({ error: "Utang tidak ditemukan" }, { status: 404 });
     }
 
     await prisma.debtPayment.deleteMany({ where: { debtId } });

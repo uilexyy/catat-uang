@@ -1,9 +1,11 @@
 import { NextResponse } from "next/server";
 import { prisma } from "@/lib/prisma";
+import { getUserId } from "@/lib/auth";
 import ExcelJS from "exceljs";
 
 export async function GET(request: Request) {
   try {
+    const userId = getUserId(request);
     const { searchParams } = new URL(request.url);
     const type = searchParams.get("type");
     const category = searchParams.get("category");
@@ -11,7 +13,7 @@ export async function GET(request: Request) {
     const year = searchParams.get("year");
     const search = searchParams.get("search");
 
-    const where: Record<string, unknown> = {};
+    const where: Record<string, unknown> = { userId };
 
     if (type === "income" || type === "expense") where.type = type;
     if (category) where.category = category;

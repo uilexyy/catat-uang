@@ -17,6 +17,8 @@ const links = [
 export default function Navbar() {
   const pathname = usePathname();
 
+  if (pathname === "/login" || pathname === "/register") return null;
+
   return (
     <>
       {/* Desktop: Sidebar */}

@@ -1,8 +1,10 @@
 import { NextRequest, NextResponse } from "next/server";
 import { prisma } from "@/lib/prisma";
+import { getUserId } from "@/lib/auth";
 
 export async function PUT(request: NextRequest, { params }: { params: Promise<{ id: string }> }) {
   try {
+    const userId = getUserId(request);
     const { id } = await params;
     const body = await request.json();
     const { type, amount, category, description, date } = body;
@@ -23,7 +25,7 @@ export async function PUT(request: NextRequest, { params }: { params: Promise<{ 
       return NextResponse.json({ error: "Tanggal wajib diisi" }, { status: 400 });
     }
 
-    const existing = await prisma.transaction.findUnique({ where: { id: parseInt(id) } });
+    const existing = await prisma.transaction.findFirst({ where: { id: parseInt(id), userId } });
     if (!existing) {
       return NextResponse.json({ error: "Transaksi tidak ditemukan" }, { status: 404 });
     }
@@ -48,9 +50,10 @@ export async function PUT(request: NextRequest, { params }: { params: Promise<{ 
 
 export async function DELETE(request: NextRequest, { params }: { params: Promise<{ id: string }> }) {
   try {
+    const userId = getUserId(request);
     const { id } = await params;
 
-    const existing = await prisma.transaction.findUnique({ where: { id: parseInt(id) } });
+    const existing = await prisma.transaction.findFirst({ where: { id: parseInt(id), userId } });
     if (!existing) {
       return NextResponse.json({ error: "Transaksi tidak ditemukan" }, { status: 404 });
     }

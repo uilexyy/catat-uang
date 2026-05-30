@@ -1,10 +1,14 @@
 import { NextResponse } from "next/server";
 import { prisma } from "@/lib/prisma";
+import { getUserId } from "@/lib/auth";
 
-export async function GET() {
+export async function GET(request: Request) {
   try {
+    const userId = getUserId(request);
+
     const grouped = await prisma.transaction.groupBy({
       by: ["type"],
+      where: { userId },
       _sum: { amount: true },
     });
 
@@ -17,7 +21,7 @@ export async function GET() {
 
     const monthlyGrouped = await prisma.transaction.groupBy({
       by: ["type"],
-      where: { date: { gte: firstOfMonth } },
+      where: { date: { gte: firstOfMonth }, userId },
       _sum: { amount: true },
     });
 
@@ -32,7 +36,7 @@ export async function GET() {
         COALESCE(SUM(CASE WHEN type = 'income' THEN amount ELSE 0 END), 0) as income,
         COALESCE(SUM(CASE WHEN type = 'expense' THEN amount ELSE 0 END), 0) as expense
       FROM transactions
-      WHERE date >= ${twelveMonthsAgo}
+      WHERE date >= ${twelveMonthsAgo} AND user_id = ${userId}
       GROUP BY TO_CHAR(date, 'YYYY-MM')
       ORDER BY month ASC
     `;

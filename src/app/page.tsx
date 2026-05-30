@@ -1,4 +1,6 @@
 import { prisma } from "@/lib/prisma";
+import { getSession } from "@/lib/auth";
+import { redirect } from "next/navigation";
 import { LayoutDashboard } from "lucide-react";
 import SummaryCards from "@/components/SummaryCards";
 import DebtSummaryCards from "@/components/DebtSummaryCards";
@@ -8,8 +10,13 @@ import BudgetProgress from "@/components/BudgetProgress";
 export const dynamic = "force-dynamic";
 
 export default async function DashboardPage() {
+  const session = await getSession();
+  if (!session) redirect("/login");
+  const userId = session.userId;
+
   const grouped = await prisma.transaction.groupBy({
     by: ["type"],
+    where: { userId },
     _sum: { amount: true },
   });
 
@@ -22,7 +29,7 @@ export default async function DashboardPage() {
 
   const monthlyGrouped = await prisma.transaction.groupBy({
     by: ["type"],
-    where: { date: { gte: firstOfMonth } },
+    where: { date: { gte: firstOfMonth }, userId },
     _sum: { amount: true },
   });
 
@@ -37,7 +44,7 @@ export default async function DashboardPage() {
       COALESCE(SUM(CASE WHEN type = 'income' THEN amount ELSE 0 END), 0) as income,
       COALESCE(SUM(CASE WHEN type = 'expense' THEN amount ELSE 0 END), 0) as expense
     FROM transactions
-    WHERE date >= ${twelveMonthsAgo}
+    WHERE date >= ${twelveMonthsAgo} AND user_id = ${userId}
     GROUP BY TO_CHAR(date, 'YYYY-MM')
     ORDER BY month ASC
   `;
@@ -50,6 +57,7 @@ export default async function DashboardPage() {
 
   const debtAgg = await prisma.debt.groupBy({
     by: ["isPaid"],
+    where: { userId },
     _sum: { amount: true },
   });
   const totalDebt = Number(debtAgg.find((d) => !d.isPaid)?._sum?.amount ?? 0);

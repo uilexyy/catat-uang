@@ -1,13 +1,15 @@
 import { NextResponse } from "next/server";
 import { prisma } from "@/lib/prisma";
+import { getUserId } from "@/lib/auth";
 
 export async function PUT(request: Request, { params }: { params: Promise<{ id: string }> }) {
   try {
+    const userId = getUserId(request);
     const { id } = await params;
     const body = await request.json();
     const { category, type, amount, month, year } = body;
 
-    const existing = await prisma.budget.findUnique({ where: { id: Number(id) } });
+    const existing = await prisma.budget.findFirst({ where: { id: Number(id), userId } });
     if (!existing) {
       return NextResponse.json({ error: "Anggaran tidak ditemukan" }, { status: 404 });
     }
@@ -39,11 +41,12 @@ export async function PUT(request: Request, { params }: { params: Promise<{ id: 
   }
 }
 
-export async function DELETE(_request: Request, { params }: { params: Promise<{ id: string }> }) {
+export async function DELETE(request: Request, { params }: { params: Promise<{ id: string }> }) {
   try {
+    const userId = getUserId(request);
     const { id } = await params;
 
-    const existing = await prisma.budget.findUnique({ where: { id: Number(id) } });
+    const existing = await prisma.budget.findFirst({ where: { id: Number(id), userId } });
     if (!existing) {
       return NextResponse.json({ error: "Anggaran tidak ditemukan" }, { status: 404 });
     }
