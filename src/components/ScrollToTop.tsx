@@ -23,7 +23,7 @@ export default function ScrollToTop() {
       }`}
       title="Ke atas"
     >
-      <ArrowUp className="w-4.5 h-4.5" />
+      <ArrowUp className="w-4 h-4" />
     </button>
   );
 }

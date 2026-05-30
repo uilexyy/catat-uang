@@ -46,7 +46,7 @@ export default function ExportButton({ currentParams }: ExportButtonProps) {
         type="button"
         onClick={() => setOpen(!open)}
         disabled={exporting}
-        className="inline-flex items-center gap-2 px-3 sm:px-4 py-2 sm:py-2.5 bg-white dark:bg-stone-900 border border-stone-200 dark:border-stone-800 hover:border-stone-300 dark:hover:border-stone-700 text-stone-600 dark:text-stone-400 hover:text-stone-800 dark:hover:text-stone-200 text-xs sm:text-sm font-medium rounded-xl shadow-sm dark:shadow-none hover:shadow-md active:scale-[0.97] transition-all duration-200 disabled:opacity-50"
+        className="inline-flex items-center gap-2 px-3 sm:px-4 py-2 sm:py-2.5 bg-white dark:bg-stone-900 border border-stone-200 dark:border-stone-800 hover:border-stone-300 dark:hover:border-stone-700 text-stone-600 dark:text-stone-400 hover:text-stone-800 dark:hover:text-stone-200 text-xs sm:text-sm font-medium rounded-xl shadow-sm dark:shadow-black/5 hover:shadow-md active:scale-[0.97] transition-all duration-200 disabled:opacity-50"
       >
         {exporting ? (
           <Loader2 className="w-3.5 h-3.5 sm:w-4 sm:h-4 animate-spin" />

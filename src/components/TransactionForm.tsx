@@ -3,7 +3,7 @@
 import { useState, useEffect, FormEvent } from "react";
 import { useRouter } from "next/navigation";
 import { useToast } from "@/lib/toast";
-import { CreditCard, Wallet, Loader2, AlertCircle, ArrowLeft, Camera } from "lucide-react";
+import { CreditCard, Wallet, Loader2, AlertCircle, ArrowLeft, Camera, ChevronDown } from "lucide-react";
 import ReceiptUpload from "./ReceiptUpload";
 import { getCategoryIcon } from "@/lib/category-icons";
 import type { Category } from "@/lib/types";
@@ -93,7 +93,7 @@ export default function TransactionForm({ initialData, transactionId }: Transact
     <form onSubmit={handleSubmit} className="space-y-5">
       {error && (
         <div className="flex items-center gap-2.5 bg-rose-50 dark:bg-rose-950/50 text-rose-600 dark:text-rose-400 text-sm px-4 py-3 rounded-xl border border-rose-200 dark:border-rose-900 animate-fade-in">
-          <AlertCircle className="w-4.5 h-4.5 shrink-0" />
+          <AlertCircle className="w-4 h-4 shrink-0" />
           <span>{error}</span>
         </div>
       )}
@@ -107,7 +107,7 @@ export default function TransactionForm({ initialData, transactionId }: Transact
               onClick={() => setShowReceipt(true)}
               className="w-full flex items-center justify-center gap-2 py-3 border-2 border-dashed border-stone-200 dark:border-stone-800 rounded-xl text-sm font-medium text-stone-400 dark:text-stone-500 hover:border-blue-300 hover:text-blue-500 hover:bg-blue-50/30 transition-all duration-200"
             >
-              <Camera className="w-4.5 h-4.5" />
+              <Camera className="w-4 h-4" />
               Upload Struk untuk Isi Otomatis
             </button>
           ) : (
@@ -192,17 +192,20 @@ export default function TransactionForm({ initialData, transactionId }: Transact
         <label htmlFor="category" className="block text-[11px] font-semibold text-stone-400 dark:text-stone-500 uppercase tracking-widest mb-2">
           Kategori
         </label>
-        <select
-          id="category"
-          value={category}
-          onChange={(e) => setCategory(e.target.value)}
-          className="w-full px-4 py-3 bg-white dark:bg-stone-900 border border-stone-200 dark:border-stone-800 rounded-xl text-sm text-stone-700 dark:text-stone-300 focus:outline-none focus:ring-2 focus:ring-blue-500/20 focus:border-blue-400 transition-all duration-200 appearance-none bg-[url('data:image/svg+xml;charset=utf-8,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%2020%2020%22%20fill%3D%22%2378716c%22%3E%3Cpath%20fill-rule%3D%22evenodd%22%20d%3D%22M5.23%207.21a.75.75%200%20011.06.02L10%2011.168l3.71-3.938a.75.75%200%20111.08%201.04l-4.25%204.5a.75.75%200%2001-1.08%200l-4.25-4.5a.75.75%200%2001.02-1.06z%22%20clip-rule%3D%22evenodd%22%2F%3E%3C%2Fsvg%3E')] dark:bg-[url('data:image/svg+xml;charset=utf-8,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%2020%2020%22%20fill%3D%22%23a8a29e%22%3E%3Cpath%20fill-rule%3D%22evenodd%22%20d%3D%22M5.23%207.21a.75.75%200%20011.06.02L10%2011.168l3.71-3.938a.75.75%200%20111.08%201.04l-4.25%204.5a.75.75%200%2001-1.08%200l-4.25-4.5a.75.75%200%2001.02-1.06z%22%20clip-rule%3D%22evenodd%22%2F%3E%3C%2Fsvg%3E')] bg-[length:20px] bg-[right_12px_center] bg-no-repeat pr-10"
+        <div className="relative">
+          <select
+            id="category"
+            value={category}
+            onChange={(e) => setCategory(e.target.value)}
+            className="w-full px-4 py-3 bg-white dark:bg-stone-900 border border-stone-200 dark:border-stone-800 rounded-xl text-sm text-stone-700 dark:text-stone-300 focus:outline-none focus:ring-2 focus:ring-blue-500/20 focus:border-blue-400 transition-all duration-200 appearance-none pr-10"
         >
           <option value="">Pilih kategori</option>
           {visibleCategories.map((cat) => (
             <option key={cat.id} value={cat.name}>{getCategoryIcon(cat.name)} {cat.name}</option>
           ))}
         </select>
+        <ChevronDown className="absolute right-3 top-1/2 -translate-y-1/2 w-4 h-4 text-stone-400 dark:text-stone-500 pointer-events-none" />
+        </div>
       </div>
 
       <div className="animate-fade-in-up [animation-delay:0.15s]">

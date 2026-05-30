@@ -48,7 +48,7 @@ export default function FilterBar() {
   const hasFilters = currentType || currentCategory || currentMonth || currentYear || currentSearch;
 
   return (
-    <div className="bg-white/80 dark:bg-stone-900/80 backdrop-blur-xl rounded-2xl border border-stone-200/80 dark:border-stone-800 p-4 shadow-sm dark:shadow-none shadow-lg shadow-black/5 dark:shadow-black/20 animate-fade-in-up">
+    <div className="bg-white/80 dark:bg-stone-900/80 backdrop-blur-xl rounded-2xl border border-stone-200/80 dark:border-stone-800 p-4 shadow-sm shadow-lg shadow-black/5 dark:shadow-black/5 animate-fade-in-up">
       <div className="flex flex-col sm:flex-row sm:flex-wrap gap-2">
         <select
           value={currentType}

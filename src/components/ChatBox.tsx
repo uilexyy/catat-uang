@@ -1,7 +1,7 @@
 "use client";
 
 import { useState, useRef, useEffect } from "react";
-import { Send, Bot, User, Sparkles, Loader2, ChevronDown } from "lucide-react";
+import { Send, Bot, User, Sparkles, Loader2, ChevronDown, AlertCircle } from "lucide-react";
 
 interface Message {
   role: "user" | "bot";
@@ -149,7 +149,7 @@ export default function ChatBox() {
                 }`}
               >
                 {msg.error ? (
-                  <Loader2 className="w-3.5 h-3.5 text-rose-500" />
+                  <AlertCircle className="w-3.5 h-3.5 text-rose-500" />
                 ) : (
                   <Bot className="w-3.5 h-3.5 text-blue-600" />
                 )}
@@ -160,10 +160,10 @@ export default function ChatBox() {
               <div
                 className={`px-3.5 py-2.5 text-sm leading-relaxed whitespace-pre-wrap ${
                   msg.role === "user"
-                    ? "bg-blue-500 text-white rounded-[18px] rounded-br-[4px] shadow-xs"
+                    ? "bg-blue-500 text-white rounded-[18px] rounded-br-[4px] shadow-sm"
                     : msg.error
-                      ? "bg-rose-50 text-rose-600 rounded-[18px] rounded-bl-[4px] border border-rose-100"
-                      : "bg-white dark:bg-stone-900 text-stone-700 dark:text-stone-300 rounded-[18px] rounded-bl-[4px] shadow-xs border border-stone-100 dark:border-stone-800"
+                      ? "bg-rose-50 text-rose-600 rounded-[18px] rounded-bl-[4px] border border-rose-200 dark:border-rose-900"
+                      : "bg-white dark:bg-stone-900 text-stone-700 dark:text-stone-300 rounded-[18px] rounded-bl-[4px] shadow-sm border border-stone-100 dark:border-stone-800"
                 }`}
               >
                 <span
@@ -196,7 +196,7 @@ export default function ChatBox() {
             <div className="w-7 h-7 rounded-full bg-blue-100 flex items-center justify-center shrink-0">
               <Bot className="w-3.5 h-3.5 text-blue-600" />
             </div>
-            <div className="bg-white dark:bg-stone-900 rounded-[18px] rounded-bl-[4px] px-4 py-3 shadow-xs border border-stone-100 dark:border-stone-800">
+            <div className="bg-white dark:bg-stone-900 rounded-[18px] rounded-bl-[4px] px-4 py-3 shadow-sm border border-stone-100 dark:border-stone-800">
               <div className="flex gap-1">
                 <span className="w-2 h-2 rounded-full bg-stone-300 dark:bg-stone-600 animate-bounce" style={{ animationDelay: "0s" }} />
                 <span className="w-2 h-2 rounded-full bg-stone-300 dark:bg-stone-600 animate-bounce" style={{ animationDelay: "0.15s" }} />

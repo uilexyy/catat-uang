@@ -147,7 +147,7 @@ export default function AnggaranPage() {
         <form onSubmit={handleSubmit} className="bg-white/80 dark:bg-stone-900/80 backdrop-blur-xl rounded-2xl border border-stone-200 dark:border-stone-800 p-4 sm:p-5 space-y-4 animate-fade-in">
           {error && (
             <div className="flex items-center gap-2 bg-rose-50 text-rose-600 text-sm px-4 py-3 rounded-xl border border-rose-200">
-              <AlertCircle className="w-4.5 h-4.5 shrink-0" />
+              <AlertCircle className="w-4 h-4 shrink-0" />
               <span>{error}</span>
             </div>
           )}

@@ -237,7 +237,7 @@ export default function UtangPage() {
         <form onSubmit={handleSubmit} className="bg-white/80 dark:bg-stone-900/80 backdrop-blur-xl rounded-2xl border border-stone-200 dark:border-stone-800 p-4 sm:p-5 space-y-4 animate-fade-in">
           {error && (
             <div className="flex items-center gap-2 bg-rose-50 text-rose-600 text-sm px-4 py-3 rounded-xl border border-rose-200">
-              <AlertCircle className="w-4.5 h-4.5 shrink-0" />
+              <AlertCircle className="w-4 h-4 shrink-0" />
               <span>{error}</span>
             </div>
           )}
@@ -280,7 +280,7 @@ export default function UtangPage() {
           <div className="bg-white dark:bg-stone-900 rounded-2xl border border-stone-200 dark:border-stone-800 shadow-2xl p-5 w-full max-w-md animate-scale-in" onClick={(e) => e.stopPropagation()}>
             <div className="flex items-center gap-3 mb-4">
               <div className="w-9 h-9 rounded-full bg-rose-50 flex items-center justify-center">
-                <Wallet className="w-4.5 h-4.5 text-rose-500" />
+                <Wallet className="w-4 h-4 text-rose-500" />
               </div>
               <div>
                 <h2 className="text-sm font-bold text-stone-700 dark:text-stone-300">Bayar Utang</h2>
@@ -290,7 +290,7 @@ export default function UtangPage() {
 
             {payError && (
               <div className="flex items-center gap-2 bg-rose-50 text-rose-600 text-sm px-4 py-3 rounded-xl border border-rose-200 mb-4">
-                <AlertCircle className="w-4.5 h-4.5 shrink-0" />
+                <AlertCircle className="w-4 h-4 shrink-0" />
                 <span>{payError}</span>
               </div>
             )}
@@ -343,7 +343,7 @@ export default function UtangPage() {
                     <div className="bg-white/80 dark:bg-stone-900/80 backdrop-blur-xl rounded-xl border border-stone-200 dark:border-stone-800 p-4 animate-fade-in-up" style={{ animationDelay: `${i * 0.05}s` }}>
                       <div className="flex items-center gap-3">
                         <button type="button" onClick={() => toggleExpand(debt)} className="w-9 h-9 rounded-full bg-rose-50 flex items-center justify-center shrink-0 hover:bg-rose-100 transition-colors">
-                          <Handshake className="w-4.5 h-4.5 text-rose-500" />
+                          <Handshake className="w-4 h-4 text-rose-500" />
                         </button>
                         <div className="flex-1 min-w-0">
                           <p className="text-sm font-medium text-stone-700 dark:text-stone-300 truncate">{debt.person}</p>
@@ -428,7 +428,7 @@ export default function UtangPage() {
                 {paid.map((debt, i) => (
                   <div key={debt.id} className="bg-white/80 dark:bg-stone-900/80 backdrop-blur-xl rounded-xl border border-stone-200 dark:border-stone-800 p-4 animate-fade-in-up flex items-center gap-3 opacity-60 hover:opacity-100 transition-opacity" style={{ animationDelay: `${i * 0.05}s` }}>
                     <button type="button" onClick={() => toggleExpand(debt)} className="w-9 h-9 rounded-full bg-emerald-50 flex items-center justify-center shrink-0 hover:bg-emerald-100 transition-colors">
-                      <CheckCircle2 className="w-4.5 h-4.5 text-emerald-500" />
+                      <CheckCircle2 className="w-4 h-4 text-emerald-500" />
                     </button>
                     <div className="flex-1 min-w-0">
                       <p className="text-sm font-medium text-stone-500 dark:text-stone-400 line-through truncate">{debt.person}</p>

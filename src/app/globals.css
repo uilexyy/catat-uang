@@ -12,7 +12,7 @@
   --animate-fade-in: fade-in 0.2s ease-out;
   --animate-scale-in: scale-in 0.2s ease-out;
   --animate-slide-up: slide-up 0.35s ease-out;
-  --animate-skeleton: skeleton-pulse 1.5s ease-in-out infinite;
+  --animate-skeleton: skeleton-shimmer 1.8s ease-in-out infinite;
   --animate-stagger-fade: stagger-fade 0.5s ease-out forwards;
 }
 
@@ -41,9 +41,11 @@
   to { opacity: 1; transform: translateX(0) scale(1); }
 }
 
-@keyframes skeleton-pulse {
-  0%, 100% { opacity: 1; }
-  50% { opacity: 0.4; }
+@keyframes skeleton-shimmer {
+  0% { opacity: 0.6; }
+  25% { opacity: 1; }
+  50% { opacity: 0.6; }
+  100% { opacity: 0.6; }
 }
 
 @keyframes stagger-fade {
@@ -63,4 +65,13 @@ body {
 
 .dark body {
   background-image: radial-gradient(rgba(255,255,255,0.03) 1px, transparent 1px);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
 }

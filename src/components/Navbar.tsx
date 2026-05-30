@@ -46,7 +46,7 @@ export default function Navbar() {
                     : "text-stone-400 dark:text-stone-500 hover:text-stone-600 dark:hover:text-stone-300 hover:bg-stone-50 dark:hover:bg-stone-800"
                 }`}
               >
-                <Icon className={`w-4.5 h-4.5 shrink-0 ${isActive ? "text-blue-500" : ""}`} />
+                <Icon className={`w-4 h-4 shrink-0 ${isActive ? "text-blue-500" : ""}`} />
                 {link.label}
               </Link>
             );
@@ -76,7 +76,7 @@ export default function Navbar() {
                 {isActive && (
                   <span className="absolute -top-0.5 left-1/2 -translate-x-1/2 w-8 h-1 rounded-full bg-blue-500" />
                 )}
-                <Icon className="w-5.5 h-5.5" />
+                <Icon className="w-5 h-5" />
                 <span className="text-[10px] font-medium leading-tight">{link.label}</span>
               </Link>
             );
