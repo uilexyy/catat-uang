@@ -5,6 +5,8 @@ import DebtSummaryCards from "@/components/DebtSummaryCards";
 import Chart from "@/components/Chart";
 import BudgetProgress from "@/components/BudgetProgress";
 
+export const dynamic = "force-dynamic";
+
 export default async function DashboardPage() {
   const grouped = await prisma.transaction.groupBy({
     by: ["type"],
