@@ -10,7 +10,7 @@ export default function LoginPage() {
   const searchParams = useSearchParams();
   const redirect = searchParams.get("redirect") || "/";
 
-  const [email, setEmail] = useState("");
+  const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
@@ -20,8 +20,8 @@ export default function LoginPage() {
     e.preventDefault();
     setError("");
 
-    if (!email || !password) {
-      setError("Email dan password harus diisi");
+    if (!username || !password) {
+      setError("Username dan password harus diisi");
       return;
     }
 
@@ -30,7 +30,7 @@ export default function LoginPage() {
       const res = await fetch("/api/auth/login", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ email, password }),
+        body: JSON.stringify({ username, password }),
       });
 
       const data = await res.json();
@@ -64,14 +64,15 @@ export default function LoginPage() {
           )}
 
           <div>
-            <label className="block text-xs font-semibold text-stone-400 dark:text-stone-500 uppercase tracking-wider mb-1.5">Email</label>
+            <label className="block text-xs font-semibold text-stone-400 dark:text-stone-500 uppercase tracking-wider mb-1.5">Username</label>
             <input
-              type="email"
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
-              placeholder="nama@email.com"
+              type="text"
+              value={username}
+              onChange={(e) => setUsername(e.target.value)}
+              placeholder="Masukkan username"
               className="w-full px-4 py-2.5 bg-white dark:bg-stone-800 border border-stone-200 dark:border-stone-700 rounded-xl text-sm text-stone-700 dark:text-stone-300 placeholder-stone-300 dark:placeholder-stone-600 focus:outline-none focus:ring-2 focus:ring-blue-500/20 focus:border-blue-400 transition-all"
               autoFocus
+              autoComplete="username"
             />
           </div>
 
@@ -84,6 +85,7 @@ export default function LoginPage() {
                 onChange={(e) => setPassword(e.target.value)}
                 placeholder="Masukkan password"
                 className="w-full px-4 py-2.5 pr-10 bg-white dark:bg-stone-800 border border-stone-200 dark:border-stone-700 rounded-xl text-sm text-stone-700 dark:text-stone-300 placeholder-stone-300 dark:placeholder-stone-600 focus:outline-none focus:ring-2 focus:ring-blue-500/20 focus:border-blue-400 transition-all"
+                autoComplete="current-password"
               />
               <button
                 type="button"
