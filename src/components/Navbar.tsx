@@ -77,7 +77,7 @@ export default function Navbar() {
                   <span className="absolute -top-0.5 left-1/2 -translate-x-1/2 w-8 h-1 rounded-full bg-blue-500" />
                 )}
                 <Icon className="w-5 h-5" />
-                <span className="text-[10px] font-medium leading-tight">{link.label}</span>
+                <span className="text-[10px] font-medium leading-tight truncate max-w-full">{link.label}</span>
               </Link>
             );
           })}

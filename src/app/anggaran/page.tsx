@@ -230,11 +230,11 @@ export default function AnggaranPage() {
                           {formatRupiah(b.amount)}
                         </p>
                         <div className="flex gap-1">
-                          <button type="button" onClick={() => openEdit(b)} className="w-8 h-8 rounded-lg bg-stone-50 dark:bg-stone-800 hover:bg-blue-50 flex items-center justify-center transition-colors" title="Edit">
-                            <Pencil className="w-4 h-4 text-stone-400 dark:text-stone-500 hover:text-blue-500" />
+                          <button type="button" onClick={() => openEdit(b)} className="w-7 h-7 sm:w-8 sm:h-8 rounded-lg bg-stone-50 dark:bg-stone-800 hover:bg-blue-50 flex items-center justify-center transition-colors shrink-0" title="Edit">
+                            <Pencil className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-stone-400 dark:text-stone-500 hover:text-blue-500" />
                           </button>
-                          <button type="button" onClick={() => handleDelete(b.id)} className="w-8 h-8 rounded-lg bg-stone-50 dark:bg-stone-800 hover:bg-rose-50 flex items-center justify-center transition-colors" title="Hapus">
-                            <Trash2 className="w-4 h-4 text-stone-400 dark:text-stone-500 hover:text-rose-500" />
+                          <button type="button" onClick={() => handleDelete(b.id)} className="w-7 h-7 sm:w-8 sm:h-8 rounded-lg bg-stone-50 dark:bg-stone-800 hover:bg-rose-50 flex items-center justify-center transition-colors shrink-0" title="Hapus">
+                            <Trash2 className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-stone-400 dark:text-stone-500 hover:text-rose-500" />
                           </button>
                         </div>
                       </div>

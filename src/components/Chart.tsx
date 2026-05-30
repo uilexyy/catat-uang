@@ -56,7 +56,8 @@ export default function Chart({ data }: ChartProps) {
         </h2>
       </div>
 
-        <ResponsiveContainer width="100%" height={300}>
+        <div className="h-[220px] sm:h-[300px]">
+          <ResponsiveContainer width="100%" height="100%">
           <BarChart data={data}>
             <CartesianGrid strokeDasharray="3 3" stroke="#e7e5e4" vertical={false} />
             <XAxis
@@ -96,6 +97,7 @@ export default function Chart({ data }: ChartProps) {
             />
           </BarChart>
         </ResponsiveContainer>
+        </div>
     </div>
   );
 }

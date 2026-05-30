@@ -101,7 +101,7 @@ export default function ChatBox() {
   }
 
   return (
-    <div className="flex flex-col h-[500px] rounded-2xl overflow-hidden bg-[#efeae2] dark:bg-stone-800 border border-stone-200 dark:border-stone-700 relative">
+    <div className="flex flex-col h-[calc(100vh-18rem)] min-h-[400px] max-h-[600px] rounded-2xl overflow-hidden bg-[#efeae2] dark:bg-stone-800 border border-stone-200 dark:border-stone-700 relative">
       {/* Header */}
       <div className="shrink-0 bg-gradient-to-r from-blue-600 to-blue-700 px-4 py-3 flex items-center gap-3 shadow-sm">
         <div className="w-9 h-9 rounded-full bg-white/20 flex items-center justify-center">
@@ -229,7 +229,7 @@ export default function ChatBox() {
         <button
           type="button"
           onClick={scrollToBottom}
-          className="absolute bottom-20 right-4 w-8 h-8 rounded-full bg-white dark:bg-stone-900 shadow-md border border-stone-200 dark:border-stone-800 flex items-center justify-center hover:bg-stone-50 dark:hover:bg-stone-800 transition-all duration-200 animate-fade-in"
+          className="absolute bottom-16 right-4 w-8 h-8 rounded-full bg-white dark:bg-stone-900 shadow-md border border-stone-200 dark:border-stone-800 flex items-center justify-center hover:bg-stone-50 dark:hover:bg-stone-800 transition-all duration-200 animate-fade-in"
         >
           <ChevronDown className="w-4 h-4 text-stone-500 dark:text-stone-400" />
         </button>

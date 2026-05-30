@@ -80,7 +80,7 @@ export default function FAB() {
     <>
       <button
         onClick={() => setOpen(true)}
-        className="fixed bottom-20 md:bottom-6 right-4 sm:right-6 z-40 w-14 h-14 rounded-full bg-blue-600 hover:bg-blue-700 active:bg-blue-800 active:scale-90 text-white shadow-lg hover:shadow-xl flex items-center justify-center transition-all duration-200 hover:rotate-90"
+        className="fixed bottom-24 md:bottom-6 right-4 sm:right-6 z-40 w-14 h-14 rounded-full bg-blue-600 hover:bg-blue-700 active:bg-blue-800 active:scale-90 text-white shadow-lg hover:shadow-xl flex items-center justify-center transition-all duration-200 hover:rotate-90"
         aria-label="Tambah transaksi"
       >
         <Plus className="w-6 h-6" />

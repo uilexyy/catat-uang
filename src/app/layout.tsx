@@ -45,7 +45,7 @@ export default function RootLayout({
         <ThemeProvider>
         <ToastProvider>
           <Navbar />
-          <main className="flex-1 w-full max-w-5xl mx-auto px-4 sm:px-6 py-4 sm:py-6 pb-20 md:pb-6">
+          <main className="flex-1 w-full max-w-5xl mx-auto px-4 sm:px-6 py-4 sm:py-6 pb-[calc(5rem+env(safe-area-inset-bottom,0px))] md:pb-6">
             <PageTransition>{children}</PageTransition>
           </main>
           <FAB />

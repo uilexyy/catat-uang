@@ -362,14 +362,14 @@ export default function UtangPage() {
                           )}
                         </div>
                         <div className="flex gap-1">
-                          <button type="button" onClick={() => setPayingDebt(debt)} className="w-8 h-8 rounded-lg bg-rose-50 hover:bg-rose-100 flex items-center justify-center transition-colors" title="Bayar">
-                            <Banknote className="w-4 h-4 text-rose-500" />
+                          <button type="button" onClick={() => setPayingDebt(debt)} className="w-7 h-7 sm:w-8 sm:h-8 rounded-lg bg-rose-50 hover:bg-rose-100 flex items-center justify-center transition-colors shrink-0" title="Bayar">
+                            <Banknote className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-rose-500" />
                           </button>
-                          <button type="button" onClick={() => togglePaid(debt)} className="w-8 h-8 rounded-lg bg-emerald-50 hover:bg-emerald-100 flex items-center justify-center transition-colors" title="Tandai Lunas">
-                            <CheckCircle2 className="w-4 h-4 text-emerald-500" />
+                          <button type="button" onClick={() => togglePaid(debt)} className="w-7 h-7 sm:w-8 sm:h-8 rounded-lg bg-emerald-50 hover:bg-emerald-100 flex items-center justify-center transition-colors shrink-0" title="Tandai Lunas">
+                            <CheckCircle2 className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-emerald-500" />
                           </button>
-                          <button type="button" onClick={() => handleDelete(debt.id)} className="w-8 h-8 rounded-lg bg-stone-50 dark:bg-stone-800 hover:bg-rose-50 flex items-center justify-center transition-colors" title="Hapus">
-                            <Trash2 className="w-4 h-4 text-stone-400 dark:text-stone-500 hover:text-rose-500" />
+                          <button type="button" onClick={() => handleDelete(debt.id)} className="w-7 h-7 sm:w-8 sm:h-8 rounded-lg bg-stone-50 dark:bg-stone-800 hover:bg-rose-50 flex items-center justify-center transition-colors shrink-0" title="Hapus">
+                            <Trash2 className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-stone-400 dark:text-stone-500 hover:text-rose-500" />
                           </button>
                         </div>
                       </div>
