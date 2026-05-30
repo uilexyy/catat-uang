@@ -115,7 +115,7 @@ function MobileCard({ tx, onDelete }: { tx: Transaction; onDelete: (id: number) 
               <p className="text-xs text-stone-400 dark:text-stone-500 mt-0.5 line-clamp-1">{tx.description}</p>
             )}
           </div>
-          <p className={`text-base font-bold whitespace-nowrap shrink-0 ${tx.type === "income" ? "text-emerald-600" : "text-rose-600"}`}>
+          <p className={`text-sm sm:text-base font-bold whitespace-nowrap shrink-0 ${tx.type === "income" ? "text-emerald-600" : "text-rose-600"}`}>
             {tx.type === "income" ? "+" : "−"}{formatRupiah(tx.amount)}
           </p>
         </div>

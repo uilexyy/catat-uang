@@ -80,19 +80,19 @@ export default async function TransactionsPage({ searchParams }: PageProps) {
   return (
     <div className="space-y-4">
       <div className="animate-fade-in-up">
-        <div className="flex items-center justify-between gap-4">
-          <div className="bg-gradient-to-r from-blue-600 to-blue-500 rounded-2xl p-5 shadow-lg flex-1">
+        <div className="flex flex-col sm:flex-row gap-3 sm:gap-4">
+          <div className="bg-gradient-to-r from-blue-600 to-blue-500 rounded-2xl p-5 shadow-lg flex-1 min-w-0">
             <div className="flex items-center gap-4">
-              <div className="w-10 h-10 rounded-xl bg-white/20 flex items-center justify-center backdrop-blur-sm">
+              <div className="w-10 h-10 rounded-xl bg-white/20 flex items-center justify-center backdrop-blur-sm shrink-0">
                 <List className="w-5 h-5 text-white" />
               </div>
-              <div>
-                <h1 className="text-lg font-bold text-white">Riwayat Transaksi</h1>
-                <p className="text-sm text-blue-100">Daftar semua pemasukan dan pengeluaran</p>
+              <div className="min-w-0">
+                <h1 className="text-lg font-bold text-white truncate">Riwayat Transaksi</h1>
+                <p className="text-sm text-blue-100 truncate">Daftar semua pemasukan dan pengeluaran</p>
               </div>
             </div>
           </div>
-          <div className="flex items-center gap-2">
+          <div className="flex items-center gap-2 shrink-0 self-end sm:self-center">
             <ExportButton currentParams={currentParams} />
             <Link
               href="/transactions/new"
