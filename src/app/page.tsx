@@ -44,7 +44,7 @@ export default async function DashboardPage() {
       COALESCE(SUM(CASE WHEN type = 'income' THEN amount ELSE 0 END), 0) as income,
       COALESCE(SUM(CASE WHEN type = 'expense' THEN amount ELSE 0 END), 0) as expense
     FROM transactions
-    WHERE date >= ${twelveMonthsAgo} AND user_id = ${userId}
+    WHERE date >= ${twelveMonthsAgo} AND "userId" = ${userId}
     GROUP BY TO_CHAR(date, 'YYYY-MM')
     ORDER BY month ASC
   `;
