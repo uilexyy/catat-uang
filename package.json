@@ -5,7 +5,7 @@
   "scripts": {
     "dev": "next dev -H 0.0.0.0 --webpack",
     "build": "next build",
-    "vercel-build": "npx prisma generate && next build",
+    "vercel-build": "npx prisma migrate deploy && npx prisma generate && next build",
     "start": "next start",
     "lint": "eslint"
   },
@@ -36,6 +36,7 @@
     "eslint-config-next": "16.2.6",
     "prisma": "^7.8.0",
     "tailwindcss": "^4",
+    "tsx": "^4.22.4",
     "typescript": "^5"
   }
 }
