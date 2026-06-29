@@ -54,12 +54,17 @@ export default function BudgetProgress() {
                     {formatRupiah(item.spent)} / {formatRupiah(item.budgeted)}
                   </span>
                 </div>
-                <div className="w-full h-2 bg-stone-100 dark:bg-stone-800 rounded-full overflow-hidden">
+                <div className="w-full h-2.5 bg-stone-100 dark:bg-stone-800 rounded-full overflow-hidden">
                   <div
-                    className={`h-full rounded-full transition-all duration-500 ${
-                      overBudget ? "bg-rose-500" : nearLimit ? "bg-amber-400" : "bg-emerald-400"
-                    }`}
-                    style={{ width: `${Math.min(item.percentage, 100)}%` }}
+                    className="h-full rounded-full transition-all duration-700 ease-out"
+                    style={{
+                      width: `${Math.min(item.percentage, 100)}%`,
+                      background: overBudget
+                        ? "linear-gradient(90deg, #fb7185, #f43f5e)"
+                        : nearLimit
+                          ? "linear-gradient(90deg, #fbbf24, #f59e0b)"
+                          : "linear-gradient(90deg, #34d399, #10b981)",
+                    }}
                   />
                 </div>
               </div>

@@ -99,15 +99,22 @@ export default function AnggaranPage() {
     }
   }
 
-  async function handleDelete(id: number) {
-    if (!confirm("Hapus anggaran ini?")) return;
+  const [deleteId, setDeleteId] = useState<number | null>(null);
+  const [deleting, setDeleting] = useState(false);
+
+  async function confirmDelete() {
+    if (deleteId === null) return;
+    setDeleting(true);
     try {
-      const res = await fetch(`/api/budgets/${id}`, { method: "DELETE" });
+      const res = await fetch(`/api/budgets/${deleteId}`, { method: "DELETE" });
       if (!res.ok) throw new Error();
       toast("success", "Anggaran dihapus");
+      setDeleteId(null);
       refresh();
     } catch {
       toast("error", "Gagal menghapus anggaran");
+    } finally {
+      setDeleting(false);
     }
   }
 
@@ -235,7 +242,8 @@ export default function AnggaranPage() {
                 </h2>
                 <div className="space-y-2">
                   {list.map((b, i) => (
-                    <div key={b.id} className="bg-white/80 dark:bg-stone-900/80 backdrop-blur-xl rounded-xl border border-stone-200 dark:border-stone-800 p-4 animate-fade-in-up" style={{ animationDelay: `${i * 0.05}s` }}>
+                    <div key={b.id} className={`relative bg-white/80 dark:bg-stone-900/80 backdrop-blur-xl rounded-xl border p-4 animate-fade-in-up overflow-hidden ${t === "expense" ? "border-rose-200/60 dark:border-rose-900/50" : "border-emerald-200/60 dark:border-emerald-900/50"}`} style={{ animationDelay: `${i * 0.05}s` }}>
+                      <div className={`absolute left-0 top-2 bottom-2 w-1 rounded-r-full ${t === "expense" ? "bg-rose-400" : "bg-emerald-400"}`} />
                       <div className="flex items-center justify-between gap-3">
                         <div className="flex-1 min-w-0">
                           <p className="text-sm font-medium text-stone-700 dark:text-stone-300 truncate">{getCategoryIcon(b.category)} {b.category}</p>
@@ -248,7 +256,7 @@ export default function AnggaranPage() {
                           <button type="button" onClick={() => openEdit(b)} className="w-7 h-7 sm:w-8 sm:h-8 rounded-lg bg-stone-50 dark:bg-stone-800 hover:bg-blue-50 flex items-center justify-center transition-colors shrink-0" title="Edit">
                             <Pencil className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-stone-400 dark:text-stone-500 hover:text-blue-500" />
                           </button>
-                          <button type="button" onClick={() => handleDelete(b.id)} className="w-7 h-7 sm:w-8 sm:h-8 rounded-lg bg-stone-50 dark:bg-stone-800 hover:bg-rose-50 flex items-center justify-center transition-colors shrink-0" title="Hapus">
+                          <button type="button" onClick={() => setDeleteId(b.id)} className="w-7 h-7 sm:w-8 sm:h-8 rounded-lg bg-stone-50 dark:bg-stone-800 hover:bg-rose-50 flex items-center justify-center transition-colors shrink-0" title="Hapus">
                             <Trash2 className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-stone-400 dark:text-stone-500 hover:text-rose-500" />
                           </button>
                         </div>
@@ -258,7 +266,7 @@ export default function AnggaranPage() {
                           <Pencil className="w-3.5 h-3.5" />
                           Edit
                         </button>
-                        <button type="button" onClick={() => handleDelete(b.id)} className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-stone-100 dark:bg-stone-800 hover:bg-rose-50 text-stone-500 hover:text-rose-600 text-xs font-medium transition-colors active:scale-95">
+                        <button type="button" onClick={() => setDeleteId(b.id)} className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-stone-100 dark:bg-stone-800 hover:bg-rose-50 text-stone-500 hover:text-rose-600 text-xs font-medium transition-colors active:scale-95">
                           <Trash2 className="w-3.5 h-3.5" />
                           Hapus
                         </button>
@@ -269,6 +277,46 @@ export default function AnggaranPage() {
               </div>
             );
           })}
+        </div>
+      )}
+
+      {/* Delete Modal */}
+      {deleteId !== null && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center p-4">
+          <div
+            className="absolute inset-0 bg-black/30 backdrop-blur-sm animate-fade-in"
+            onClick={() => !deleting && setDeleteId(null)}
+          />
+          <div className="relative bg-white dark:bg-stone-900 rounded-2xl p-6 max-w-sm w-full shadow-2xl dark:border dark:border-stone-800 animate-scale-in">
+            <div className="text-center mb-5">
+              <div className="w-12 h-12 rounded-2xl bg-rose-50 flex items-center justify-center mx-auto mb-3">
+                <AlertCircle className="w-6 h-6 text-rose-500" />
+              </div>
+              <h3 className="text-base font-bold text-stone-800 dark:text-stone-200 mb-1">Hapus Anggaran</h3>
+              <p className="text-sm text-stone-400 dark:text-stone-500">Apakah kamu yakin? Tindakan ini tidak dapat dibatalkan.</p>
+            </div>
+            <div className="flex gap-2">
+              <button
+                onClick={() => setDeleteId(null)}
+                disabled={deleting}
+                className="flex-1 py-2.5 text-sm font-medium text-stone-500 dark:text-stone-400 bg-stone-100 dark:bg-stone-800 hover:bg-stone-200 dark:hover:bg-stone-700 active:scale-[0.97] rounded-xl transition-all duration-200 disabled:opacity-50"
+              >
+                Batal
+              </button>
+              <button
+                onClick={confirmDelete}
+                disabled={deleting}
+                className="flex-1 py-2.5 text-sm font-medium text-white bg-rose-600 hover:bg-rose-700 active:bg-rose-800 disabled:bg-rose-300 active:scale-[0.97] rounded-xl transition-all duration-200 shadow-sm disabled:cursor-not-allowed"
+              >
+                {deleting ? (
+                  <span className="flex items-center justify-center gap-2">
+                    <Loader2 className="w-4 h-4 animate-spin" />
+                    Menghapus...
+                  </span>
+                ) : "Ya, Hapus"}
+              </button>
+            </div>
+          </div>
         </div>
       )}
     </div>

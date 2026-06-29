@@ -5,37 +5,26 @@ import { useEffect, useRef, useState, type ReactNode } from "react";
 
 export default function PageTransition({ children }: { children: ReactNode }) {
   const pathname = usePathname();
-  const [state, setState] = useState<"enter" | "stable" | "exit">("enter");
+  const [state, setState] = useState<"enter" | "stable">("stable");
   const prevPath = useRef(pathname);
   const timeoutRef = useRef<ReturnType<typeof setTimeout> | undefined>(undefined);
 
   useEffect(() => {
     if (prevPath.current !== pathname) {
-      setState("exit");
-      clearTimeout(timeoutRef.current);
-      timeoutRef.current = setTimeout(() => {
-        setState("enter");
-        requestAnimationFrame(() => {
-          requestAnimationFrame(() => {
-            setState("stable");
-          });
-        });
-      }, 150);
       prevPath.current = pathname;
-    } else {
-      setState("stable");
+      setState("enter");
+      clearTimeout(timeoutRef.current);
+      timeoutRef.current = setTimeout(() => setState("stable"), 50);
     }
     return () => clearTimeout(timeoutRef.current);
   }, [pathname]);
 
   return (
     <div
-      className={`transition-all duration-[400ms] ease-out ${
-        state === "exit"
-          ? "opacity-0 translate-y-2 scale-[0.98]"
-          : state === "enter"
-            ? "opacity-0 translate-y-2 scale-[0.98]"
-            : "opacity-100 translate-y-0 scale-100"
+      className={`transition-all duration-[500ms] cubic-bezier(0.16,1,0.3,1) ${
+        state === "enter"
+          ? "opacity-0 translate-y-3"
+          : "opacity-100 translate-y-0"
       }`}
     >
       {children}

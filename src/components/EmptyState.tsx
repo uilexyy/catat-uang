@@ -8,12 +8,32 @@ interface EmptyStateProps {
   action?: { label: string; href: string };
 }
 
-function Illustration({ children }: { children: ReactNode }) {
+const gradients = {
+  blue: { from: "#3b82f6", to: "#6366f1" },
+  rose: { from: "#f43f5e", to: "#e11d48" },
+  emerald: { from: "#10b981", to: "#34d399" },
+  amber: { from: "#f59e0b", to: "#d97706" },
+  violet: { from: "#8b5cf6", to: "#6366f1" },
+};
+
+function Illustration({ children, accent = "blue" }: { children: ReactNode; accent?: keyof typeof gradients }) {
+  const g = gradients[accent];
   return (
-    <div className="relative w-24 h-24 sm:w-28 sm:h-28 mx-auto mb-5">
+    <div className="relative w-28 h-28 sm:w-32 sm:h-32 mx-auto mb-5">
       <svg className="absolute inset-0 w-full h-full" viewBox="0 0 120 120" fill="none">
-        <circle cx="60" cy="60" r="56" className="stroke-stone-200 dark:stroke-stone-700" strokeWidth="2" strokeDasharray="6 4" />
-        <circle cx="60" cy="60" r="44" className="fill-stone-100 dark:fill-stone-800/50" />
+        <defs>
+          <linearGradient id={`bg-${accent}`} x1="0" y1="0" x2="1" y2="1">
+            <stop offset="0%" stopColor={g.from} stopOpacity="0.08" />
+            <stop offset="100%" stopColor={g.to} stopOpacity="0.16" />
+          </linearGradient>
+          <linearGradient id={`ring-${accent}`} x1="0" y1="0" x2="1" y2="1">
+            <stop offset="0%" stopColor={g.from} stopOpacity="0.15" />
+            <stop offset="100%" stopColor={g.to} stopOpacity="0.3" />
+          </linearGradient>
+        </defs>
+        <circle cx="60" cy="60" r="56" fill={`url(#bg-${accent})`} />
+        <circle cx="60" cy="60" r="56" stroke={`url(#ring-${accent})`} strokeWidth="2" strokeDasharray="6 4" />
+        <circle cx="60" cy="60" r="44" className="fill-stone-50 dark:fill-stone-800/50" />
       </svg>
       <div className="absolute inset-0 flex items-center justify-center">
         {children}
@@ -24,57 +44,98 @@ function Illustration({ children }: { children: ReactNode }) {
 
 function WalletIcon() {
   return (
-    <svg viewBox="0 0 48 48" className="w-10 h-10 text-stone-300 dark:text-stone-600">
-      <rect x="6" y="12" width="36" height="24" rx="3" stroke="currentColor" strokeWidth="2" fill="none" />
-      <rect x="26" y="20" width="16" height="8" rx="2" stroke="currentColor" strokeWidth="2" fill="none" />
-      <circle cx="32" cy="24" r="2" className="fill-stone-300 dark:fill-stone-600" />
-      <line x1="6" y1="20" x2="18" y2="20" stroke="currentColor" strokeWidth="2" strokeLinecap="round" />
-      <line x1="6" y1="28" x2="14" y2="28" stroke="currentColor" strokeWidth="2" strokeLinecap="round" />
+    <svg viewBox="0 0 48 48" className="w-10 h-10" fill="none">
+      <defs>
+        <linearGradient id="walletBody" x1="0" y1="0" x2="1" y2="1">
+          <stop offset="0%" stopColor="#3b82f6" stopOpacity="0.6" />
+          <stop offset="100%" stopColor="#6366f1" stopOpacity="0.4" />
+        </linearGradient>
+        <linearGradient id="walletAccent" x1="0" y1="0" x2="1" y2="1">
+          <stop offset="0%" stopColor="#3b82f6" />
+          <stop offset="100%" stopColor="#6366f1" />
+        </linearGradient>
+      </defs>
+      <rect x="6" y="12" width="36" height="24" rx="3" stroke="url(#walletAccent)" strokeWidth="2" fill="url(#walletBody)" />
+      <rect x="26" y="20" width="16" height="8" rx="2" stroke="url(#walletAccent)" strokeWidth="2" fill="url(#walletBody)" />
+      <circle cx="32" cy="24" r="2" className="fill-blue-500" />
+      <line x1="6" y1="20" x2="18" y2="20" stroke="url(#walletAccent)" strokeWidth="2" strokeLinecap="round" />
+      <line x1="6" y1="28" x2="14" y2="28" stroke="url(#walletAccent)" strokeWidth="2" strokeLinecap="round" />
     </svg>
   );
 }
 
 function SearchIcon() {
   return (
-    <svg viewBox="0 0 48 48" className="w-10 h-10 text-stone-300 dark:text-stone-600">
-      <circle cx="20" cy="20" r="10" stroke="currentColor" strokeWidth="2" fill="none" />
-      <line x1="27" y1="27" x2="36" y2="36" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" />
-      <line x1="12" y1="12" x2="14" y2="14" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" opacity="0.5" />
+    <svg viewBox="0 0 48 48" className="w-10 h-10" fill="none">
+      <defs>
+        <linearGradient id="searchStroke" x1="0" y1="0" x2="1" y2="1">
+          <stop offset="0%" stopColor="#8b5cf6" />
+          <stop offset="100%" stopColor="#6366f1" />
+        </linearGradient>
+      </defs>
+      <circle cx="20" cy="20" r="10" stroke="url(#searchStroke)" strokeWidth="2.5" fill="url(#searchStroke)" fillOpacity="0.08" />
+      <line x1="27" y1="27" x2="36" y2="36" stroke="url(#searchStroke)" strokeWidth="2.5" strokeLinecap="round" />
+      <line x1="12" y1="12" x2="14" y2="14" stroke="url(#searchStroke)" strokeWidth="1.5" strokeLinecap="round" opacity="0.4" />
     </svg>
   );
 }
 
 function ChartIcon() {
   return (
-    <svg viewBox="0 0 48 48" className="w-10 h-10 text-stone-300 dark:text-stone-600">
-      <rect x="6" y="28" width="8" height="14" rx="1.5" stroke="currentColor" strokeWidth="2" fill="none" />
-      <rect x="18" y="18" width="8" height="24" rx="1.5" stroke="currentColor" strokeWidth="2" fill="none" />
-      <rect x="30" y="22" width="8" height="20" rx="1.5" stroke="currentColor" strokeWidth="2" fill="none" />
-      <line x1="4" y1="44" x2="44" y2="44" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" />
-      <circle cx="34" cy="14" r="8" stroke="currentColor" strokeWidth="2" fill="none" />
-      <line x1="34" y1="11" x2="34" y2="17" stroke="currentColor" strokeWidth="2" strokeLinecap="round" />
-      <line x1="31" y1="14" x2="37" y2="14" stroke="currentColor" strokeWidth="2" strokeLinecap="round" />
+    <svg viewBox="0 0 48 48" className="w-10 h-10" fill="none">
+      <defs>
+        <linearGradient id="chartEmerald" x1="0" y1="0" x2="0" y2="1">
+          <stop offset="0%" stopColor="#10b981" />
+          <stop offset="100%" stopColor="#34d399" />
+        </linearGradient>
+        <linearGradient id="chartBlue" x1="0" y1="0" x2="0" y2="1">
+          <stop offset="0%" stopColor="#3b82f6" />
+          <stop offset="100%" stopColor="#60a5fa" />
+        </linearGradient>
+        <linearGradient id="chartRose" x1="0" y1="0" x2="0" y2="1">
+          <stop offset="0%" stopColor="#f43f5e" />
+          <stop offset="100%" stopColor="#fb7185" />
+        </linearGradient>
+      </defs>
+      <rect x="6" y="28" width="8" height="14" rx="1.5" stroke="url(#chartEmerald)" strokeWidth="2" fill="url(#chartEmerald)" fillOpacity="0.15" />
+      <rect x="18" y="18" width="8" height="24" rx="1.5" stroke="url(#chartBlue)" strokeWidth="2" fill="url(#chartBlue)" fillOpacity="0.15" />
+      <rect x="30" y="22" width="8" height="20" rx="1.5" stroke="url(#chartRose)" strokeWidth="2" fill="url(#chartRose)" fillOpacity="0.15" />
+      <line x1="4" y1="44" x2="44" y2="44" stroke="#a8a29e" strokeWidth="1.5" strokeLinecap="round" className="stroke-stone-300 dark:stroke-stone-600" />
+      <circle cx="34" cy="14" r="8" stroke="url(#chartBlue)" strokeWidth="2" fill="url(#chartBlue)" fillOpacity="0.08" />
+      <line x1="34" y1="11" x2="34" y2="17" stroke="url(#chartBlue)" strokeWidth="2" strokeLinecap="round" />
+      <line x1="31" y1="14" x2="37" y2="14" stroke="url(#chartBlue)" strokeWidth="2" strokeLinecap="round" />
     </svg>
   );
 }
 
 function PersonIcon() {
   return (
-    <svg viewBox="0 0 48 48" className="w-10 h-10 text-stone-300 dark:text-stone-600">
-      <circle cx="24" cy="16" r="8" stroke="currentColor" strokeWidth="2" fill="none" />
-      <path d="M10 38c0-8 6-14 14-14s14 6 14 14" stroke="currentColor" strokeWidth="2" fill="none" strokeLinecap="round" />
-      <path d="M10 38" stroke="currentColor" strokeWidth="1" opacity="0.3" />
-      <circle cx="24" cy="16" r="3" className="fill-stone-300 dark:fill-stone-600" />
+    <svg viewBox="0 0 48 48" className="w-10 h-10" fill="none">
+      <defs>
+        <linearGradient id="personStroke" x1="0" y1="0" x2="1" y2="1">
+          <stop offset="0%" stopColor="#f43f5e" />
+          <stop offset="100%" stopColor="#e11d48" />
+        </linearGradient>
+      </defs>
+      <circle cx="24" cy="16" r="8" stroke="url(#personStroke)" strokeWidth="2" fill="url(#personStroke)" fillOpacity="0.1" />
+      <path d="M10 38c0-8 6-14 14-14s14 6 14 14" stroke="url(#personStroke)" strokeWidth="2" fill="url(#personStroke)" fillOpacity="0.06" strokeLinecap="round" />
+      <circle cx="24" cy="16" r="3" fill="#e11d48" fillOpacity="0.3" />
     </svg>
   );
 }
 
 function ClockIcon() {
   return (
-    <svg viewBox="0 0 48 48" className="w-10 h-10 text-stone-300 dark:text-stone-600">
-      <circle cx="24" cy="24" r="16" stroke="currentColor" strokeWidth="2" fill="none" />
-      <path d="M24 12v12l8 4" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
-      <circle cx="24" cy="24" r="2" className="fill-stone-300 dark:fill-stone-600" />
+    <svg viewBox="0 0 48 48" className="w-10 h-10" fill="none">
+      <defs>
+        <linearGradient id="clockStroke" x1="0" y1="0" x2="1" y2="1">
+          <stop offset="0%" stopColor="#f59e0b" />
+          <stop offset="100%" stopColor="#d97706" />
+        </linearGradient>
+      </defs>
+      <circle cx="24" cy="24" r="16" stroke="url(#clockStroke)" strokeWidth="2" fill="url(#clockStroke)" fillOpacity="0.08" />
+      <path d="M24 12v12l8 4" stroke="url(#clockStroke)" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" />
+      <circle cx="24" cy="24" r="2.5" fill="#f59e0b" fillOpacity="0.4" />
     </svg>
   );
 }
@@ -82,7 +143,7 @@ function ClockIcon() {
 export function EmptyTransactions() {
   return (
     <div className="bg-white dark:bg-stone-900 rounded-2xl border border-stone-200/80 dark:border-stone-800 p-8 sm:p-12 text-center shadow-sm animate-fade-in-up">
-      <Illustration>
+      <Illustration accent="blue">
         <WalletIcon />
       </Illustration>
       <p className="text-stone-500 dark:text-stone-400 font-medium text-sm mb-1">Belum ada transaksi</p>
@@ -100,7 +161,7 @@ export function EmptyTransactions() {
 export function EmptyFiltered({ onClear }: { onClear?: () => void }) {
   return (
     <div className="bg-white dark:bg-stone-900 rounded-2xl border border-stone-200/80 dark:border-stone-800 p-8 sm:p-12 text-center shadow-sm animate-fade-in-up">
-      <Illustration>
+      <Illustration accent="violet">
         <SearchIcon />
       </Illustration>
       <p className="text-stone-500 dark:text-stone-400 font-medium text-sm mb-1">Tidak ditemukan</p>
@@ -144,7 +205,7 @@ export function EmptyChart() {
 export function EmptyDebts() {
   return (
     <div className="text-center py-12 text-stone-400 dark:text-stone-500 animate-fade-in-up">
-      <Illustration>
+      <Illustration accent="rose">
         <PersonIcon />
       </Illustration>
       <p className="text-sm font-medium">Belum ada catatan utang</p>
@@ -156,7 +217,7 @@ export function EmptyDebts() {
 export function EmptyBudgets() {
   return (
     <div className="text-center py-12 text-stone-400 dark:text-stone-500 animate-fade-in-up">
-      <Illustration>
+      <Illustration accent="amber">
         <ClockIcon />
       </Illustration>
       <p className="text-sm font-medium">Belum ada anggaran</p>

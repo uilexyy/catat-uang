@@ -15,6 +15,7 @@
   --animate-skeleton: skeleton-shimmer 1.5s ease-in-out infinite;
   --animate-stagger-fade: stagger-fade 0.5s ease-out forwards;
   --animate-shimmer: shimmer 2s ease-in-out infinite;
+  --animate-ripple: ripple 0.5s ease-out forwards;
 }
 
 @keyframes fade-in-up {
@@ -52,6 +53,11 @@
 @keyframes shimmer {
   0% { background-position: -200% 0; }
   100% { background-position: 200% 0; }
+}
+
+@keyframes ripple {
+  from { transform: scale(0); opacity: 0.5; }
+  to   { transform: scale(40); opacity: 0; }
 }
 
 @keyframes stagger-fade {

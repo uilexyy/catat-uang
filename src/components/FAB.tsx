@@ -20,6 +20,7 @@ export default function FAB() {
   const [description, setDescription] = useState("");
   const [loading, setLoading] = useState(false);
   const [categories, setCategories] = useState<Category[]>([]);
+  const [ripple, setRipple] = useState<{ x: number; y: number } | null>(null);
 
   useEffect(() => {
     if (open) {
@@ -79,11 +80,22 @@ export default function FAB() {
   return (
     <>
       <button
-        onClick={() => setOpen(true)}
-        className="fixed bottom-24 md:bottom-6 right-4 sm:right-6 z-40 w-14 h-14 rounded-full bg-blue-600 hover:bg-blue-700 active:bg-blue-800 active:scale-90 text-white shadow-lg hover:shadow-xl flex items-center justify-center transition-all duration-200 hover:rotate-90"
+        onClick={(e) => {
+          const rect = e.currentTarget.getBoundingClientRect();
+          setRipple({ x: e.clientX - rect.left, y: e.clientY - rect.top });
+          setTimeout(() => setRipple(null), 500);
+          setOpen(true);
+        }}
+        className="fixed bottom-24 md:bottom-6 right-4 sm:right-6 z-40 w-14 h-14 rounded-full bg-blue-600 hover:bg-blue-700 active:bg-blue-800 active:scale-90 text-white shadow-lg hover:shadow-xl flex items-center justify-center transition-all duration-200 hover:rotate-90 overflow-hidden"
         aria-label="Tambah transaksi"
       >
-        <Plus className="w-6 h-6" />
+        {ripple && (
+          <span
+            className="absolute rounded-full bg-white/35 pointer-events-none animate-ripple"
+            style={{ left: ripple.x - 7, top: ripple.y - 7, width: 14, height: 14 }}
+          />
+        )}
+        <Plus className="w-6 h-6 relative z-10" />
       </button>
 
       {open && (
