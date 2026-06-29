@@ -89,7 +89,7 @@ export default function FAB() {
       {open && (
         <div className="fixed inset-0 z-50 flex items-end sm:items-center justify-center p-0 sm:p-4">
           <div
-            className="absolute inset-0 bg-black/30 backdrop-blur-sm animate-fade-in"
+            className="absolute inset-0 bg-black/30 backdrop-blur-sm transition-all duration-300 animate-fade-in"
             onClick={() => setOpen(false)}
           />
           <div className="relative bg-white dark:bg-stone-900 rounded-t-2xl sm:rounded-2xl p-5 w-full sm:max-w-sm shadow-2xl dark:border dark:border-stone-800 animate-slide-up">

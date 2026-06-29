@@ -212,16 +212,31 @@ export default function UtangPage() {
   return (
     <div className="space-y-4 sm:space-y-5">
       <div className="flex flex-col sm:flex-row gap-3 sm:gap-4">
-        <div className="bg-gradient-to-r from-rose-600 to-rose-500 rounded-2xl p-5 shadow-lg flex-1 min-w-0">
-          <div className="flex items-center gap-4">
-            <div className="w-10 h-10 rounded-xl bg-white/20 flex items-center justify-center backdrop-blur-sm shrink-0">
-              <Handshake className="w-5 h-5 text-white" />
-            </div>
-            <div className="min-w-0">
-              <h1 className="text-lg font-bold text-white truncate">Utang</h1>
-              <p className="text-sm text-rose-100 truncate">Catat dan kelola utang kamu</p>
+        <div className="bg-gradient-to-r from-rose-600 to-rose-500 rounded-2xl shadow-lg flex-1 min-w-0 relative overflow-hidden">
+          <div className="absolute inset-0 opacity-[0.08]">
+            <svg width="100%" height="100%" xmlns="http://www.w3.org/2000/svg">
+              <defs>
+                <pattern id="dots-rose" x="0" y="0" width="20" height="20" patternUnits="userSpaceOnUse">
+                  <circle cx="2" cy="2" r="1.5" fill="white" />
+                </pattern>
+              </defs>
+              <rect width="100%" height="100%" fill="url(#dots-rose)" />
+            </svg>
+          </div>
+          <div className="relative p-5">
+            <div className="flex items-center gap-4">
+              <div className="w-10 h-10 rounded-xl bg-white/20 flex items-center justify-center backdrop-blur-sm shrink-0">
+                <Handshake className="w-5 h-5 text-white" />
+              </div>
+              <div className="min-w-0">
+                <h1 className="text-lg font-bold text-white truncate">Utang</h1>
+                <p className="text-sm text-rose-100 truncate">Catat dan kelola utang kamu</p>
+              </div>
             </div>
           </div>
+          <svg className="absolute bottom-0 left-0 w-full h-4 text-stone-50 dark:text-stone-950" viewBox="0 0 1200 16" preserveAspectRatio="none" fill="currentColor">
+            <path d="M0,16 C300,0 600,16 900,0 C1050,-5 1200,8 1200,8 L1200,16 L0,16 Z" />
+          </svg>
         </div>
         <button
           type="button"

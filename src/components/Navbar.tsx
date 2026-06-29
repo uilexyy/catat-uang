@@ -43,7 +43,7 @@ export default function Navbar() {
           </Link>
         </div>
 
-        <nav className="flex-1 flex flex-col gap-0.5 px-3">
+        <nav className="flex-1 flex flex-col gap-0.5 px-3 group/nav">
           {links.map((link) => {
             const isActive = pathname === link.href;
             const Icon = link.icon;
@@ -51,13 +51,16 @@ export default function Navbar() {
               <Link
                 key={link.href}
                 href={link.href}
-                className={`flex items-center gap-3 px-4 py-2.5 rounded-xl text-sm font-medium transition-all duration-200 active:scale-[0.97] ${
+                className={`relative flex items-center gap-3 px-4 py-2.5 rounded-xl text-sm font-medium transition-all duration-200 active:scale-[0.97] ${
                   isActive
                     ? "bg-blue-50 dark:bg-blue-950/50 text-blue-700 dark:text-blue-300"
                     : "text-stone-400 dark:text-stone-500 hover:text-stone-600 dark:hover:text-stone-300 hover:bg-stone-50 dark:hover:bg-stone-800"
                 }`}
               >
-                <Icon className={`w-4 h-4 shrink-0 ${isActive ? "text-blue-500" : ""}`} />
+                {isActive && (
+                  <span className="absolute left-0 top-1/2 -translate-y-1/2 w-1 h-5 rounded-full bg-blue-500 animate-scale-in" />
+                )}
+                <Icon className={`w-4 h-4 shrink-0 ${isActive ? "text-blue-500" : "text-stone-400 dark:text-stone-500 group-hover:text-stone-600 dark:group-hover:text-stone-300"}`} />
                 {link.label}
               </Link>
             );
