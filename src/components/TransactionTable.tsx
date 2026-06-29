@@ -339,7 +339,7 @@ export default function TransactionTable({ transactions, pagination, currentPara
         <div className="overflow-x-auto">
           <table className="w-full text-sm">
             <thead>
-              <tr className="bg-stone-50/80 dark:bg-stone-800 border-b border-stone-200/60 dark:border-stone-800">
+              <tr className="bg-stone-50/80 dark:bg-stone-800/80 border-b border-stone-200/60 dark:border-stone-800">
                 <th className="text-left px-5 py-3.5 text-[11px] font-semibold text-stone-400 dark:text-stone-500 uppercase tracking-widest">Tanggal</th>
                 <th className="text-left px-5 py-3.5 text-[11px] font-semibold text-stone-400 dark:text-stone-500 uppercase tracking-widest">Jenis</th>
                 <th className="text-left px-5 py-3.5 text-[11px] font-semibold text-stone-400 dark:text-stone-500 uppercase tracking-widest">Kategori</th>
@@ -352,13 +352,13 @@ export default function TransactionTable({ transactions, pagination, currentPara
               {transactions.map((tx, i) => (
                 <tr
                   key={tx.id}
-                  className="hover:bg-stone-50/80 dark:hover:bg-stone-800/50 transition-colors duration-150 animate-fade-in-up group"
+                  className="hover:bg-stone-50/80 dark:hover:bg-stone-800/50 transition-all duration-150 animate-fade-in-up group relative"
                   style={{ animationDelay: `${i * 0.03}s` }}
                 >
-                  <td className="px-5 py-4 text-stone-500 dark:text-stone-400 whitespace-nowrap">{formatDate(tx.date)}</td>
+                  <td className="px-5 py-4 text-stone-500 dark:text-stone-400 whitespace-nowrap text-[13px]">{formatDate(tx.date)}</td>
                   <td className="px-5 py-4 whitespace-nowrap">
-                    <span className={`inline-flex items-center gap-1.5 px-2.5 py-1 rounded-lg text-[11px] font-semibold ${
-                      tx.type === "income" ? "bg-emerald-50 text-emerald-600" : "bg-rose-50 text-rose-600"
+                    <span className={`inline-flex items-center gap-1.5 px-2.5 py-1 rounded-lg text-[11px] font-semibold transition-all duration-200 ${
+                      tx.type === "income" ? "bg-emerald-50 text-emerald-600 dark:bg-emerald-950/30 dark:text-emerald-400" : "bg-rose-50 text-rose-600 dark:bg-rose-950/30 dark:text-rose-400"
                     }`}>
                       <span className={`w-1.5 h-1.5 rounded-full ${tx.type === "income" ? "bg-emerald-500" : "bg-rose-500"}`} />
                       {tx.type === "income" ? "Masuk" : "Keluar"}
@@ -367,26 +367,26 @@ export default function TransactionTable({ transactions, pagination, currentPara
                   <td className="px-5 py-4 text-stone-700 dark:text-stone-300 font-medium">
                     <InlineCategory tx={tx} onUpdate={() => router.refresh()} />
                   </td>
-                  <td className="px-5 py-4 text-stone-400 dark:text-stone-500 max-w-[200px] truncate">
+                  <td className="px-5 py-4 text-stone-400 dark:text-stone-500 max-w-[200px] truncate text-[13px]">
                     <InlineDescription tx={tx} onUpdate={() => router.refresh()} />
                   </td>
-                  <td className={`px-5 py-4 text-right font-bold whitespace-nowrap tracking-tight ${
+                  <td className={`px-5 py-4 text-right font-bold whitespace-nowrap tracking-tight text-[15px] ${
                     tx.type === "income" ? "text-emerald-600" : "text-rose-600"
                   }`}>
                     {tx.type === "income" ? "+ " : "− "}{formatRupiah(tx.amount)}
                   </td>
                   <td className="px-5 py-4 text-center whitespace-nowrap">
-                    <div className="flex items-center justify-center gap-1">
+                    <div className="flex items-center justify-center gap-1 opacity-0 group-hover:opacity-100 transition-all duration-200">
                       <Link
                         href={`/transactions/${tx.id}/edit`}
-                        className="inline-flex items-center gap-1 px-2.5 py-1.5 text-[11px] font-semibold text-blue-600 bg-blue-50 hover:bg-blue-100 active:bg-blue-200 rounded-lg transition-all duration-200"
+                        className="inline-flex items-center gap-1 px-2.5 py-1.5 text-[11px] font-semibold text-blue-600 bg-blue-50 hover:bg-blue-100 active:bg-blue-200 rounded-lg transition-all duration-200 dark:bg-blue-950/30 dark:text-blue-400 dark:hover:bg-blue-950/50"
                       >
                         <Pencil className="w-3.5 h-3.5" />
                         Edit
                       </Link>
                       <button
                         onClick={() => setDeleteId(tx.id)}
-                        className="inline-flex items-center gap-1 px-2.5 py-1.5 text-[11px] font-semibold text-rose-600 bg-rose-50 hover:bg-rose-100 active:bg-rose-200 rounded-lg transition-all duration-200"
+                        className="inline-flex items-center gap-1 px-2.5 py-1.5 text-[11px] font-semibold text-rose-600 bg-rose-50 hover:bg-rose-100 active:bg-rose-200 rounded-lg transition-all duration-200 dark:bg-rose-950/30 dark:text-rose-400 dark:hover:bg-rose-950/50"
                       >
                         <Trash2 className="w-3.5 h-3.5" />
                         Hapus

@@ -71,7 +71,7 @@ export default function Chart({ data }: ChartProps) {
 
         <ResponsiveContainer width="100%" height={300}>
           <BarChart data={data}>
-            <CartesianGrid strokeDasharray="3 3" stroke="#e7e5e4" vertical={false} />
+            <CartesianGrid strokeDasharray="3 3" className="stroke-stone-200 dark:stroke-stone-800" vertical={false} />
             <XAxis
               dataKey="month"
               tick={{ fontSize: 11, fill: "#a8a29e" }}
