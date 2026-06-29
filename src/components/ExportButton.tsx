@@ -2,6 +2,7 @@
 
 import { useState, useRef, useEffect } from "react";
 import { Download, Loader2, FileSpreadsheet, ChevronDown } from "lucide-react";
+import { useToast } from "@/lib/toast";
 
 interface ExportButtonProps {
   currentParams?: string;
@@ -11,6 +12,7 @@ export default function ExportButton({ currentParams }: ExportButtonProps) {
   const [open, setOpen] = useState(false);
   const [exporting, setExporting] = useState(false);
   const ref = useRef<HTMLDivElement>(null);
+  const { toast } = useToast();
 
   useEffect(() => {
     function handleClick(e: MouseEvent) {
@@ -34,7 +36,7 @@ export default function ExportButton({ currentParams }: ExportButtonProps) {
       a.click();
       URL.revokeObjectURL(url);
     } catch {
-      alert("Gagal mengekspor data");
+      toast("error", "Gagal mengekspor data");
     } finally {
       setExporting(false);
     }

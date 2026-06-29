@@ -56,7 +56,20 @@ export default function Chart({ data }: ChartProps) {
         </h2>
       </div>
 
-        <ResponsiveContainer width="100%" height={260}>
+      <svg width="0" height="0" className="absolute">
+        <defs>
+          <linearGradient id="gradientIncome" x1="0" y1="0" x2="0" y2="1">
+            <stop offset="0%" stopColor="#059669" stopOpacity={1} />
+            <stop offset="100%" stopColor="#059669" stopOpacity={0.4} />
+          </linearGradient>
+          <linearGradient id="gradientExpense" x1="0" y1="0" x2="0" y2="1">
+            <stop offset="0%" stopColor="#e11d48" stopOpacity={1} />
+            <stop offset="100%" stopColor="#e11d48" stopOpacity={0.4} />
+          </linearGradient>
+        </defs>
+      </svg>
+
+        <ResponsiveContainer width="100%" height={300}>
           <BarChart data={data}>
             <CartesianGrid strokeDasharray="3 3" stroke="#e7e5e4" vertical={false} />
             <XAxis
@@ -79,7 +92,7 @@ export default function Chart({ data }: ChartProps) {
             <Bar
               dataKey="income"
               name="Pemasukan"
-              fill="#059669"
+              fill="url(#gradientIncome)"
               radius={[4, 4, 0, 0]}
               maxBarSize={28}
               animationBegin={0}
@@ -88,7 +101,7 @@ export default function Chart({ data }: ChartProps) {
             <Bar
               dataKey="expense"
               name="Pengeluaran"
-              fill="#e11d48"
+              fill="url(#gradientExpense)"
               radius={[4, 4, 0, 0]}
               maxBarSize={28}
               animationBegin={200}

@@ -1,7 +1,7 @@
 "use client";
 
 import { useState, useEffect, FormEvent } from "react";
-import { Plus, Handshake, CheckCircle2, X, Loader2, AlertCircle, Undo2, Trash2, ChevronDown, ChevronUp, Banknote, Wallet, Clock } from "lucide-react";
+import { Plus, Handshake, CheckCircle2, X, Loader2, AlertCircle, AlertTriangle, Undo2, Trash2, ChevronDown, ChevronUp, Banknote, Wallet, Clock } from "lucide-react";
 import { useToast } from "@/lib/toast";
 import { formatRupiah, formatDate } from "@/lib/format";
 import { EmptyDebts } from "@/components/EmptyState";
@@ -50,6 +50,10 @@ export default function UtangPage() {
   const [payNotes, setPayNotes] = useState("");
   const [paySaving, setPaySaving] = useState(false);
   const [payError, setPayError] = useState("");
+
+  // Delete modal
+  const [deleteId, setDeleteId] = useState<number | null>(null);
+  const [deleting, setDeleting] = useState(false);
 
   // Expanded payment history
   const [expandedId, setExpandedId] = useState<number | null>(null);
@@ -141,16 +145,20 @@ export default function UtangPage() {
     }
   }
 
-  async function handleDelete(id: number) {
-    if (!confirm("Hapus utang ini?")) return;
+  async function confirmDelete() {
+    if (deleteId === null) return;
+    setDeleting(true);
     try {
-      const res = await fetch(`/api/debts/${id}`, { method: "DELETE" });
+      const res = await fetch(`/api/debts/${deleteId}`, { method: "DELETE" });
       if (!res.ok) throw new Error();
       toast("success", "Utang berhasil dihapus");
       setExpandedId(null);
+      setDeleteId(null);
       fetchDebts();
     } catch {
       toast("error", "Gagal menghapus utang");
+    } finally {
+      setDeleting(false);
     }
   }
 
@@ -339,6 +347,46 @@ export default function UtangPage() {
         </div>
       )}
 
+      {/* Delete Modal */}
+      {deleteId !== null && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center p-4">
+          <div
+            className="absolute inset-0 bg-black/30 backdrop-blur-sm animate-fade-in"
+            onClick={() => !deleting && setDeleteId(null)}
+          />
+          <div className="relative bg-white dark:bg-stone-900 rounded-2xl p-6 max-w-sm w-full shadow-2xl dark:border dark:border-stone-800 animate-scale-in">
+            <div className="text-center mb-5">
+              <div className="w-12 h-12 rounded-2xl bg-rose-50 flex items-center justify-center mx-auto mb-3">
+                <AlertTriangle className="w-6 h-6 text-rose-500" />
+              </div>
+              <h3 className="text-base font-bold text-stone-800 dark:text-stone-200 mb-1">Hapus Utang</h3>
+              <p className="text-sm text-stone-400 dark:text-stone-500">Apakah kamu yakin? Tindakan ini tidak dapat dibatalkan.</p>
+            </div>
+            <div className="flex gap-2">
+              <button
+                onClick={() => setDeleteId(null)}
+                disabled={deleting}
+                className="flex-1 py-2.5 text-sm font-medium text-stone-500 dark:text-stone-400 bg-stone-100 dark:bg-stone-800 hover:bg-stone-200 dark:hover:bg-stone-700 active:scale-[0.97] rounded-xl transition-all duration-200 disabled:opacity-50"
+              >
+                Batal
+              </button>
+              <button
+                onClick={confirmDelete}
+                disabled={deleting}
+                className="flex-1 py-2.5 text-sm font-medium text-white bg-rose-600 hover:bg-rose-700 active:bg-rose-800 disabled:bg-rose-300 active:scale-[0.97] rounded-xl transition-all duration-200 shadow-sm disabled:cursor-not-allowed"
+              >
+                {deleting ? (
+                  <span className="flex items-center justify-center gap-2">
+                    <Loader2 className="w-4 h-4 animate-spin" />
+                    Menghapus...
+                  </span>
+                ) : "Ya, Hapus"}
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
+
       {loading ? (
         <div className="flex justify-center py-12">
           <Loader2 className="w-5 h-5 text-stone-300 dark:text-stone-600 animate-spin" />
@@ -383,7 +431,7 @@ export default function UtangPage() {
                             <button type="button" onClick={() => togglePaid(debt)} className="w-7 h-7 sm:w-8 sm:h-8 rounded-lg bg-emerald-50 hover:bg-emerald-100 flex items-center justify-center transition-colors shrink-0" title="Tandai Lunas">
                               <CheckCircle2 className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-emerald-500" />
                             </button>
-                            <button type="button" onClick={() => handleDelete(debt.id)} className="w-7 h-7 sm:w-8 sm:h-8 rounded-lg bg-stone-50 dark:bg-stone-800 hover:bg-rose-50 flex items-center justify-center transition-colors shrink-0" title="Hapus">
+                            <button type="button" onClick={() => setDeleteId(debt.id)} className="w-7 h-7 sm:w-8 sm:h-8 rounded-lg bg-stone-50 dark:bg-stone-800 hover:bg-rose-50 flex items-center justify-center transition-colors shrink-0" title="Hapus">
                               <Trash2 className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-stone-400 dark:text-stone-500 hover:text-rose-500" />
                             </button>
                           </div>
@@ -399,7 +447,7 @@ export default function UtangPage() {
                             <CheckCircle2 className="w-3.5 h-3.5" />
                             Lunas
                           </button>
-                          <button type="button" onClick={() => handleDelete(debt.id)} className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-stone-100 dark:bg-stone-800 hover:bg-rose-50 text-stone-500 hover:text-rose-600 text-xs font-medium transition-colors active:scale-95">
+                          <button type="button" onClick={() => setDeleteId(debt.id)} className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-stone-100 dark:bg-stone-800 hover:bg-rose-50 text-stone-500 hover:text-rose-600 text-xs font-medium transition-colors active:scale-95">
                             <Trash2 className="w-3.5 h-3.5" />
                             Hapus
                           </button>

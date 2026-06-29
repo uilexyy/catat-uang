@@ -1,5 +1,6 @@
 "use client";
 
+import { useRef, useEffect, useState } from "react";
 import Link from "next/link";
 import { useRouter, usePathname } from "next/navigation";
 import { LayoutDashboard, List, Plus, MessageSquare, Handshake, PieChart, LogOut } from "lucide-react";
@@ -17,6 +18,20 @@ const links = [
 export default function Navbar() {
   const pathname = usePathname();
   const router = useRouter();
+  const navRef = useRef<HTMLDivElement>(null);
+  const [pillStyle, setPillStyle] = useState({ left: 0, width: 0 });
+
+  useEffect(() => {
+    if (!navRef.current) return;
+    const activeIdx = links.findIndex((l) => pathname === l.href);
+    if (activeIdx === -1) return;
+    const el = navRef.current.children[activeIdx] as HTMLElement | undefined;
+    if (!el) return;
+    setPillStyle({
+      left: el.offsetLeft + el.offsetWidth / 2 - 16,
+      width: 32,
+    });
+  }, [pathname]);
 
   if (pathname === "/login" || pathname === "/register") return null;
 
@@ -85,7 +100,13 @@ export default function Navbar() {
 
       {/* Mobile: Bottom Nav */}
       <nav className="md:hidden fixed bottom-0 left-0 right-0 bg-white dark:bg-stone-900 border-t border-stone-200 dark:border-stone-800 z-50 pb-[env(safe-area-inset-bottom,0px)]">
-        <div className="flex items-center justify-around h-16">
+        <div ref={navRef} className="relative flex items-center justify-around h-16">
+          {/* Sliding pill */}
+          <span
+            className="absolute bottom-2 h-1 rounded-full bg-blue-500 transition-all duration-300 ease-out"
+            style={{ left: pillStyle.left, width: pillStyle.width }}
+          />
+
           {links.map((link) => {
             const isActive = pathname === link.href;
             const Icon = link.icon;
@@ -93,27 +114,17 @@ export default function Navbar() {
               <Link
                 key={link.href}
                 href={link.href}
-                className={`flex flex-col items-center justify-center gap-0.5 min-w-14 px-2 h-full transition-all duration-200 active:scale-[0.97] relative ${
+                className={`flex flex-col items-center justify-center gap-0.5 min-w-14 px-2 h-full transition-all duration-200 active:scale-[0.97] ${
                   isActive ? "text-blue-600" : "text-stone-400 dark:text-stone-500 hover:text-stone-500 dark:hover:text-stone-300"
                 }`}
               >
-                {isActive && (
-                  <span className="absolute -top-0.5 left-1/2 -translate-x-1/2 w-8 h-1 rounded-full bg-blue-500" />
-                )}
                 <Icon className="w-5 h-5" />
-                <span className="text-[10px] font-medium leading-tight truncate max-w-full">{link.label}</span>
+                <span className={`text-[10px] font-medium leading-tight truncate max-w-full transition-all duration-200 ${isActive ? "opacity-100" : "opacity-70"}`}>
+                  {link.label}
+                </span>
               </Link>
             );
           })}
-          <button
-            type="button"
-            onClick={handleLogout}
-            className="flex flex-col items-center justify-center gap-0.5 min-w-14 px-2 h-full text-stone-400 dark:text-stone-500 hover:text-rose-500 transition-all duration-200 active:scale-[0.97]"
-            aria-label="Keluar"
-          >
-            <LogOut className="w-5 h-5" />
-            <span className="text-[10px] font-medium leading-tight truncate max-w-full">Keluar</span>
-          </button>
         </div>
       </nav>
     </>

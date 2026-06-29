@@ -46,17 +46,28 @@ export default function LoginPage() {
   }
 
   return (
-    <div className="min-h-[calc(100vh-8rem)] flex items-center justify-center">
+    <div className="min-h-[calc(100vh-8rem)] flex items-center justify-center px-4">
       <div className="w-full max-w-sm">
         <div className="text-center mb-8">
-          <div className="inline-flex items-center justify-center w-14 h-14 rounded-2xl bg-gradient-to-br from-blue-500 to-blue-600 shadow-lg mb-4">
-            <Wallet className="w-7 h-7 text-white" />
+          <div className="inline-flex items-center justify-center w-16 h-16 rounded-2xl bg-gradient-to-br from-blue-500 to-blue-600 shadow-lg shadow-blue-500/20 mb-4">
+            <Wallet className="w-8 h-8 text-white" />
           </div>
           <h1 className="text-xl font-bold text-stone-800 dark:text-stone-200">Catat Uang</h1>
           <p className="text-sm text-stone-400 dark:text-stone-500 mt-1">Masuk ke akun kamu</p>
         </div>
 
-        <form onSubmit={handleSubmit} className="bg-white dark:bg-stone-900/80 backdrop-blur-xl rounded-2xl border border-stone-200/80 dark:border-stone-800 p-6 shadow-sm space-y-4">
+        <div className="bg-white dark:bg-stone-900/80 backdrop-blur-xl rounded-2xl border border-stone-200/80 dark:border-stone-800 shadow-sm relative overflow-hidden">
+          <div className="absolute inset-0 opacity-[0.04]">
+            <svg width="100%" height="100%" xmlns="http://www.w3.org/2000/svg">
+              <defs>
+                <pattern id="dots-login" x="0" y="0" width="20" height="20" patternUnits="userSpaceOnUse">
+                  <circle cx="2" cy="2" r="1.5" fill="currentColor" className="text-stone-800 dark:text-white" />
+                </pattern>
+              </defs>
+              <rect width="100%" height="100%" fill="url(#dots-login)" />
+            </svg>
+          </div>
+          <form onSubmit={handleSubmit} className="relative p-6 space-y-4">
           {error && (
             <div className="bg-rose-50 dark:bg-rose-950/50 text-rose-600 dark:text-rose-400 text-sm px-4 py-3 rounded-xl border border-rose-200 dark:border-rose-800">
               {error}
@@ -111,7 +122,8 @@ export default function LoginPage() {
               Daftar
             </Link>
           </p>
-        </form>
+          </form>
+        </div>
       </div>
     </div>
   );
